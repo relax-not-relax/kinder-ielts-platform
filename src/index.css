@@ -19,4 +19,10 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .custom-border {
+    -webkit-box-shadow: inset 0px 0px 0px 2px #000;
+    -moz-box-shadow: inset 0px 0px 0px 2px #000;
+    box-shadow: inset 0px 0px 0px 2px #000;
+  }
 }
