@@ -8,6 +8,8 @@ import AcademicArticle from "./article/AcademicArticle";
 import MangeClassDialog from "./class/MangeClassDialog";
 import AttendanceDialog from "./attendance/AttendanceDialog";
 import ProgressionDialog from "./progression/ProgressionDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { setProgressDialog } from "../../store/slices/progressDialogSlice";
 
 CourseDetails.propTypes = {};
 
@@ -20,9 +22,11 @@ function CourseDetails(props) {
   const handleOpenAttendance = () => setOpenAttendance(true);
   const handleCloseAttendance = () => setOpenAttendance(false);
 
-  const [openProgression, setOpenProgression] = React.useState(false);
-  const handleOpenProgression = () => setOpenProgression(true);
-  const handleCloseProgression = () => setOpenProgression(false);
+  const dispatch = useDispatch();
+
+  const handleOpenProgression = () => {
+    dispatch(setProgressDialog(true));
+  };
 
   return (
     <div className="w-full min-h-screen">
@@ -61,10 +65,7 @@ function CourseDetails(props) {
         isOpen={openAttendance}
         onClose={handleCloseAttendance}
       />
-      <ProgressionDialog
-        isOpen={openProgression}
-        onClose={handleCloseProgression}
-      />
+      <ProgressionDialog />
     </div>
   );
 }

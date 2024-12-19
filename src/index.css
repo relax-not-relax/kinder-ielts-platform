@@ -25,4 +25,16 @@
     -moz-box-shadow: inset 0px 0px 0px 2px #000;
     box-shadow: inset 0px 0px 0px 2px #000;
   }
+
+  .no-chevron {
+    appearance: none; /* Hides the chevron in most browsers */
+    -webkit-appearance: none; /* Hides the chevron in WebKit browsers (Chrome, Safari) */
+    -moz-appearance: none; /* Hides the chevron in Firefox */
+    background: none; /* Optionally remove background styling */
+  }
+
+  .no-chevron option {
+    background-color: white; /* Sets the background color of the dropdown options */
+    color: black; /* Sets text color for the options */
+  }
 }

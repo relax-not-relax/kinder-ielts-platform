@@ -8,24 +8,24 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import ProgressionInformation from "./ProgressionInformation";
+import { useDispatch, useSelector } from "react-redux";
+import { setProgressDialog } from "../../../store/slices/progressDialogSlice";
 
-ProgressionDialog.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+ProgressionDialog.propTypes = {};
 
-function ProgressionDialog({ isOpen, onClose }) {
+function ProgressionDialog() {
+  const openProgression = useSelector((state) => state.progressDialog.value);
+  const dispatch = useDispatch();
+
+  const handleCloseProgression = () => {
+    dispatch(setProgressDialog(false));
+  };
   return (
-    <Dialog
-      open={isOpen}
-      handler={onClose}
-      size="xl"
-      className="rounded-3xl p-6"
-    >
+    <Dialog open={openProgression} size="xl" className="rounded-3xl p-6">
       <DialogHeader className="px-4 pt-0 pb-0">
         <div className="w-full flex flex-row justify-between items-center">
           <h2 className="text-3xl text-black">Progression</h2>
-          <IconButton variant="text" onClick={onClose}>
+          <IconButton variant="text" onClick={handleCloseProgression}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
