@@ -21,7 +21,11 @@ function ProgressionDialog() {
     dispatch(setProgressDialog(false));
   };
   return (
-    <Dialog open={openProgression} size="xl" className="rounded-3xl p-6">
+    <Dialog
+      open={openProgression}
+      size="xl"
+      className="rounded-3xl p-6 max-h-[800px] overflow-y-scroll no-scrollbar"
+    >
       <DialogHeader className="px-4 pt-0 pb-0">
         <div className="w-full flex flex-row justify-between items-center">
           <h2 className="text-3xl text-black">Progression</h2>

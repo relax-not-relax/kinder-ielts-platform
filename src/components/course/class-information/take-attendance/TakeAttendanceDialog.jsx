@@ -10,7 +10,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTakeAttendanceDialog } from "../../../store/slices/takeAttendanceDialogSlice";
+import { setTakeAttendanceDialog } from "../../../../store/slices/takeAttendanceDialogSlice";
 import TakeAttendanceTable from "./TakeAttendanceTable";
 import ConfirmTakeAttendanceDialog from "./ConfirmTakeAttendanceDialog";
 import CancelTakeAttendanceDialog from "./CancelTakeAttendanceDialog";
