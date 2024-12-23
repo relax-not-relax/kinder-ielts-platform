@@ -10,7 +10,7 @@ import {
 import LessonDetails from "./LessonDetails";
 import { useDispatch } from "react-redux";
 import { setTakeAttendanceDialog } from "../../../store/slices/takeAttendanceDialogSlice";
-import TakeAttendanceDialog from "./TakeAttendanceDialog";
+import TakeAttendanceDialog from "./take-attendance/TakeAttendanceDialog";
 
 ClassInformation.propTypes = {};
 

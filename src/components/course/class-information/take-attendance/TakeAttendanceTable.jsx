@@ -3,8 +3,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, Option, Select, Typography } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProgressDialog } from "../../../store/slices/progressDialogSlice";
-import { setTakeAttendanceDialog } from "../../../store/slices/takeAttendanceDialogSlice";
+import { setProgressDialog } from "../../../../store/slices/progressDialogSlice";
+import { setTakeAttendanceDialog } from "../../../../store/slices/takeAttendanceDialogSlice";
 
 TakeAttendanceTable.propTypes = {};
 
