@@ -77,19 +77,19 @@ const TABLE_ROWS = [
 
 function ProgressionDetailsTable({ homeworks }) {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-scroll no-scrollbar">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
             <th className="border-b-2 border-black py-2">
-              <h3 className="font-semibold text-black leading-none text-lg">
+              <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs">
                 Name
               </h3>
             </th>
             {homeworks.map((homework, index) => {
               return (
                 <th key={index} className="border-b-2 border-black px-4 py-2">
-                  <h3 className="font-semibold text-black leading-none text-lg">
+                  <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs">
                     {homework.name}
                   </h3>
                 </th>
@@ -104,7 +104,7 @@ function ProgressionDetailsTable({ homeworks }) {
 
             return (
               <tr key={index}>
-                <td className={classes}>
+                <td className={`${classes} lg:w-56 w-48`}>
                   <Typography
                     variant="small"
                     color="blue-gray"
@@ -130,7 +130,7 @@ function ProgressionDetailsTable({ homeworks }) {
                           <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h360l200 200v520q0 33-23.5 56.5T720-80H240Zm0-80h480v-480H560v-160H240v640Zm240-40q67 0 113.5-47T640-360v-160h-80v160q0 33-23 56.5T480-280q-33 0-56.5-23.5T400-360v-220q0-9 6-14.5t14-5.5q9 0 14.5 5.5T440-580v220h80v-220q0-42-29-71t-71-29q-42 0-71 29t-29 71v220q0 66 47 113t113 47ZM240-800v160-160 640-640Z" />
                         </svg>
                         <p
-                          className={`line-clamp-1 underline text-base font-medium ${
+                          className={`line-clamp-1 underline md:text-base text-sm font-medium ${
                             sub.submit ? "text-black" : "text-gray-400"
                           }`}
                         >

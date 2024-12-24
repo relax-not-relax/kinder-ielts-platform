@@ -7,6 +7,7 @@ import {
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import MyCourse from "./pages/course/MyCourse";
+import ElearningGrading from "./pages/course/ElearningGrading";
 
 function App() {
   const router = createBrowserRouter(
@@ -14,6 +15,7 @@ function App() {
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="my-course/:id" element={<MyCourse />} />
+        <Route path="homework/:id" element={<ElearningGrading />} />
       </Route>
     )
   );

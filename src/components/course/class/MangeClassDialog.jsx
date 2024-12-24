@@ -40,11 +40,11 @@ function MangeClassDialog({ isOpen, onClose }) {
       open={isOpen}
       handler={onClose}
       size="xl"
-      className="rounded-3xl p-6"
+      className="rounded-3xl md:p-6 p-4"
     >
-      <DialogHeader className="px-4 pt-0 pb-0">
+      <DialogHeader className="md:px-4 px-0 pt-0 pb-0">
         <div className="w-full flex flex-row justify-between items-center">
-          <h2 className="text-3xl text-black">Manage class</h2>
+          <h2 className="md:text-3xl text-2xl text-black">Manage class</h2>
           <IconButton variant="text" onClick={onClose}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ function MangeClassDialog({ isOpen, onClose }) {
           </IconButton>
         </div>
       </DialogHeader>
-      <DialogBody className="px-4 py-2">
+      <DialogBody className="md:px-4 px-0 py-2">
         <Tabs value={activeTab} className="w-full">
           <TabsHeader
             className="bg-transparent p-0"
@@ -76,7 +76,7 @@ function MangeClassDialog({ isOpen, onClose }) {
                 key={value}
                 value={value}
                 onClick={() => setActiveTab(value)}
-                className={`font-bold justify-start w-fit pe-4 ps-0 text-xl ${
+                className={`font-bold justify-start w-fit pe-4 ps-0 lg:text-xl md:text-lg sm:text-base text-xs ${
                   activeTab === value ? "text-black" : "text-gray-500"
                 }`}
               >

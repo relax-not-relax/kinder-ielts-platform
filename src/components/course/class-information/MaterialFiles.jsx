@@ -12,7 +12,7 @@ function MaterialFiles(props) {
   const handleEnableSection = () => setDisableSection(false);
 
   return (
-    <div className="flex flex-row justify-between items-start pb-2">
+    <div className="flex md:flex-row flex-col justify-between md:items-center items-start pb-2">
       <div className="flex flex-row items-start gap-x-2">
         {disableSection ? (
           <svg
@@ -20,6 +20,7 @@ function MaterialFiles(props) {
             height="24px"
             viewBox="0 -960 960 960"
             width="24px"
+            className="flex-none"
             fill="#d0ece0"
           >
             <path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" />
@@ -30,6 +31,7 @@ function MaterialFiles(props) {
             height="24px"
             viewBox="0 -960 960 960"
             width="24px"
+            className="flex-none"
             fill="#159E64"
           >
             <path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" />
@@ -38,19 +40,21 @@ function MaterialFiles(props) {
 
         <div className="flex flex-col gap-y-1">
           {disableSection ? (
-            <p className="text-lg text-custom-blur-green font-semibold">
+            <p className="md:text-lg sm:text-base text-sm text-custom-blur-green font-semibold">
               Materials
             </p>
           ) : (
-            <p className="text-lg text-custom-green font-semibold">Materials</p>
+            <p className="md:text-lg sm:text-base text-sm text-custom-green font-semibold">
+              Materials
+            </p>
           )}
           {disableSection ? (
-            <div className="text-gray-300 text-base font-medium flex flex-col">
+            <div className="text-gray-300 md:text-base text-sm font-medium flex flex-col">
               <p href="/">Material 01: Day 01 slide deck</p>
               <p href="/">Material 02: Sample for Persuasive Paragraph</p>
             </div>
           ) : (
-            <div className="text-black text-base font-medium flex flex-col">
+            <div className="text-black md:text-base text-sm font-medium flex flex-col">
               <a href="/">Material 01: Day 01 slide deck</a>
               <a href="/">Material 02: Sample for Persuasive Paragraph</a>
             </div>

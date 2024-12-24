@@ -70,7 +70,7 @@ function TakeAttendanceTable(props) {
 
   return (
     <div>
-      <div className="h-full w-full">
+      <div className="h-full w-full overflow-x-scroll no-scrollbar">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -81,7 +81,7 @@ function TakeAttendanceTable(props) {
                     head === "Name" ? "" : "px-8"
                   }`}
                 >
-                  <h3 className="font-semibold text-black leading-none text-lg">
+                  <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs">
                     {head}
                   </h3>
                 </th>

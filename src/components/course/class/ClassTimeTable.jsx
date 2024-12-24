@@ -47,13 +47,13 @@ const TABLE_ROWS = [
 
 function ClassTimeTable(props) {
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full overflow-x-scroll no-scrollbar">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
               <th key={head} className="border-b-2 border-black px-4 py-2">
-                <h3 className="font-semibold text-black leading-none text-lg">
+                <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs">
                   {head}
                 </h3>
               </th>

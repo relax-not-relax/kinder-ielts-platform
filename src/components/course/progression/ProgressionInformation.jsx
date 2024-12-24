@@ -51,7 +51,9 @@ function ProgressionInformation(props) {
           onClick={() => handleOpen(1)}
           className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
         >
-          <h4 className="text-lg font-semibold">1. How to Write a Paragraph</h4>
+          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
+            1. How to Write a Paragraph
+          </h4>
         </AccordionHeader>
         <AccordionBody>
           <ProgressionDetails />
@@ -62,7 +64,7 @@ function ProgressionInformation(props) {
           onClick={() => handleOpen(2)}
           className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
         >
-          <h4 className="text-lg font-semibold">
+          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
             2. Writing short responses to given prompts
           </h4>
         </AccordionHeader>
@@ -75,7 +77,7 @@ function ProgressionInformation(props) {
           onClick={() => handleOpen(3)}
           className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
         >
-          <h4 className="text-lg font-semibold">
+          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
             3. Vocabulary building for writing tasks
           </h4>
         </AccordionHeader>

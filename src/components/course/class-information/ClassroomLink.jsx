@@ -12,8 +12,8 @@ function ClassroomLink(props) {
   const handleEnableSection = () => setDisableSection(false);
 
   return (
-    <div className="flex flex-row justify-between items-start pb-2">
-      <div className="flex flex-row items-end gap-x-2">
+    <div className="flex md:flex-row flex-col justify-between md:items-center items-start pb-2">
+      <div className="flex flex-row items-start gap-x-2">
         {disableSection ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,11 +36,14 @@ function ClassroomLink(props) {
           </svg>
         )}
         {disableSection ? (
-          <p className="text-lg text-custom-blur-green font-semibold">
+          <p className="md:text-lg sm:text-base text-sm text-custom-blur-green font-semibold">
             Classroom link
           </p>
         ) : (
-          <a href="/" className="text-lg text-custom-green font-semibold">
+          <a
+            href="/"
+            className="md:text-lg sm:text-base text-sm text-custom-green font-semibold"
+          >
             Classroom link
           </a>
         )}

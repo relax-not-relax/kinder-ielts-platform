@@ -43,14 +43,12 @@ function AddLessonDialog({ isOpen, onClose }) {
   }, [value]);
 
   return (
-    <Dialog
-      open={isOpen}
-      size="xs"
-      className="rounded-3xl p-6 max-h-[800px] overflow-y-scroll no-scrollbar"
-    >
-      <DialogHeader className="px-4 pt-0 pb-0">
+    <Dialog open={isOpen} size="xs" className="rounded-3xl md:p-6 p-4">
+      <DialogHeader className="md:px-4 px-0 pt-0 pb-0">
         <div className="w-full flex flex-row justify-between items-center">
-          <h2 className="text-3xl text-black">Add lesson details</h2>
+          <h2 className="md:text-3xl text-2xl text-black">
+            Add lesson details
+          </h2>
           <IconButton variant="text" onClick={onClose}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +67,7 @@ function AddLessonDialog({ isOpen, onClose }) {
           </IconButton>
         </div>
       </DialogHeader>
-      <DialogBody className="px-4 py-2">
+      <DialogBody className="md:px-4 px-0 py-0">
         <div className="w-full mt-4 flex flex-col gap-y-4">
           <Select
             label="Chọn dữ liệu buổi học"

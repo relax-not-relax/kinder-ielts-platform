@@ -152,15 +152,18 @@ const TABLE_ROWS = [
 
 function AttendanceTable(props) {
   return (
-    <div className="h-full w-full flex flex-row justify-start items-start">
-      <div className="flex-none flex flex-col w-64">
-        <h3 className="font-semibold text-black leading-none text-lg mb-2">
+    <div className="h-full w-full flex flex-row justify-start items-start overflow-x-scroll no-scrollbar">
+      <div className="flex-none flex flex-col xl:w-64 w-48">
+        <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs mb-2">
           Name
         </h3>
         <div className="w-auto h-8 bg-black"></div>
         {TABLE_ROWS.map(({ name }) => {
           return (
-            <div className="py-3 border-b border-blue-gray-50" key={name}>
+            <div
+              className="h-12 border-b border-blue-gray-50 flex items-center"
+              key={name}
+            >
               <Typography
                 variant="small"
                 color="blue-gray"
@@ -173,14 +176,17 @@ function AttendanceTable(props) {
         })}
       </div>
       <div className="flex-none flex flex-col w-24">
-        <h3 className="font-semibold text-black leading-none text-lg mb-2">
+        <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs mb-2">
           D.O.B
         </h3>
         <div className="w-auto h-8 bg-black"></div>
 
         {TABLE_ROWS.map(({ dob }) => {
           return (
-            <div className="py-3 border-b border-blue-gray-50" key={dob}>
+            <div
+              className="h-12 border-b border-blue-gray-50 flex items-center"
+              key={dob}
+            >
               <Typography
                 variant="small"
                 color="blue-gray"
@@ -192,15 +198,18 @@ function AttendanceTable(props) {
           );
         })}
       </div>
-      <div className="flex-none flex flex-col w-56">
-        <h3 className="font-semibold text-black leading-none text-lg mb-2">
+      <div className="flex-none flex flex-col xl:w-56 w-36">
+        <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs mb-2">
           Email
         </h3>
         <div className="w-auto h-8 bg-black"></div>
         <div className="border-e-2 border-black">
           {TABLE_ROWS.map(({ email }) => {
             return (
-              <div className="py-3 border-b border-blue-gray-50" key={email}>
+              <div
+                className="h-12 border-b border-blue-gray-50 flex items-center overflow-x-scroll no-scrollbar"
+                key={email}
+              >
                 <Typography
                   variant="small"
                   color="blue-gray"
@@ -213,8 +222,8 @@ function AttendanceTable(props) {
           })}
         </div>
       </div>
-      <div className="flex-none flex flex-col w-96">
-        <h3 className="font-semibold text-black leading-none text-lg mb-2">
+      <div className="flex-none flex flex-col lg:w-96 w-48">
+        <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs mb-2">
           Absence
         </h3>
         <div className="w-full overflow-x-scroll no-scrollbar">
@@ -253,7 +262,7 @@ function AttendanceTable(props) {
                       }
                       return (
                         <td
-                          className="py-3 px-4 border-b border-blue-gray-50"
+                          className="h-12 px-4 border-b border-blue-gray-50"
                           key={val.date}
                         >
                           <Typography
@@ -273,8 +282,8 @@ function AttendanceTable(props) {
           </table>
         </div>
       </div>
-      <div className="grow flex flex-col">
-        <h3 className="font-semibold text-black leading-none text-lg mb-2">
+      <div className="lg:grow flex-none w-40 flex flex-col">
+        <h3 className="font-semibold text-black leading-none md:text-lg sm:text-base text-xs mb-2">
           Note
         </h3>
         <div className="w-auto h-8 bg-black"></div>
@@ -283,7 +292,7 @@ function AttendanceTable(props) {
             return (
               <div
                 key={note}
-                className="w-full flex justify-start items-center py-3 px-2 border-b border-blue-gray-50"
+                className="w-full flex justify-start items-start h-12 px-2 border-b border-blue-gray-50 overflow-y-scroll no-scrollbar"
               >
                 {note.length === 0 && (
                   <Typography
@@ -295,7 +304,7 @@ function AttendanceTable(props) {
                   </Typography>
                 )}
                 {note.length > 0 && (
-                  <div className="flex flex-row gap-x-2">
+                  <div className="flex flex-col gap-y-1">
                     {note.map((val, index) => {
                       return (
                         <Typography
@@ -304,7 +313,7 @@ function AttendanceTable(props) {
                           className="font-normal"
                           key={index}
                         >
-                          {val} /
+                          {val}
                         </Typography>
                       );
                     })}
