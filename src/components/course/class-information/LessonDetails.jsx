@@ -17,10 +17,12 @@ function LessonDetails(props) {
 
   return (
     <div className="w-full flex flex-col px-4">
-      <div className="flex flex-row justify-between items-start pb-4">
+      <div className="flex md:flex-row flex-col justify-between items-start pb-4">
         <div>
-          <h4 className="text-lg font-semibold text-black mb-1">Objectives:</h4>
-          <ol className="list-decimal ps-4 text-black font-normal text-base">
+          <h4 className="md:text-lg text-base font-semibold text-black mb-1">
+            Objectives:
+          </h4>
+          <ol className="list-decimal ps-4 text-black font-normal md:text-base text-sm">
             <li>
               To help students understand how to structure an essay paragraph.
             </li>

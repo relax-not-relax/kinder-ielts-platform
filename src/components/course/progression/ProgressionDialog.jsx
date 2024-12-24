@@ -24,11 +24,11 @@ function ProgressionDialog() {
     <Dialog
       open={openProgression}
       size="xl"
-      className="rounded-3xl p-6 max-h-[800px] overflow-y-scroll no-scrollbar"
+      className="rounded-3xl md:p-6 p-4 xl:max-h-[800px] max-h-[600px] overflow-y-scroll no-scrollbar"
     >
-      <DialogHeader className="px-4 pt-0 pb-0">
+      <DialogHeader className="md:px-4 px-0 pt-0 pb-0">
         <div className="w-full flex flex-row justify-between items-center">
-          <h2 className="text-3xl text-black">Progression</h2>
+          <h2 className="md:text-3xl text-2xl text-black">Progression</h2>
           <IconButton variant="text" onClick={handleCloseProgression}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,8 +47,8 @@ function ProgressionDialog() {
           </IconButton>
         </div>
       </DialogHeader>
-      <DialogBody className="px-4 py-2">
-        <p className="pb-4 text-base text-black font-semibold">
+      <DialogBody className="md:px-4 px-0 py-2">
+        <p className="pb-4 md:text-base text-sm text-black font-semibold">
           Quản lý tiến độ và bài tập của bạn.
         </p>
         <ProgressionInformation />

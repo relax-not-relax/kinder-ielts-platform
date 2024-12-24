@@ -49,7 +49,7 @@ function FileUpload({ onFilesChange }) {
           <p className="text-gray-500">Drop the files here...</p>
         ) : (
           <>
-            <p className="text-sm text-black font-bold">
+            <p className="md:text-sm text-xs text-black font-bold">
               Drag your files here or click to upload
             </p>
             <em className="text-xs">(Up to 1 file allowed)</em>
@@ -62,7 +62,7 @@ function FileUpload({ onFilesChange }) {
             >
               <path d="M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z" />
             </svg>
-            <p className="text-black text-sm text-center">
+            <p className="text-black md:text-sm text-xs text-center">
               Supported formats: PDF, DOCX, JPG, MP4, MP3 <br />
               (Max size: 30MB)
             </p>
@@ -98,51 +98,58 @@ function DynamicFileUploadForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {fields.map((field, index) => (
-        <div
-          key={field.id}
-          className="flex flex-col gap-y-2 p-4 border border-blue-gray-200 rounded-xl"
-        >
-          <Input {...register(`fields.${index}.title`)} label="Add title" />
-          <Controller
-            control={control}
-            name={`fields.${index}.files`}
-            render={() => (
-              <FileUpload
-                onFilesChange={(files) => handleFileChange(index, files)}
+    <div className="w-full max-h-[500px] overflow-y-scroll no-scrollbar">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-y-4">
+          {fields.map((field, index) => (
+            <div
+              key={field.id}
+              className="flex flex-col gap-y-2 p-4 border border-blue-gray-200 rounded-xl"
+            >
+              <Input {...register(`fields.${index}.title`)} label="Add title" />
+              <Controller
+                control={control}
+                name={`fields.${index}.files`}
+                render={() => (
+                  <FileUpload
+                    onFilesChange={(files) => handleFileChange(index, files)}
+                  />
+                )}
               />
-            )}
-          />
-          <Button onClick={() => remove(index)} color="red">
-            Remove
+              <Button onClick={() => remove(index)} color="red">
+                Remove
+              </Button>
+            </div>
+          ))}
+        </div>
+
+        <IconButton
+          variant="text"
+          className="w-5 h-5 hover:bg-transparent my-4"
+          onClick={() => append({ title: "", files: [] })}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#159E64"
+          >
+            <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+          </svg>
+        </IconButton>
+        <div className="w-full flex justify-end items-center">
+          <Button
+            className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white mb-4 me-2"
+            type="submit"
+          >
+            <span className="normal-case xl:text-lg sm:text-base text-sm">
+              Save changes
+            </span>
           </Button>
         </div>
-      ))}
-      <IconButton
-        variant="text"
-        className="w-5 h-5 hover:bg-transparent my-4"
-        onClick={() => append({ title: "", files: [] })}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          fill="#159E64"
-        >
-          <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-        </svg>
-      </IconButton>
-      <div className="w-full flex justify-end items-center">
-        <Button
-          className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white"
-          type="submit"
-        >
-          <span className="normal-case text-lg">Save changes</span>
-        </Button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

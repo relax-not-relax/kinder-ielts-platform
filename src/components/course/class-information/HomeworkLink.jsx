@@ -17,7 +17,7 @@ function HomeworkLink(props) {
 
   return (
     <div>
-      <div className="flex flex-row justify-between items-start pb-2">
+      <div className="flex md:flex-row flex-col justify-between md:items-center items-start pb-2">
         <div className="flex flex-row items-start gap-x-2">
           {disableSection ? (
             <svg
@@ -25,6 +25,7 @@ function HomeworkLink(props) {
               height="24px"
               viewBox="0 -960 960 960"
               width="24px"
+              className="flex-none"
               fill="#d0ece0"
             >
               <path d="M720-330q0 104-73 177T470-80q-104 0-177-73t-73-177v-370q0-75 52.5-127.5T400-880q75 0 127.5 52.5T580-700v350q0 46-32 78t-78 32q-46 0-78-32t-32-78v-370h80v370q0 13 8.5 21.5T470-320q13 0 21.5-8.5T500-350v-350q-1-42-29.5-71T400-800q-42 0-71 29t-29 71v370q-1 71 49 120.5T470-160q70 0 119-49.5T640-330v-390h80v390Z" />
@@ -35,6 +36,7 @@ function HomeworkLink(props) {
               height="24px"
               viewBox="0 -960 960 960"
               width="24px"
+              className="flex-none"
               fill="#159E64"
             >
               <path d="M720-330q0 104-73 177T470-80q-104 0-177-73t-73-177v-370q0-75 52.5-127.5T400-880q75 0 127.5 52.5T580-700v350q0 46-32 78t-78 32q-46 0-78-32t-32-78v-370h80v370q0 13 8.5 21.5T470-320q13 0 21.5-8.5T500-350v-350q-1-42-29.5-71T400-800q-42 0-71 29t-29 71v370q-1 71 49 120.5T470-160q70 0 119-49.5T640-330v-390h80v390Z" />
@@ -43,16 +45,19 @@ function HomeworkLink(props) {
 
           <div className="flex flex-col gap-y-1">
             {disableSection ? (
-              <p className="text-lg text-custom-blur-green font-semibold">
+              <p className="md:text-lg sm:text-base text-sm text-custom-blur-green font-semibold">
                 Homework 01
               </p>
             ) : (
-              <a href="/" className="text-lg text-custom-green font-semibold">
+              <a
+                href="/"
+                className="md:text-lg sm:text-base text-sm text-custom-green font-semibold"
+              >
                 Homework 01
               </a>
             )}
             {disableSection ? (
-              <div className="text-gray-300 text-base font-medium">
+              <div className="text-gray-300 md:text-base text-sm font-medium">
                 <p>
                   After writing, students exchange their work and provide
                   feedback.
@@ -60,7 +65,7 @@ function HomeworkLink(props) {
                 <p>Due date: Sunday, 13 August 2023, 12:00 AM</p>
               </div>
             ) : (
-              <div className="text-black text-base font-medium">
+              <div className="text-black md:text-base text-sm font-medium">
                 <p>
                   After writing, students exchange their work and provide
                   feedback.

@@ -81,23 +81,27 @@ function CourseTutorCard(props) {
   };
 
   return (
-    <div className="sticky left-0 top-10 w-fit h-full py-12 ps-12 pe-8 shadow-xl shadow-slate-900/20 shadow-b-2 shadow-r-[4px] -shadow-spread-2 bg-white">
+    <div className="lg:sticky lg:left-0 lg:top-10 lg:w-fit w-full lg:h-full h-fit lg:py-12 py-8 xl:ps-12 xl:pe-8 md:px-6 px-4 lg:shadow-xl shadow-none shadow-slate-900/20 shadow-b-2 shadow-r-[4px] -shadow-spread-2 bg-white">
       <Breadcrumbs className="p-0 bg-transparent">
-        <a href="#" className="font-semibold text-xs capitalize">
+        <a href="#" className="font-semibold sm:text-xs text-[10px] capitalize">
           Trang chủ
         </a>
-        <a href="#" className="font-semibold text-xs capitalize">
+        <a href="#" className="font-semibold sm:text-xs text-[10px] capitalize">
           Khoá học của tôi
         </a>
-        <a href="#" className="font-semibold text-xs capitalize">
+        <a href="#" className="font-semibold sm:text-xs text-[10px] capitalize">
           Hạt giống-HG12
         </a>
       </Breadcrumbs>
-      <h3 className="mt-12 text-xl font-semibold mb-3">Course level</h3>
-      <h2 className="font-bold text-5xl uppercase">Hạt giống</h2>
-      <div className="mt-4 text-black">
-        <h4 className="text-lg font-medium">Mã lớp (HG12) | 18:00 - 19:30</h4>
-        <h4 className="text-lg font-medium">Gia sư A & Gia sư B</h4>
+      <h3 className="xl:mt-12 lg:mt-8 mt-3 xl:text-xl lg:text-lg text-xl font-semibold mb-3">
+        Course level
+      </h3>
+      <h2 className="font-bold xl:text-5xl lg:text-4xl text-3xl uppercase">
+        Hạt giống
+      </h2>
+      <div className="mt-4 text-black xl:text-lg lg:text-base sm:text-sm text-xs font-medium">
+        <h4>Mã lớp (HG12) | 18:00 - 19:30</h4>
+        <h4>Gia sư A & Gia sư B</h4>
       </div>
       <div className="w-full flex items-center justify-between my-4">
         <IconButton
@@ -123,7 +127,10 @@ function CourseTutorCard(props) {
             />
           </svg>
         </IconButton>
-        <Typography color="black" className="font-semibold text-lg">
+        <Typography
+          color="black"
+          className="font-semibold sm:text-lg text-base"
+        >
           {tutorInfo.name}
         </Typography>
         <IconButton

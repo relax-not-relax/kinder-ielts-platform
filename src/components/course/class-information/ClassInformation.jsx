@@ -64,9 +64,11 @@ export function ClassInformation(props) {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
-    <div className="mt-6 px-8">
+    <div className="mt-6 md:px-8 px-4">
       <div className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15">
-        <h4 className="text-lg font-semibold">Thông tin khóa học</h4>
+        <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
+          Thông tin khóa học
+        </h4>
         <IconButton className="bg-white rounded-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +85,9 @@ export function ClassInformation(props) {
           onClick={() => handleOpen(1)}
           className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
         >
-          <h4 className="text-lg font-semibold">1. How to Write a Paragraph</h4>
+          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
+            1. How to Write a Paragraph
+          </h4>
         </AccordionHeader>
         <AccordionBody>
           <LessonDetails />
@@ -94,7 +98,7 @@ export function ClassInformation(props) {
           onClick={() => handleOpen(2)}
           className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
         >
-          <h4 className="text-lg font-semibold">
+          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
             2. Writing short responses to given prompts
           </h4>
         </AccordionHeader>
@@ -107,7 +111,7 @@ export function ClassInformation(props) {
           onClick={() => handleOpen(3)}
           className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
         >
-          <h4 className="text-lg font-semibold">
+          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
             3. Vocabulary building for writing tasks
           </h4>
         </AccordionHeader>
@@ -116,7 +120,9 @@ export function ClassInformation(props) {
         </AccordionBody>
       </Accordion>
       <div className="px-4 py-3 w-full flex flex-row justify-between items-center bg-[#CECECE]">
-        <h4 className="text-lg font-semibold">Add new block</h4>
+        <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
+          Add new block
+        </h4>
         <IconButton className="rounded-xl" variant="text">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -30,24 +30,24 @@ function CourseDetails(props) {
 
   return (
     <div className="w-full min-h-screen">
-      <div className="flex flex-row justify-start items-center gap-x-2 px-8">
+      <div className="flex flex-row justify-start items-center gap-x-2 md:px-8 px-4 lg:py-0 py-4">
         <Button
           variant="outlined"
-          className="rounded-full normal-case px-4 py-2 text-lg border-custom-green border-2 hover:text-white hover:bg-custom-green transition duration-300 ease-in-out"
+          className="rounded-full normal-case sm:px-4 px-1 py-2 xl:text-lg lg:text-base md:text-lg text-xs border-custom-green border-2 hover:text-white hover:bg-custom-green transition duration-300 ease-in-out"
           onClick={handleOpenManageClass}
         >
           Manage class
         </Button>
         <Button
           variant="outlined"
-          className="rounded-full normal-case px-4 py-2 text-lg border-custom-green border-2 hover:text-white hover:bg-custom-green transition duration-300 ease-in-out"
+          className="rounded-full normal-case sm:px-4 px-1 py-2 xl:text-lg lg:text-base md:text-lg text-xs border-custom-green border-2 hover:text-white hover:bg-custom-green transition duration-300 ease-in-out"
           onClick={handleOpenAttendance}
         >
           Attendance
         </Button>
         <Button
           variant="outlined"
-          className="rounded-full normal-case px-4 py-2 text-lg border-custom-green border-2 hover:text-white hover:bg-custom-green transition duration-300 ease-in-out"
+          className="rounded-full normal-case sm:px-4 px-1 py-2 xl:text-lg lg:text-base md:text-lg text-xs border-custom-green border-2 hover:text-white hover:bg-custom-green transition duration-300 ease-in-out"
           onClick={handleOpenProgression}
         >
           Progression

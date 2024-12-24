@@ -20,11 +20,11 @@ function AttendanceDialog({ isOpen, onClose }) {
       open={isOpen}
       handler={onClose}
       size="xl"
-      className="rounded-3xl p-6"
+      className="rounded-3xl md:p-6 p-4"
     >
-      <DialogHeader className="px-4 pt-0 pb-0">
+      <DialogHeader className="md:px-4 px-0 pt-0 pb-0">
         <div className="w-full flex flex-row justify-between items-center">
-          <h2 className="text-3xl text-black">Attendance</h2>
+          <h2 className="md:text-3xl text-2xl text-black">Attendance</h2>
           <IconButton variant="text" onClick={onClose}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ function AttendanceDialog({ isOpen, onClose }) {
           </IconButton>
         </div>
       </DialogHeader>
-      <DialogBody className="px-4 py-2">
+      <DialogBody className="md:px-4 px-0 py-2">
         <AttendanceTable />
       </DialogBody>
     </Dialog>

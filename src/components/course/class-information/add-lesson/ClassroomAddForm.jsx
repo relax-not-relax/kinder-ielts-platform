@@ -29,7 +29,9 @@ function ClassroomAddForm(props) {
             className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white"
             type="submit"
           >
-            <span className="normal-case text-lg">Save changes</span>
+            <span className="normal-case xl:text-lg sm:text-base text-sm">
+              Save changes
+            </span>
           </Button>
         </div>
       </form>
