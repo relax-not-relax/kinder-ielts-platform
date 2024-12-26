@@ -2,6 +2,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Typography } from "@material-tailwind/react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setProgressDialog } from "../../../store/slices/progressDialogSlice";
 
 ProgressionDetailsTable.propTypes = {
   homeworks: PropTypes.array.isRequired,
@@ -76,6 +79,18 @@ const TABLE_ROWS = [
 ];
 
 function ProgressionDetailsTable({ homeworks }) {
+  const navigate = useNavigate();
+  const openProgression = useSelector((state) => state.progressDialog.value);
+  const dispatch = useDispatch();
+
+  const handleCloseProgression = () => {
+    dispatch(setProgressDialog(false));
+  };
+
+  const handleNavigate = () => {
+    navigate("/homework/1");
+    handleCloseProgression();
+  };
   return (
     <div className="w-full overflow-x-scroll no-scrollbar">
       <table className="w-full min-w-max table-auto text-left">
@@ -129,13 +144,18 @@ function ProgressionDetailsTable({ homeworks }) {
                         >
                           <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h360l200 200v520q0 33-23.5 56.5T720-80H240Zm0-80h480v-480H560v-160H240v640Zm240-40q67 0 113.5-47T640-360v-160h-80v160q0 33-23 56.5T480-280q-33 0-56.5-23.5T400-360v-220q0-9 6-14.5t14-5.5q9 0 14.5 5.5T440-580v220h80v-220q0-42-29-71t-71-29q-42 0-71 29t-29 71v220q0 66 47 113t113 47ZM240-800v160-160 640-640Z" />
                         </svg>
-                        <p
-                          className={`line-clamp-1 underline md:text-base text-sm font-medium ${
-                            sub.submit ? "text-black" : "text-gray-400"
-                          }`}
-                        >
-                          {sub.submit ? sub.submit : "NA"}
-                        </p>
+                        {sub.submit ? (
+                          <Link
+                            className="line-clamp-1 underline md:text-base text-sm font-medium text-black"
+                            onClick={handleNavigate}
+                          >
+                            {sub.submit}
+                          </Link>
+                        ) : (
+                          <p className="line-clamp-1 underline md:text-base text-sm font-medium text-gray-400">
+                            NA
+                          </p>
+                        )}
                       </div>
                     </td>
                   );
