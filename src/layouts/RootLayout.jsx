@@ -45,7 +45,7 @@ function RootLayout(props) {
           <div className="mb-6 flex items-center justify-between">
             <Link>
               <img
-                className="sm:h-12 h-8 w-full object-cover object-center"
+                className="w-28 h-auto object-cover object-center"
                 src={logo}
                 alt="nature image"
               />
