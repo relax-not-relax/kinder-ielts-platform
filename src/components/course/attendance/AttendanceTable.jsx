@@ -228,12 +228,12 @@ function AttendanceTable(props) {
         </h3>
         <div className="w-full overflow-x-scroll no-scrollbar">
           <table>
-            <thead className="h-8 custom-border">
-              <tr>
+            <thead className="h-8 border-t-2 border-b-2 border-black">
+              <tr className="h-8">
                 {TABLE_ROWS[0].absence.map(({ date }) => {
                   return (
                     <th key={date}>
-                      <h3 className="font-semibold text-black leading-none text-lg w-28 h-fit">
+                      <h3 className="font-semibold text-black leading-none text-lg w-28">
                         {date}
                       </h3>
                     </th>
