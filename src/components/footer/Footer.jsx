@@ -8,7 +8,7 @@ function Footer(props) {
     <div className="w-full lg:h-72 h-fit py-12 lg:px-16 md:px-8 px-4 bg-custom-green flex md:flex-row flex-col justify-between items-start xl:gap-x-40 lg:gap-x-24 md:gap-x-16 gap-y-6">
       <div className="flex-none">
         <img
-          className="xl:h-32 sm:h-16 h-12 w-full object-cover object-center"
+          className="xl:w-80 sm:w-56 w-48 h-auto object-cover object-center"
           src={logo}
           alt="nature image"
         />

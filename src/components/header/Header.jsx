@@ -87,7 +87,7 @@ function Header({ onOpen }) {
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link>
           <img
-            className="xl:h-16 md:h-14 sm:h-12 h-8 w-full object-cover object-center"
+            className="sm:w-32 w-24 h-auto object-cover object-center"
             src={logo}
             alt="nature image"
           />
