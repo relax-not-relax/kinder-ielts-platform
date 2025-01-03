@@ -14,7 +14,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
-        <Route path="my-course/:id" element={<MyCourse />} />
+        <Route path="my-class/:id" element={<MyCourse />} />
         <Route path="homework/:id" element={<ElearningGrading />} />
       </Route>
     )

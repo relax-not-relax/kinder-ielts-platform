@@ -40,7 +40,7 @@ function MangeClassDialog({ isOpen, onClose }) {
       open={isOpen}
       handler={onClose}
       size="xl"
-      className="rounded-3xl md:p-6 p-4"
+      className="rounded-3xl md:p-6 p-4 overflow-y-scroll no-scrollbar"
     >
       <DialogHeader className="md:px-4 px-0 pt-0 pb-0">
         <div className="w-full flex flex-row justify-between items-center">

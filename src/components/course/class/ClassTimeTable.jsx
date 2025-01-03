@@ -2,6 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Typography } from "@material-tailwind/react";
+import TutorSelector from "./TutorSelector";
 
 ClassTimeTable.propTypes = {};
 
@@ -111,14 +112,18 @@ function ClassTimeTable(props) {
                     {content}
                   </Typography>
                 </td>
-                <td className={classes}>
-                  <Typography
+                <td className={`${classes} w-96 max-w-96 h-auto`}>
+                  {/* Hiển thị tên của tutors theo buổi học (tutor view) */}
+                  {/* <Typography
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
                   >
                     {tutor}
-                  </Typography>
+                  </Typography> */}
+
+                  {/* Hiển thị lựa chọn tutor cho buổi học (admin view) */}
+                  <TutorSelector />
                 </td>
               </tr>
             );
