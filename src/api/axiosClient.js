@@ -1,7 +1,8 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const axiosClient = axios.create({
-  baseURL: "https://150.95.109.50:8080/api/v1",
+  baseURL: "https://kinder-ielts.click/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
@@ -9,8 +10,15 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   (config) => {
-    config.headers.Authorization =
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTYzMDM5MCwiZXhwIjoxNzM2MjM1MTkwfQ.KC-MuU2nwIJ5j2YUDWSDgF9E0EHYQVoe-c6-L_BUmo4";
+    const altToken = Cookies.get("refreshTokenKinderWeb");
+    const token = Cookies.get("accessTokenKinderWeb");
+
+    if (config.useAltToken && altToken) {
+      config.headers.Authorization = `Bearer ${altToken}`;
+    } else if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
   },
   (error) => Promise.reject(error)
