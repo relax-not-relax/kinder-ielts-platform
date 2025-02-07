@@ -14,10 +14,18 @@ import {
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 import logo from "../assets/logo_vang.png";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { setLoginState } from "../store/slices/loginStateSlice";
 
 function RootLayout(props) {
   const [openNav, setOpenNav] = React.useState(false);
   const [open, setOpen] = React.useState(1);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(setLoginState(Boolean(Cookies.get("accessTokenKinderWeb"))));
+  }, [dispatch]);
 
   const handleOpenProduct = (value) => setOpen(open === value ? 0 : value);
 

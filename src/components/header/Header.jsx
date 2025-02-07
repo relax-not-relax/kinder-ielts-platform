@@ -15,6 +15,10 @@ import {
 import logo from "../../assets/logo_vang.png";
 import ava from "../../assets/ava_place.png";
 import { Link, NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
+import LoginDialog from "./LoginDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginState } from "../../store/slices/loginStateSlice";
 
 Header.propTypes = {
   onOpen: PropTypes.func.isRequired,
@@ -82,6 +86,24 @@ function Header({ onOpen }) {
     </ul>
   );
 
+  const [isAuthenticated, setIsAuthenticated] = React.useState(null);
+  const [active, setActive] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
+  const handleOpenLogin = () => setOpenLogin(true);
+  const handleCloseLogin = () => setOpenLogin(false);
+  const loginStatus = useSelector((state) => state.loginState.value);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setIsAuthenticated(loginStatus);
+  }, [loginStatus]);
+
+  const logout = () => {
+    Cookies.remove("accessTokenKinderWeb");
+    Cookies.remove("refreshTokenKinderWeb");
+    dispatch(setLoginState(false));
+  };
+
   return (
     <div className="sticky top-0 z-10 h-max max-w-full rounded-none lg:px-16 md:px-8 px-4 py-6 bg-custom-green">
       <div className="flex items-center justify-between text-blue-gray-900">
@@ -107,9 +129,35 @@ function Header({ onOpen }) {
                 </svg>
               </IconButton>
             </Badge>
-            <Button className="rounded-full px-4 py-1 bg-yellow">
-              <Avatar src={ava} size="sm" />
-            </Button>
+            {isAuthenticated ? (
+              <Button
+                className="rounded-full px-4 py-1 bg-yellow"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                <Avatar src={ava} size="sm" />
+              </Button>
+            ) : (
+              <Button
+                className={`rounded-full normal-case xl:text-lg sm:text-base text-sm px-3 py-1 max-w-40 w-40 transition-all duration-300 ${
+                  active
+                    ? "bg-transparent text-yellow border-2 border-yellow"
+                    : "bg-yellow text-black"
+                }`}
+                onMouseEnter={() => setActive(true)}
+                onMouseLeave={() => setActive(false)}
+                onMouseDown={() => setActive(true)}
+                onMouseUp={() => setActive(false)}
+                onBlur={() => setActive(false)}
+                onClick={() => {
+                  setActive(true);
+                  handleOpenLogin();
+                }}
+              >
+                {active ? "Giá trị cốt lõi" : "Đăng Nhập"}
+              </Button>
+            )}
           </div>
           <IconButton
             variant="text"
@@ -133,6 +181,8 @@ function Header({ onOpen }) {
           </IconButton>
         </div>
       </div>
+
+      <LoginDialog isOpen={openLogin} onClose={handleCloseLogin} />
     </div>
   );
 }
