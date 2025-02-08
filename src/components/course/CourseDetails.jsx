@@ -11,11 +11,9 @@ import ProgressionDialog from "./progression/ProgressionDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { setProgressDialog } from "../../store/slices/progressDialogSlice";
 
-CourseDetails.propTypes = {
-  courseInfo: PropTypes.object.isRequired,
-};
+CourseDetails.propTypes = {};
 
-function CourseDetails({ courseInfo }) {
+function CourseDetails() {
   const [openManageClass, setOpenManageClass] = React.useState(false);
   const handleOpenManageClass = () => setOpenManageClass(true);
   const handleCloseManageClass = () => setOpenManageClass(false);
@@ -25,6 +23,7 @@ function CourseDetails({ courseInfo }) {
   const handleCloseAttendance = () => setOpenAttendance(false);
 
   const dispatch = useDispatch();
+  const courseInfo = useSelector((state) => state.classInformation.information);
 
   const handleOpenProgression = () => {
     dispatch(setProgressDialog(true));

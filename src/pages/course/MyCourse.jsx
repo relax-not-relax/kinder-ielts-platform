@@ -6,6 +6,8 @@ import CourseDetails from "../../components/course/CourseDetails";
 import { useParams } from "react-router-dom";
 import classAPI from "../../api/classApi";
 import { Spinner } from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
+import { setClassInformation } from "../../store/slices/classInformationSlice";
 
 function MyCourse() {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
@@ -13,7 +15,7 @@ function MyCourse() {
   const [canScrollRoot, setCanScrollRoot] = useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const { id } = useParams();
-  const [classDetails, setClassDetails] = React.useState(null);
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     if (isLargeScreen && rightSectionRef.current) {
@@ -42,7 +44,14 @@ function MyCourse() {
         const res = await classAPI.getClassDetails({
           id,
         });
-        setClassDetails(res.data);
+        sessionStorage.setItem(
+          "classTime",
+          JSON.stringify({
+            from: res.data.fromTime,
+            to: res.data.toTime,
+          })
+        );
+        dispatch(setClassInformation(res.data));
         setIsLoading(false);
       } catch (error) {
         console.log("Failed to fetch class information", error);
@@ -51,9 +60,9 @@ function MyCourse() {
     };
 
     fetchClass();
-  }, [id]);
+  }, [id, dispatch]);
 
-  if (isLoading && !classDetails) {
+  if (isLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
         <Spinner />
@@ -69,19 +78,19 @@ function MyCourse() {
             canScrollRoot ? "overflow-y-scroll" : "overflow-hidden"
           }`}
         >
-          <CourseTutorCard courseInfo={classDetails} />
+          <CourseTutorCard />
           <div
             ref={rightSectionRef}
             className="grow overflow-y-scroll py-10 h-screen scroll-smooth no-scrollbar scroll-p-0"
           >
-            <CourseDetails courseInfo={classDetails} />
+            <CourseDetails />
           </div>
         </div>
       ) : (
         <div className="w-screen h-fit flex flex-col overflow-y-scroll">
-          <CourseTutorCard courseInfo={classDetails} />
+          <CourseTutorCard />
           <div className="grow h-fit">
-            <CourseDetails courseInfo={classDetails} />
+            <CourseDetails />
           </div>
         </div>
       )}

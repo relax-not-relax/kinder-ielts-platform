@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useSnackbar } from "notistack";
-import classAPI from "../../../../api/classApi";
+import classroomLinkAPI from "../../../../api/classroomLinkApi";
 
 ClassroomAddForm.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -33,7 +33,10 @@ function ClassroomAddForm({ onClose, refresh, studyScheduleId }) {
       link: data.link,
     };
     try {
-      await classAPI.createClassroomLink({ scheduleId: studyScheduleId }, req);
+      await classroomLinkAPI.createClassroomLink(
+        { scheduleId: studyScheduleId },
+        req
+      );
       onClose();
       refresh();
       setIsSubmit(false);

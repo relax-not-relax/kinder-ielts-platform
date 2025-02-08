@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 import { Button, IconButton } from "@material-tailwind/react";
 import HomeworkDetailsDialog from "../course-student/HomeworkDetailsDialog";
 import formatDeadlineDate from "../../../utils/formatDeadlineDate";
+import UpdateHomeworkDialog from "./update-lesson/UpdateHomeworkDialog";
 
 HomeworkLink.propTypes = {
   homework: PropTypes.object.isRequired,
+  refresh: PropTypes.func.isRequired,
 };
 
-function HomeworkLink({ homework }) {
+function HomeworkLink({ homework, refresh }) {
   const [disableSection, setDisableSection] = React.useState(false);
   const handleDisableSection = () => setDisableSection(true);
   const handleEnableSection = () => setDisableSection(false);
@@ -18,6 +20,10 @@ function HomeworkLink({ homework }) {
   // const [openDetails, setOpenDetails] = React.useState(false);
   // const handleOpenDetails = () => setOpenDetails(true);
   // const handleCloseDetails = () => setOpenDetails(false);
+
+  const [openUpdate, setOpenUpdate] = React.useState(false);
+  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleCloseUpdate = () => setOpenUpdate(false);
 
   return (
     <div>
@@ -54,7 +60,9 @@ function HomeworkLink({ homework }) {
               </p>
             ) : (
               <a
-                href="/"
+                href={homework.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="md:text-lg sm:text-base text-sm text-custom-green font-semibold"
               >
                 {homework.title}
@@ -90,6 +98,9 @@ function HomeworkLink({ homework }) {
               viewBox="0 -960 960 960"
               width="24px"
               fill="#159E64"
+              onClick={() => {
+                handleOpenUpdate();
+              }}
             >
               <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
             </svg>
@@ -129,6 +140,13 @@ function HomeworkLink({ homework }) {
           onClose={handleCloseDetails}
         /> */}
       </div>
+
+      <UpdateHomeworkDialog
+        isOpen={openUpdate}
+        onClose={handleCloseUpdate}
+        refresh={refresh}
+        homework={homework}
+      />
     </div>
   );
 }

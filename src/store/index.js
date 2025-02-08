@@ -3,6 +3,7 @@ import progressDialogReducer from "./slices/progressDialogSlice";
 import takeAttendanceDialogReducer from "./slices/takeAttendanceDialogSlice";
 import tutorsReducer from "./slices/tutorsSlice";
 import loginStateReducer from "./slices/loginStateSlice";
+import classInformationReducer from "./slices/classInformationSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     takeAttendanceDialog: takeAttendanceDialogReducer,
     tutors: tutorsReducer,
     loginState: loginStateReducer,
+    classInformation: classInformationReducer,
   },
 });
 
