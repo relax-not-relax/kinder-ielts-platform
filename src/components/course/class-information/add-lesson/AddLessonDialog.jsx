@@ -17,22 +17,42 @@ import DynamicFileUploadForm from "./MaterialsAddForm";
 AddLessonDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
-function AddLessonDialog({ isOpen, onClose }) {
+function AddLessonDialog({ isOpen, onClose, refresh, id }) {
   const [value, setValue] = React.useState("Classroom link");
   const [addForm, setAddForm] = React.useState(null);
 
   React.useEffect(() => {
     switch (value) {
       case "Classroom link":
-        setAddForm(<ClassroomAddForm />);
+        setAddForm(
+          <ClassroomAddForm
+            onClose={onClose}
+            refresh={refresh}
+            studyScheduleId={id}
+          />
+        );
         break;
       case "Warm-up test":
-        setAddForm(<WarmUpTestAddForm />);
+        setAddForm(
+          <WarmUpTestAddForm
+            onClose={onClose}
+            refresh={refresh}
+            studyScheduleId={id}
+          />
+        );
         break;
       case "Homework":
-        setAddForm(<HomeworkAddForm />);
+        setAddForm(
+          <HomeworkAddForm
+            onClose={onClose}
+            refresh={refresh}
+            studyScheduleId={id}
+          />
+        );
         break;
       case "Materials":
         setAddForm(<DynamicFileUploadForm />);
@@ -40,7 +60,7 @@ function AddLessonDialog({ isOpen, onClose }) {
       default:
         setAddForm(null);
     }
-  }, [value]);
+  }, [onClose, refresh, value, id]);
 
   return (
     <Dialog open={isOpen} size="xs" className="rounded-3xl md:p-6 p-4">

@@ -3,9 +3,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-tailwind/react";
 
-MaterialFiles.propTypes = {};
+MaterialFiles.propTypes = {
+  materials: PropTypes.array.isRequired,
+};
 
-function MaterialFiles(props) {
+function MaterialFiles({ materials }) {
   const [disableSection, setDisableSection] = React.useState(false);
 
   const handleDisableSection = () => setDisableSection(true);
@@ -41,22 +43,35 @@ function MaterialFiles(props) {
         <div className="flex flex-col gap-y-1">
           {disableSection ? (
             <p className="md:text-lg sm:text-base text-sm text-custom-blur-green font-semibold">
-              Materials
+              {materials.title}
             </p>
           ) : (
             <p className="md:text-lg sm:text-base text-sm text-custom-green font-semibold">
-              Materials
+              {materials.title}
             </p>
           )}
           {disableSection ? (
             <div className="text-gray-300 md:text-base text-sm font-medium flex flex-col">
-              <p href="/">Material 01: Day 01 slide deck</p>
-              <p href="/">Material 02: Sample for Persuasive Paragraph</p>
+              {materials.links.map((link, key) => {
+                return <p key={key}>{link.title}</p>;
+              })}
+              <p>Material 01: Day 01 slide deck</p>
+              <p>Material 02: Sample for Persuasive Paragraph</p>
             </div>
           ) : (
-            <div className="text-black md:text-base text-sm font-medium flex flex-col">
-              <a href="/">Material 01: Day 01 slide deck</a>
-              <a href="/">Material 02: Sample for Persuasive Paragraph</a>
+            <div className="text-black md:text-base text-sm font-medium flex flex-col ">
+              {materials.links.map((link, key) => {
+                return (
+                  <a
+                    href={link.link}
+                    key={key}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.title}
+                  </a>
+                );
+              })}
             </div>
           )}
         </div>

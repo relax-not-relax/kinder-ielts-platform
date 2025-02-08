@@ -1,40 +1,71 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import PropTypes from "prop-types";
-import { IconButton } from "@material-tailwind/react";
+import { IconButton, Spinner } from "@material-tailwind/react";
 import ClassroomLink from "./ClassroomLink";
 import WarmUpTestLink from "./WarmUpTestLink";
 import HomeworkLink from "./HomeworkLink";
 import MaterialFiles from "./MaterialFiles";
 import AddLessonDialog from "./add-lesson/AddLessonDialog";
+import { useSnackbar } from "notistack";
+import classAPI from "../../../api/classApi";
 
-LessonDetails.propTypes = {};
+LessonDetails.propTypes = {
+  schedule: PropTypes.object.isRequired,
+};
 
-function LessonDetails(props) {
+function LessonDetails({ schedule }) {
   const [openAddDialog, setOpenAddDialog] = React.useState(false);
   const handleOpenAddDialog = () => setOpenAddDialog(true);
   const handleCloseAddDialog = () => setOpenAddDialog(false);
+  const [scheduleDetails, setScheduleDetails] = React.useState(schedule);
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const refreshSchedule = async () => {
+    setIsRefreshing(true);
+    try {
+      const res = await classAPI.getStudyScheduleById(schedule.id);
+      setScheduleDetails(res.data);
+      setIsRefreshing(false);
+    } catch (error) {
+      enqueueSnackbar("LỖI! Không tải được buổi học!", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      enqueueSnackbar("Vui lòng thử lại", {
+        variant: "warning",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      setIsRefreshing(false);
+    }
+  };
+
+  if (isRefreshing) {
+    return (
+      <div className="w-full flex flex-col px-4">
+        <div className="w-full h-24 flex justify-center items-center">
+          <Spinner />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col px-4">
       <div className="flex md:flex-row flex-col justify-between items-start pb-4">
-        <div>
-          <h4 className="md:text-lg text-base font-semibold text-black mb-1">
-            Objectives:
-          </h4>
-          <ol className="list-decimal ps-4 text-black font-normal md:text-base text-sm">
-            <li>
-              To help students understand how to structure an essay paragraph.
-            </li>
-            <li>
-              To give students a sample of an effective IELTS Writing paragraph.
-            </li>
-            <li>
-              To familiarize students with elaborating central ideasusing
-              explanation and examples.
-            </li>
-          </ol>
-        </div>
+        {scheduleDetails.description ? (
+          <p className="text-black font-normal md:text-base text-sm">
+            {scheduleDetails.description}
+          </p>
+        ) : (
+          <p className="text-black font-normal italic md:text-base text-sm">
+            Chưa có mô tả cho buổi học này!
+          </p>
+        )}
+
         <div className="flex flex-row items-center">
           <IconButton variant="text">
             <svg
@@ -62,16 +93,59 @@ function LessonDetails(props) {
       </div>
 
       {/* Classroom link section */}
-      <ClassroomLink />
+      {scheduleDetails.detailInfo.classroomLinks.length > 0 && (
+        <>
+          {scheduleDetails.detailInfo.classroomLinks.map((classroomLink) => {
+            return (
+              <div key={classroomLink.id}>
+                <ClassroomLink
+                  classroomLink={classroomLink}
+                  refresh={refreshSchedule}
+                />
+              </div>
+            );
+          })}
+        </>
+      )}
 
       {/* Warm-up test link section */}
-      <WarmUpTestLink />
+      {scheduleDetails.detailInfo.warmUpTests.length > 0 && (
+        <>
+          {scheduleDetails.detailInfo.warmUpTests.map((warmUpTest) => {
+            return (
+              <div key={warmUpTest.id}>
+                <WarmUpTestLink warmUpTest={warmUpTest} />
+              </div>
+            );
+          })}
+        </>
+      )}
 
       {/* Homework link section */}
-      <HomeworkLink />
+      {scheduleDetails.detailInfo.homeworks.length > 0 && (
+        <>
+          {scheduleDetails.detailInfo.homeworks.map((homework) => {
+            return (
+              <div key={homework.id}>
+                <HomeworkLink homework={homework} />
+              </div>
+            );
+          })}
+        </>
+      )}
 
       {/* Material files section */}
-      <MaterialFiles />
+      {scheduleDetails.detailInfo.studyMaterials.length > 0 && (
+        <>
+          {scheduleDetails.detailInfo.studyMaterials.map((studyMaterial) => {
+            return (
+              <div key={studyMaterial.id}>
+                <MaterialFiles materials={studyMaterial} />
+              </div>
+            );
+          })}
+        </>
+      )}
 
       {/* Add button */}
       <IconButton
@@ -89,7 +163,12 @@ function LessonDetails(props) {
           <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
         </svg>
       </IconButton>
-      <AddLessonDialog isOpen={openAddDialog} onClose={handleCloseAddDialog} />
+      <AddLessonDialog
+        isOpen={openAddDialog}
+        onClose={handleCloseAddDialog}
+        refresh={refreshSchedule}
+        id={schedule.id}
+      />
     </div>
   );
 }
