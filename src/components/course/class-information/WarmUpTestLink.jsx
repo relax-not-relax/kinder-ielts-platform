@@ -3,10 +3,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-tailwind/react";
 
-WarmUpTestLink.propTypes = {};
+WarmUpTestLink.propTypes = {
+  warmUpTest: PropTypes.object.isRequired,
+};
 
-function WarmUpTestLink(props) {
-  const [disableSection, setDisableSection] = React.useState(false);
+function WarmUpTestLink({ warmUpTest }) {
+  const [disableSection, setDisableSection] = React.useState(
+    warmUpTest.status.name === "VIEW" ? false : true
+  );
 
   const handleDisableSection = () => setDisableSection(true);
   const handleEnableSection = () => setDisableSection(false);
@@ -37,14 +41,16 @@ function WarmUpTestLink(props) {
 
         {disableSection ? (
           <p className="md:text-lg sm:text-base text-sm text-custom-blur-green font-semibold">
-            Warm-up test
+            {warmUpTest.title}
           </p>
         ) : (
           <a
-            href="/"
+            href={warmUpTest.link}
+            target="_blank"
+            rel="noopener noreferrer"
             className="md:text-lg sm:text-base text-sm text-custom-green font-semibold"
           >
-            Warm-up test
+            {warmUpTest.title}
           </a>
         )}
       </div>

@@ -3,10 +3,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-tailwind/react";
 
-ClassroomLink.propTypes = {};
+ClassroomLink.propTypes = {
+  classroomLink: PropTypes.object.isRequired,
+  refresh: PropTypes.func.isRequired,
+};
 
-function ClassroomLink(props) {
-  const [disableSection, setDisableSection] = React.useState(false);
+function ClassroomLink({ classroomLink, refresh }) {
+  const [disableSection, setDisableSection] = React.useState(
+    classroomLink.status.name === "VIEW" ? false : true
+  );
 
   const handleDisableSection = () => setDisableSection(true);
   const handleEnableSection = () => setDisableSection(false);
@@ -37,14 +42,16 @@ function ClassroomLink(props) {
         )}
         {disableSection ? (
           <p className="md:text-lg sm:text-base text-sm text-custom-blur-green font-semibold">
-            Classroom link
+            {classroomLink.title}
           </p>
         ) : (
           <a
-            href="/"
+            href={classroomLink.link}
+            target="_blank"
+            rel="noopener noreferrer"
             className="md:text-lg sm:text-base text-sm text-custom-green font-semibold"
           >
-            Classroom link
+            {classroomLink.title}
           </a>
         )}
       </div>

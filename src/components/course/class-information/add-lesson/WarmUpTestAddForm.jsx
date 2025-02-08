@@ -2,11 +2,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
-import { Button, Input } from "@material-tailwind/react";
+import { Button, Input, Typography } from "@material-tailwind/react";
+import { useSnackbar } from "notistack";
+import classAPI from "../../../../api/classApi";
 
-WarmUpTestAddForm.propTypes = {};
+WarmUpTestAddForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  studyScheduleId: PropTypes.number.isRequired,
+};
 
-function WarmUpTestAddForm(props) {
+function WarmUpTestAddForm({ onClose, refresh, studyScheduleId }) {
   const {
     register,
     handleSubmit,
@@ -14,19 +20,81 @@ function WarmUpTestAddForm(props) {
     reset,
     formState: { errors },
   } = useForm();
+  const [isSubmit, setIsSubmit] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    setIsSubmit(true);
+    const req = {
+      title: data.title,
+      description: data.title,
+      link: data.link,
+    };
+
+    try {
+      await classAPI.createWarmUpTestLink({ scheduleId: studyScheduleId }, req);
+      onClose();
+      refresh();
+      setIsSubmit(false);
+      reset();
+      enqueueSnackbar("Thêm warm up test link thành công!", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+    } catch (error) {
+      enqueueSnackbar("LỖI! Không thêm được warm up test link", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      enqueueSnackbar("Vui lòng thử lại", {
+        variant: "warning",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      setIsSubmit(false);
+      onClose();
+    }
   };
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
-        <Input label="Add title" />
-        <Input label="Add link" />
+        <div>
+          <Input
+            label="Add title"
+            {...register("title", {
+              required: "Vui lòng nhập tiêu đề",
+            })}
+            error={!!errors.title}
+          />
+          {errors.title && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errors.title.message}
+            </Typography>
+          )}
+        </div>
+
+        <div>
+          <Input
+            label="Add link"
+            {...register("link", {
+              required: "Vui lòng nhập đường dẫn",
+            })}
+            error={!!errors.link}
+          />
+          {errors.link && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errors.link.message}
+            </Typography>
+          )}
+        </div>
         <div className="w-full flex justify-end items-center">
           <Button
             className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white"
             type="submit"
+            loading={isSubmit}
           >
             <span className="normal-case xl:text-lg sm:text-base text-sm">
               Save changes

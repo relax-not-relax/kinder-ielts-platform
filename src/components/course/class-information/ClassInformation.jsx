@@ -12,7 +12,9 @@ import { useDispatch } from "react-redux";
 import { setTakeAttendanceDialog } from "../../../store/slices/takeAttendanceDialogSlice";
 import TakeAttendanceDialog from "./take-attendance/TakeAttendanceDialog";
 
-ClassInformation.propTypes = {};
+ClassInformation.propTypes = {
+  schedules: PropTypes.array.isRequired,
+};
 
 Icon.propTypes = {
   id: PropTypes.string.isRequired,
@@ -58,7 +60,7 @@ function Icon({ id, open }) {
   );
 }
 
-export function ClassInformation(props) {
+export function ClassInformation({ schedules }) {
   const [open, setOpen] = React.useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
@@ -80,7 +82,28 @@ export function ClassInformation(props) {
           </svg>
         </IconButton>
       </div>
-      <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
+      {schedules.map((schedule, index) => {
+        return (
+          <Accordion
+            open={open === index + 1}
+            icon={<Icon id={index + 1} open={open} />}
+            key={index + 1}
+          >
+            <AccordionHeader
+              onClick={() => handleOpen(index + 1)}
+              className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
+            >
+              <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
+                {schedule.title}
+              </h4>
+            </AccordionHeader>
+            <AccordionBody>
+              <LessonDetails schedule={schedule} />
+            </AccordionBody>
+          </Accordion>
+        );
+      })}
+      {/* <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
         <AccordionHeader
           onClick={() => handleOpen(1)}
           className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
@@ -118,7 +141,7 @@ export function ClassInformation(props) {
         <AccordionBody>
           <LessonDetails />
         </AccordionBody>
-      </Accordion>
+      </Accordion> */}
       <div className="px-4 py-3 w-full flex flex-row justify-between items-center bg-[#CECECE]">
         <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
           Add new block

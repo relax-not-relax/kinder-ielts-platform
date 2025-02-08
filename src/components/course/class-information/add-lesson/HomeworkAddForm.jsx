@@ -2,50 +2,159 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 import Datepicker from "react-tailwindcss-datepicker";
+import formatStartDateTime from "../../../../utils/formatStartDateTime";
+import formatEndDateTime from "../../../../utils/formatEndDateTime";
+import classAPI from "../../../../api/classApi";
+import { useSnackbar } from "notistack";
 
-HomeworkAddForm.propTypes = {};
+HomeworkAddForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  studyScheduleId: PropTypes.number.isRequired,
+};
 
-function HomeworkAddForm(props) {
+function HomeworkAddForm({ onClose, refresh, studyScheduleId }) {
   const [value, setValue] = React.useState({
     startDate: null,
     endDate: null,
   });
+  const [errorDeadline, setErrorDeadline] = React.useState(null);
+  const [isSubmit, setIsSubmit] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-    control,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    if (!value.startDate || !value.endDate) {
+      setErrorDeadline("Vui lòng đặt hạn nộp bài tập");
+      return;
+    }
+
+    const req = {
+      title: data.title,
+      description: data.description,
+      link: data.link,
+      studentIds: [],
+      status: "NOT_ASSIGNED",
+      dueDate: formatEndDateTime(value.endDate),
+      startDate: formatStartDateTime(value.startDate),
+    };
+    setIsSubmit(true);
+    try {
+      await classAPI.createHomeworkLink({ scheduleId: studyScheduleId }, req);
+      enqueueSnackbar("Thêm homework mới thành công!", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      reset();
+      refresh();
+      onClose();
+      setValue({
+        startDate: null,
+        endDate: null,
+      });
+      setIsSubmit(false);
+    } catch (error) {
+      enqueueSnackbar("Thêm homework không thành công!", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      enqueueSnackbar("Vui lòng thử lại!", {
+        variant: "warning",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      setIsSubmit(false);
+      onClose();
+      reset();
+      setValue({
+        startDate: null,
+        endDate: null,
+      });
+    }
   };
 
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
-        <Input label="Add title" />
-        <Input label="Add link" />
-        <Textarea label="Add description" />
-        <Datepicker
-          displayFormat="DD/MM/YYYY"
-          primaryColor={"green"}
-          placeholder="Set deadline"
-          popoverDirection="up"
-          useRange={false}
-          separator="to"
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
-          containerClassName="relative border border-blue-gray-200 rounded-lg"
-        />
+        <div>
+          <Input
+            label="Add title"
+            type="text"
+            size="lg"
+            {...register("title", {
+              required: "Vui lòng nhập tiêu đề",
+            })}
+            error={!!errors.title}
+          />
+          {errors.title && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errors.title.message}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <Input
+            label="Add link"
+            {...register("link", {
+              required: "Vui lòng nhập đường dẫn",
+            })}
+            error={!!errors.link}
+          />
+          {errors.link && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errors.link.message}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <Textarea
+            label="Add description"
+            color="gray"
+            {...register("description", {
+              required: "Vui lòng nhập mô tả cho homework",
+            })}
+            error={!!errors.description}
+          />
+          {errors.description && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errors.description.message}
+            </Typography>
+          )}
+        </div>
+
+        <div>
+          <Datepicker
+            displayFormat="DD/MM/YYYY"
+            primaryColor={"green"}
+            placeholder="Set deadline"
+            popoverDirection="up"
+            useRange={false}
+            separator="to"
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
+            containerClassName="relative border border-blue-gray-200 rounded-lg"
+          />
+          {errorDeadline && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errorDeadline}
+            </Typography>
+          )}
+        </div>
         <div className="w-full flex justify-end items-center">
           <Button
             className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white"
             type="submit"
+            loading={isSubmit}
           >
             <span className="normal-case xl:text-lg sm:text-base text-sm">
               Save changes

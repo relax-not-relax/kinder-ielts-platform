@@ -70,6 +70,7 @@ function LoginDialog({ isOpen, onClose }) {
         secure: true,
         sameSite: "strict",
       });
+      setActive(false);
     } catch (error) {
       onClose();
       enqueueSnackbar("Tên đăng nhập hoặc mật khẩu không đúng!", {

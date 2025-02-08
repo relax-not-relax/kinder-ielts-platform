@@ -3,17 +3,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, IconButton } from "@material-tailwind/react";
 import HomeworkDetailsDialog from "../course-student/HomeworkDetailsDialog";
+import formatDeadlineDate from "../../../utils/formatDeadlineDate";
 
-HomeworkLink.propTypes = {};
+HomeworkLink.propTypes = {
+  homework: PropTypes.object.isRequired,
+};
 
-function HomeworkLink(props) {
+function HomeworkLink({ homework }) {
   const [disableSection, setDisableSection] = React.useState(false);
   const handleDisableSection = () => setDisableSection(true);
   const handleEnableSection = () => setDisableSection(false);
 
-  const [openDetails, setOpenDetails] = React.useState(false);
-  const handleOpenDetails = () => setOpenDetails(true);
-  const handleCloseDetails = () => setOpenDetails(false);
+  /* Show this in student view */
+  // const [openDetails, setOpenDetails] = React.useState(false);
+  // const handleOpenDetails = () => setOpenDetails(true);
+  // const handleCloseDetails = () => setOpenDetails(false);
 
   return (
     <div>
@@ -46,31 +50,25 @@ function HomeworkLink(props) {
           <div className="flex flex-col gap-y-1">
             {disableSection ? (
               <p className="md:text-lg sm:text-base text-sm text-custom-blur-green font-semibold">
-                Homework 01
+                {homework.title}
               </p>
             ) : (
               <a
                 href="/"
                 className="md:text-lg sm:text-base text-sm text-custom-green font-semibold"
               >
-                Homework 01
+                {homework.title}
               </a>
             )}
             {disableSection ? (
               <div className="text-gray-300 md:text-base text-sm font-medium">
-                <p>
-                  After writing, students exchange their work and provide
-                  feedback.
-                </p>
-                <p>Due date: Sunday, 13 August 2023, 12:00 AM</p>
+                <p>{homework.description}</p>
+                <p>Due date: {formatDeadlineDate(homework.dueDate)}</p>
               </div>
             ) : (
               <div className="text-black md:text-base text-sm font-medium">
-                <p>
-                  After writing, students exchange their work and provide
-                  feedback.
-                </p>
-                <p>Due date: Sunday, 13 August 2023, 12:00 AM</p>
+                <p>{homework.description}</p>
+                <p>Due date: {formatDeadlineDate(homework.dueDate)}</p>
               </div>
             )}
 
