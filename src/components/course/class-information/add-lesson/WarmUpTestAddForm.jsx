@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useSnackbar } from "notistack";
-import classAPI from "../../../../api/classApi";
+import warmupTestAPI from "../../../../api/warmupTestApi";
 
 WarmUpTestAddForm.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -33,7 +33,10 @@ function WarmUpTestAddForm({ onClose, refresh, studyScheduleId }) {
     };
 
     try {
-      await classAPI.createWarmUpTestLink({ scheduleId: studyScheduleId }, req);
+      await warmupTestAPI.createWarmUpTestLink(
+        { scheduleId: studyScheduleId },
+        req
+      );
       onClose();
       refresh();
       setIsSubmit(false);

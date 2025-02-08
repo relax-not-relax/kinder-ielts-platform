@@ -8,6 +8,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import ProgressionDetails from "./ProgressionDetails";
+import { useSelector } from "react-redux";
 
 ProgressionInformation.propTypes = {};
 
@@ -43,48 +44,33 @@ function ProgressionInformation(props) {
   const [open, setOpen] = React.useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
+  const classInfo = useSelector((state) => state.classInformation.information);
 
   return (
     <div>
-      <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-        <AccordionHeader
-          onClick={() => handleOpen(1)}
-          className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
-        >
-          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
-            1. How to Write a Paragraph
-          </h4>
-        </AccordionHeader>
-        <AccordionBody>
-          <ProgressionDetails />
-        </AccordionBody>
-      </Accordion>
-      <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-        <AccordionHeader
-          onClick={() => handleOpen(2)}
-          className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
-        >
-          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
-            2. Writing short responses to given prompts
-          </h4>
-        </AccordionHeader>
-        <AccordionBody>
-          <ProgressionDetails />
-        </AccordionBody>
-      </Accordion>
-      <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-        <AccordionHeader
-          onClick={() => handleOpen(3)}
-          className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
-        >
-          <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
-            3. Vocabulary building for writing tasks
-          </h4>
-        </AccordionHeader>
-        <AccordionBody>
-          <ProgressionDetails />
-        </AccordionBody>
-      </Accordion>
+      {classInfo.detailInfo.studySchedules.map((schedule, index) => {
+        return (
+          <Accordion
+            open={open === index + 1}
+            icon={<Icon id={index + 1} open={open} />}
+            key={index + 1}
+          >
+            <AccordionHeader
+              onClick={() => handleOpen(index + 1)}
+              className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
+            >
+              <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
+                {schedule.title}
+              </h4>
+            </AccordionHeader>
+            <AccordionBody>
+              <ProgressionDetails
+                homeworkList={schedule.detailInfo.homeworks}
+              />
+            </AccordionBody>
+          </Accordion>
+        );
+      })}
     </div>
   );
 }

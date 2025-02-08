@@ -9,6 +9,7 @@ import MaterialFiles from "./MaterialFiles";
 import AddLessonDialog from "./add-lesson/AddLessonDialog";
 import { useSnackbar } from "notistack";
 import classAPI from "../../../api/classApi";
+import UpdateLessonInformationDialog from "./update-lesson/UpdateLessonInformationDialog";
 
 LessonDetails.propTypes = {
   schedule: PropTypes.object.isRequired,
@@ -21,6 +22,10 @@ function LessonDetails({ schedule }) {
   const [scheduleDetails, setScheduleDetails] = React.useState(schedule);
   const [isRefreshing, setIsRefreshing] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
+  const [openUpdate, setOpenUpdate] = React.useState(false);
+  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleCloseUpdate = () => setOpenUpdate(false);
 
   const refreshSchedule = async () => {
     setIsRefreshing(true);
@@ -74,6 +79,9 @@ function LessonDetails({ schedule }) {
               viewBox="0 -960 960 960"
               width="24px"
               fill="#159E64"
+              onClick={() => {
+                handleOpenUpdate();
+              }}
             >
               <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
             </svg>
@@ -114,7 +122,10 @@ function LessonDetails({ schedule }) {
           {scheduleDetails.detailInfo.warmUpTests.map((warmUpTest) => {
             return (
               <div key={warmUpTest.id}>
-                <WarmUpTestLink warmUpTest={warmUpTest} />
+                <WarmUpTestLink
+                  warmUpTest={warmUpTest}
+                  refresh={refreshSchedule}
+                />
               </div>
             );
           })}
@@ -127,7 +138,7 @@ function LessonDetails({ schedule }) {
           {scheduleDetails.detailInfo.homeworks.map((homework) => {
             return (
               <div key={homework.id}>
-                <HomeworkLink homework={homework} />
+                <HomeworkLink homework={homework} refresh={refreshSchedule} />
               </div>
             );
           })}
@@ -168,6 +179,12 @@ function LessonDetails({ schedule }) {
         onClose={handleCloseAddDialog}
         refresh={refreshSchedule}
         id={schedule.id}
+      />
+      <UpdateLessonInformationDialog
+        isOpen={openUpdate}
+        onClose={handleCloseUpdate}
+        refresh={refreshSchedule}
+        studySchedule={scheduleDetails}
       />
     </div>
   );

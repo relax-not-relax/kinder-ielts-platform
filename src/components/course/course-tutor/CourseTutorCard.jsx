@@ -11,13 +11,13 @@ import classAPI from "../../../api/classApi";
 import { useParams } from "react-router-dom";
 import formatTime from "../../../utils/formatTime";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-CourseTutorCard.propTypes = {
-  courseInfo: PropTypes.object.isRequired,
-};
+CourseTutorCard.propTypes = {};
 
-function CourseTutorCard({ courseInfo }) {
+function CourseTutorCard() {
   const [active, setActive] = React.useState(0);
+  const courseInfo = useSelector((state) => state.classInformation.information);
   const [tutorInfo, setTutorInfo] = React.useState(
     courseInfo.tutorResponses[0]
   );

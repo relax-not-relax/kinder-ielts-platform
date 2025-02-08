@@ -6,8 +6,8 @@ import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 import Datepicker from "react-tailwindcss-datepicker";
 import formatStartDateTime from "../../../../utils/formatStartDateTime";
 import formatEndDateTime from "../../../../utils/formatEndDateTime";
-import classAPI from "../../../../api/classApi";
 import { useSnackbar } from "notistack";
+import homeworkAPI from "../../../../api/homeworkApi";
 
 HomeworkAddForm.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -48,7 +48,10 @@ function HomeworkAddForm({ onClose, refresh, studyScheduleId }) {
     };
     setIsSubmit(true);
     try {
-      await classAPI.createHomeworkLink({ scheduleId: studyScheduleId }, req);
+      await homeworkAPI.createHomeworkLink(
+        { scheduleId: studyScheduleId },
+        req
+      );
       enqueueSnackbar("Thêm homework mới thành công!", {
         variant: "success",
         autoHideDuration: 3000,
