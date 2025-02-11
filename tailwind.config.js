@@ -24,6 +24,7 @@ export default withMT({
         "custom-green": "#159E64",
         "custom-red": "#D92323",
         "custom-blur-green": "#D0ECE0",
+        "custom-purple": "#6A1EB6",
       },
       progress: {
         defaultProps: {
