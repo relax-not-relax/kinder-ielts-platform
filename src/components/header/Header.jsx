@@ -45,7 +45,9 @@ function Header({ onOpen }) {
             color="blue-gray"
             className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold cursor-pointer"
           >
-            Sản phẩm
+            <NavLink href="#" className="flex items-center">
+              Sản phẩm
+            </NavLink>
           </Typography>
         </MenuHandler>
         <MenuList className="p-0 bg-custom-green border-0 rounded-none">
@@ -143,7 +145,7 @@ function Header({ onOpen }) {
                 className={`rounded-full normal-case xl:text-lg sm:text-base text-sm px-3 py-1 max-w-40 w-40 transition-all duration-300 ${
                   active
                     ? "bg-transparent text-yellow border-2 border-yellow"
-                    : "bg-yellow text-black"
+                    : "bg-yellow text-black border-2 border-yellow"
                 }`}
                 onMouseEnter={() => setActive(true)}
                 onMouseLeave={() => setActive(false)}
