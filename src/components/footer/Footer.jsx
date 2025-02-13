@@ -11,7 +11,7 @@ function Footer(props) {
         <img
           src={decor}
           alt="ft-decor"
-          className="h-72 object-cover object-center"
+          className="w-full xl:h-72 lg:h-64 md:h-56 object-cover object-center"
         />
       </div>
       <div className="relative z-[3] w-full py-16 lg:px-16 md:px-8 px-4 flex md:flex-row flex-col justify-between items-start xl:gap-x-24 lg:gap-x-24 md:gap-x-16 gap-y-6">
@@ -23,17 +23,17 @@ function Footer(props) {
           />
         </div>
         <div className="grow flex flex-col md:justify-between md:h-48 sm:justify-start gap-y-6">
-          <h3 className="xl:text-[42px] lg:text-2xl md:text-xl sm:text-base text-sm font-semibold text-white">
+          <h3 className="xl:text-[42px] lg:text-xl md:text-xl sm:text-base text-sm font-semibold text-white">
             Lớp học gia sư IELTS Online
           </h3>
           <p className="xl:text-2xl lg:text-lg md:text-base sm:text-sm text-xs text-white font-semibold">
             Tiếp cận từ tư duy <br /> Đơn giản hoá tiến trình luyện
           </p>
-          <p className="text-white font-normal md:block hidden">
+          <p className="text-white font-normal md:block hidden xl:text-base md:text-xs">
             ©2024 KINDER IELTS. ALL RIGHTS RESERVED.
           </p>
         </div>
-        <div className="flex-none flex flex-col grow justify-end xl:h-48 gap-y-5">
+        <div className="flex-none flex flex-col grow justify-end md:h-48 gap-y-5">
           <div className="flex flex-col gap-y-1">
             <div className="flex flex-row gap-x-2 items-center">
               <svg
@@ -47,7 +47,7 @@ function Footer(props) {
               </svg>
               <a
                 href="mailto:kinderielts@gmail.com"
-                className="text-white md:text-xl sm:text-sm text-xs"
+                className="text-white lg:text-lg md:text-base sm:text-sm text-xs"
               >
                 kinderielts@gmail.com
               </a>
@@ -64,7 +64,7 @@ function Footer(props) {
               </svg>
               <a
                 href="tel:+84829992352"
-                className="text-white md:text-xl sm:text-sm text-xs"
+                className="text-white lg:text-lg md:text-base sm:text-sm text-xs"
               >
                 0829.992.352 (Việt Phát)
               </a>
