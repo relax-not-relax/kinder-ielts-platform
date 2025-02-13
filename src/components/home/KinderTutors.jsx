@@ -97,7 +97,7 @@ function KinderTutors() {
         <img
           src={tutors[active].account.avatar}
           alt={tutors[active].fullName}
-          className="w-full h-full object-center object-cover rounded-xl lg:rounded-l-none rounded-t-none"
+          className="w-full h-full object-center object-cover lg:rounded-e-xl lg:rounded-l-none rounded-b-xl"
         />
       </div>
     </Card>
