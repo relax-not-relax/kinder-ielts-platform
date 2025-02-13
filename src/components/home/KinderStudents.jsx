@@ -43,22 +43,26 @@ function KinderStudents(props) {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % STUDENT_RESPONSES.length);
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <Card className="w-[70%] h-[500px] flex flex-row rounded-2xl">
-      <div className="flex-none w-[40%] p-12 flex flex-col justify-between">
+    <Card className="xl:w-[70%] lg:w-[85%] w-full lg:h-[500px] h-fit flex lg:flex-row flex-col rounded-2xl">
+      <div className="flex-none lg:w-[40%] lg:p-12 md:p-10 p-6 flex flex-col justify-between gap-y-10">
         <div className="flex flex-col gap-y-3 text-black">
-          <h3 className="text-xl font-bold">Phản hồi từ học viên Kinder</h3>
-          <div className="flex flex-row gap-x-2 items-center text-lg font-semibold">
+          <h3 className="xl:text-xl lg:text-lg sm:text-xl text-base font-bold">
+            Phản hồi từ học viên Kinder
+          </h3>
+          <div className="flex flex-row gap-x-2 items-center xl:text-lg lg:text-sm md:text-lg sm:text-base text-xs font-semibold">
             <p>{STUDENT_RESPONSES[active].name}</p>
             <p>-</p>
             <p>Học viên khoá {STUDENT_RESPONSES[active].course}</p>
           </div>
-          <p>{STUDENT_RESPONSES[active].rate}</p>
+          <p className="sm:text-base text-xs">
+            {STUDENT_RESPONSES[active].rate}
+          </p>
         </div>
         <div className="flex flex-col gap-y-4">
           <div className="flex items-center justify-center gap-x-2">
@@ -66,7 +70,7 @@ function KinderStudents(props) {
               return (
                 <div
                   key={index}
-                  className={`w-3 h-3 rounded-full ${
+                  className={`md:w-3 md:h-3 w-2 h-2 rounded-full ${
                     active === index ? "bg-custom-green" : "bg-gray-300"
                   } transition-all`}
                 ></div>
@@ -74,8 +78,7 @@ function KinderStudents(props) {
             })}
           </div>
           <Button
-            fullWidth
-            className={`rounded-full normal-case xl:text-lg sm:text-base text-sm px-3 py-1 transition-all duration-300 ${
+            className={`lg:w-full sm:w-fit w-full rounded-full normal-case xl:text-lg md:text-base sm:text-xs text-[10px] px-3 py-1 transition-all duration-300 ${
               activeButton
                 ? "bg-transparent text-yellow border-2 border-yellow"
                 : "bg-yellow text-black border-2 border-yellow"
@@ -90,45 +93,49 @@ function KinderStudents(props) {
           </Button>
         </div>
       </div>
-      <div className="flex-none w-[32%] h-full">
-        <img
-          src={STUDENT_RESPONSES[active].image}
-          alt={STUDENT_RESPONSES[active].name}
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
-      <div className="grow flex flex-col justify-between px-3 py-4">
-        <div className="flex flex-col gap-y-5 items-center">
-          <p className="text-black font-medium">Overall score</p>
-          <p className="text-8xl text-custom-red">
-            {STUDENT_RESPONSES[active].overall.toFixed(1)}
-          </p>
-          <p className="text-sm text-black">{STUDENT_RESPONSES[active].date}</p>
+      <div className="flex-none lg:w-[60%] w-full flex md:flex-row flex-col">
+        <div className="flex-none md:w-[50%] w-full h-full grow md:rounded-es-2xl lg:rounded-none rounded-none">
+          <img
+            src={STUDENT_RESPONSES[active].image}
+            alt={STUDENT_RESPONSES[active].name}
+            className="w-full h-full object-cover object-center md:rounded-es-2xl lg:rounded-none rounded-none"
+          />
         </div>
-        <div className="grid grid-cols-2 grid-rows-2 gap-5">
-          <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
-            <p className="text-black text-lg">Listening</p>
-            <p className="text-custom-red text-3xl font-semibold">
-              {STUDENT_RESPONSES[active].listening.toFixed(1)}
+        <div className="grow flex flex-col justify-between px-3 py-4 gap-y-4">
+          <div className="flex flex-col gap-y-5 items-center">
+            <p className="text-black font-medium">Overall score</p>
+            <p className="xl:text-8xl md:text-7xl text-6xl text-custom-red">
+              {STUDENT_RESPONSES[active].overall.toFixed(1)}
+            </p>
+            <p className="xl:text-sm lg:text-xs sm:text-base text-sm text-black">
+              {STUDENT_RESPONSES[active].date}
             </p>
           </div>
-          <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
-            <p className="text-black text-lg">Reading</p>
-            <p className="text-custom-red text-3xl font-semibold">
-              {STUDENT_RESPONSES[active].reading.toFixed(1)}
-            </p>
-          </div>
-          <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
-            <p className="text-black text-lg">Writing</p>
-            <p className="text-custom-red text-3xl font-semibold">
-              {STUDENT_RESPONSES[active].writing.toFixed(1)}
-            </p>
-          </div>
-          <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
-            <p className="text-black text-lg">Speaking</p>
-            <p className="text-custom-red text-3xl font-semibold">
-              {STUDENT_RESPONSES[active].speaking.toFixed(1)}
-            </p>
+          <div className="grid grid-cols-2 grid-rows-2 gap-5">
+            <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
+              <p className="text-black text-lg">Listening</p>
+              <p className="text-custom-red text-3xl font-semibold">
+                {STUDENT_RESPONSES[active].listening.toFixed(1)}
+              </p>
+            </div>
+            <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
+              <p className="text-black text-lg">Reading</p>
+              <p className="text-custom-red text-3xl font-semibold">
+                {STUDENT_RESPONSES[active].reading.toFixed(1)}
+              </p>
+            </div>
+            <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
+              <p className="text-black text-lg">Writing</p>
+              <p className="text-custom-red text-3xl font-semibold">
+                {STUDENT_RESPONSES[active].writing.toFixed(1)}
+              </p>
+            </div>
+            <div className="w-full h-32 flex flex-col justify-center items-center gap-y-2 shadow-md rounded-lg">
+              <p className="text-black text-lg">Speaking</p>
+              <p className="text-custom-red text-3xl font-semibold">
+                {STUDENT_RESPONSES[active].speaking.toFixed(1)}
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ HomeCourseCard.propTypes = {
 function HomeCourseCard({ course }) {
   const [active, setActive] = React.useState(false);
   return (
-    <Card className="sm:w-[22rem] w-[18rem] overflow-hidden">
+    <Card className="xl:w-[22rem] lg:w-[16rem] sm:w-[18rem] w-[12rem] overflow-hidden">
       <CardHeader
         floated={false}
         shadow={false}
@@ -32,27 +32,30 @@ function HomeCourseCard({ course }) {
       </CardHeader>
       <CardBody className="px-4 pt-3 pb-0">
         <article>
-          <h4 color="blue-gray" className="text-xl font-bold text-black">
+          <h4
+            color="blue-gray"
+            className="xl:text-xl lg:text-lg sm:text-xl font-bold text-black"
+          >
             {course.title}
           </h4>
-          <p className="sm:text-lg text-base text-black">
+          <p className="xl:text-lg lg:text-base sm:text-lg text-base text-black">
             Level: {course.level}
           </p>
-          <p className="sm:text-base text-xs text-black mt-3">
+          <p className="xl:text-base lg:text-xs text-xs text-black xl:mt-3 lg:mt-1 mt-2">
             Khoá học được giảng dạy bởi Tutor {course.tutor}
           </p>
-          <p className="sm:text-base text-xs text-black line-clamp-3">
+          <p className="xl:text-base lg:text-xs text-xs text-black line-clamp-3">
             {course.description}
           </p>
         </article>
-        <p className="mt-5 text-black text-2xl font-semibold">
+        <p className="xl:mt-5 lg:mt-2 mt-3 text-black xl:text-2xl lg:text-lg text-xl font-semibold">
           {formatPrice(course.price)}
         </p>
       </CardBody>
-      <CardFooter className="px-4">
-        <div className="flex flex-row justify-between items-center">
+      <CardFooter className="px-4 xl:py-6 lg:py-4">
+        <div className="flex sm:flex-row flex-col gap-y-2 justify-between items-center">
           <Button
-            className={`rounded-full normal-case xl:text-lg sm:text-base text-sm px-3 py-1 transition-all duration-300 ${
+            className={`rounded-full normal-case xl:text-lg sm:text-xs text-[10px] px-3 py-1 transition-all duration-300 ${
               active
                 ? "bg-transparent text-yellow border-2 border-yellow"
                 : "bg-yellow text-black border-2 border-yellow"
@@ -65,7 +68,7 @@ function HomeCourseCard({ course }) {
           >
             {active ? "Giá trị cốt lõi" : "Mua ngay"}
           </Button>
-          <Button className="bg-gray-400 rounded-full normal-case xl:text-lg sm:text-base text-sm px-3 py-1 text-black">
+          <Button className="bg-gray-400 rounded-full normal-case xl:text-lg sm:text-xs text-[10px] px-3 py-1 text-black">
             Thêm vào giỏ
           </Button>
         </div>
