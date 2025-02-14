@@ -10,50 +10,63 @@ import {
   Input,
   Option,
   Select,
+  Spinner,
   Textarea,
   Typography,
 } from "@material-tailwind/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Controller, useForm } from "react-hook-form";
+import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
-import classroomLinkAPI from "../../../../api/classroomLinkApi";
+import UpdateMaterialLinkDialog from "./UpdateMaterialLinkDialog";
+import studyMaterialAPI from "../../../../api/studyMaterialApi";
 
-UpdateClassroomLinkDialog.propTypes = {
-  classroomLink: PropTypes.object.isRequired,
+UpdateStudyMaterialDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  studyMaterials: PropTypes.object.isRequired,
   refresh: PropTypes.func.isRequired,
 };
 
-function UpdateClassroomLinkDialog({
-  classroomLink,
+function UpdateStudyMaterialDialog({
   isOpen,
   onClose,
+  studyMaterials,
   refresh,
 }) {
   const {
     register,
     handleSubmit,
     reset,
-    control,
     formState: { errors },
   } = useForm();
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [materialsList, setMaterialsList] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [selectedLink, setSelectedLink] = React.useState(null);
+  const [openUpdate, setOpenUpdate] = React.useState(false);
+  const handleOpenUpdate = (link) => {
+    setSelectedLink(link);
+    setOpenUpdate(true);
+  };
+  const handleCloseUpdate = () => setOpenUpdate(false);
+
+  React.useEffect(() => {
+    setMaterialsList(studyMaterials.links);
+  }, [studyMaterials]);
 
   const onSubmit = async (data) => {
     const req = {
       title: data.title,
       description: data.description,
-      link: data.link,
     };
     setIsSubmit(true);
     try {
-      await classroomLinkAPI.updateClassroomLinkInfo(
-        { id: classroomLink.id },
+      await studyMaterialAPI.updateStudyMaterial(
+        { id: studyMaterials.id },
         req
       );
-      enqueueSnackbar("Cập nhật classroom link thành công!", {
+      enqueueSnackbar("Cập nhật study materials thành công!", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
@@ -63,7 +76,7 @@ function UpdateClassroomLinkDialog({
       refresh();
       onClose();
     } catch (error) {
-      enqueueSnackbar("Cập nhật classroom link không thành công!", {
+      enqueueSnackbar("Cập nhật study materials không thành công!", {
         variant: "error",
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
@@ -78,6 +91,19 @@ function UpdateClassroomLinkDialog({
       reset();
     }
   };
+
+  const fetchLinksList = async () => {
+    setIsLoading(true);
+    try {
+      const res = await studyMaterialAPI.getStudyMaterials(studyMaterials.id);
+      setMaterialsList(res.data.links);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("Failed to fetch materials list: ", error);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Dialog
       open={isOpen}
@@ -89,7 +115,7 @@ function UpdateClassroomLinkDialog({
       <DialogHeader className="relative m-0 block">
         <div className="flex justify-between items-center">
           <h3 className="font-semibold sm:text-xl text-lg">
-            Cập nhật classroom link
+            Cập nhật study materials
           </h3>
           <IconButton
             size="sm"
@@ -120,9 +146,9 @@ function UpdateClassroomLinkDialog({
                   type="text"
                   size="lg"
                   {...register("title", {
-                    required: "Vui lòng nhập tiêu đề cho link",
+                    required: "Vui lòng nhập tiêu đề",
                   })}
-                  defaultValue={classroomLink.title}
+                  defaultValue={studyMaterials.title}
                   error={!!errors.title}
                 />
                 {errors.title && (
@@ -136,9 +162,9 @@ function UpdateClassroomLinkDialog({
                   color="gray"
                   label="Mô tả"
                   {...register("description", {
-                    required: "Vui lòng nhập mô tả cho link",
+                    required: "Vui lòng nhập mô tả",
                   })}
-                  defaultValue={classroomLink.description}
+                  defaultValue={studyMaterials.description}
                   error={!!errors.description}
                 />
                 {errors.description && (
@@ -147,49 +173,44 @@ function UpdateClassroomLinkDialog({
                   </Typography>
                 )}
               </div>
-              <div>
-                <Input
-                  label="Đường dẫn"
-                  type="text"
-                  size="lg"
-                  {...register("link", {
-                    required: "Vui lòng nhập đường dẫn",
-                  })}
-                  defaultValue={classroomLink.link}
-                  error={!!errors.link}
-                />
-                {errors.link && (
-                  <Typography color="red" className="text-xs mt-1 italic">
-                    {errors.link.message}
-                  </Typography>
+
+              <div className="mt-4">
+                <p className="text-sm mb-2 font-bold">Danh sách tài liệu</p>
+                {isLoading ? (
+                  <div className="w-full h-24 flex justify-center items-center">
+                    <Spinner />
+                  </div>
+                ) : (
+                  <div className="flex flex-col">
+                    {materialsList.map((material, key) => {
+                      return (
+                        <div
+                          className="flex justify-between items-center"
+                          key={key}
+                        >
+                          <a
+                            className="text-sm font-semibold text-blue-gray-600 underline"
+                            href={material.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={key}
+                          >
+                            {material.title}
+                          </a>
+                          <IconButton
+                            variant="text"
+                            onClick={() => {
+                              handleOpenUpdate(material);
+                            }}
+                          >
+                            <PencilSquareIcon className="h-4 w-4" />
+                          </IconButton>
+                        </div>
+                      );
+                    })}
+                  </div>
                 )}
               </div>
-              {/* <div className="w-full">
-                <Controller
-                  name="status"
-                  control={control}
-                  defaultValue={classroomLink.status.name}
-                  rules={{
-                    required: "Vui lòng chọn trạng thái",
-                  }}
-                  render={({ field }) => (
-                    <Select
-                      label="Trạng thái"
-                      onChange={(value) => field.onChange(value)}
-                      value={field.value}
-                      error={!!errors.status}
-                    >
-                      <Option value="VIEW">VIEW</Option>
-                      <Option value="HIDDEN">HIDDEN</Option>
-                    </Select>
-                  )}
-                />
-                {errors.status && (
-                  <Typography color="red" className="text-xs mt-1 italic">
-                    {errors.status.message}
-                  </Typography>
-                )}
-              </div> */}
               <div className="w-full flex justify-end items-center">
                 <Button
                   className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white"
@@ -205,8 +226,17 @@ function UpdateClassroomLinkDialog({
           </div>
         </div>
       </DialogBody>
+
+      {selectedLink && (
+        <UpdateMaterialLinkDialog
+          isOpen={openUpdate}
+          onClose={handleCloseUpdate}
+          materialLink={selectedLink}
+          refresh={fetchLinksList}
+        />
+      )}
     </Dialog>
   );
 }
 
-export default UpdateClassroomLinkDialog;
+export default UpdateStudyMaterialDialog;

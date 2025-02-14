@@ -3,14 +3,26 @@ import React from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
-import { Button, IconButton, Input } from "@material-tailwind/react";
+import {
+  Button,
+  IconButton,
+  Input,
+  Spinner,
+  Textarea,
+  Typography,
+} from "@material-tailwind/react";
+import axiosClient from "../../../../api/axiosClient";
+import { useSnackbar } from "notistack";
+import { useParams } from "react-router-dom";
+import studyMaterialAPI from "../../../../api/studyMaterialApi";
 
 FileUpload.propTypes = {
   onFilesChange: PropTypes.func.isRequired,
 };
 
 function FileUpload({ onFilesChange }) {
-  const maxFileSize = 30 * 1024 * 1024; // 30MB
+  const [errorUpload, setErrorUpload] = React.useState(null);
+  const [isUploading, setIsUploading] = React.useState(false);
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
@@ -19,16 +31,51 @@ function FileUpload({ onFilesChange }) {
         "application/pdf": [],
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
           [],
-        "image/jpeg": [],
+        "image/*": [],
         "audio/mp3": [],
         "video/mp4": [],
       },
-      maxSize: maxFileSize,
-      onDrop: (files) => onFilesChange(files),
+      onDrop: async (files) => {
+        const fileLink = await getFileLink(files);
+        if (fileLink) {
+          onFilesChange(fileLink);
+        } else {
+          setErrorUpload("File không hợp lệ");
+        }
+
+        if (errorUpload) {
+          setErrorUpload(null);
+        }
+      },
       onDropRejected: (rejections) => {
         console.error("Rejected files:", rejections);
+        setErrorUpload("File không hợp lệ: ", rejections);
       },
     });
+
+  const getFileLink = async (files) => {
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    try {
+      const res = await axiosClient.post(
+        `test/upload-file?itemPath=materialLinks`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setIsUploading(false);
+      return res.data;
+    } catch (error) {
+      setErrorUpload("File không hợp lệ");
+      console.log("Failed to upload file", error);
+      setIsUploading(false);
+      return null;
+    }
+  };
 
   const acceptedFilesList = acceptedFiles.map((file) => (
     <li key={file.path} className="line-clamp-2">
@@ -38,95 +85,204 @@ function FileUpload({ onFilesChange }) {
 
   return (
     <div className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg bg-white w-full">
-      <div
-        {...getRootProps({
-          className:
-            "flex flex-col items-center justify-center cursor-pointer w-full gap-y-2",
-        })}
-      >
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p className="text-gray-500">Drop the files here...</p>
-        ) : (
-          <>
-            <p className="md:text-sm text-xs text-black font-bold">
-              Drag your files here or click to upload
-            </p>
-            <em className="text-xs">(Up to 1 file allowed)</em>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="40px"
-              viewBox="0 -960 960 960"
-              width="40px"
-              fill="#159E64"
-            >
-              <path d="M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z" />
-            </svg>
-            <p className="text-black md:text-sm text-xs text-center">
-              Supported formats: PDF, DOCX, JPG, MP4, MP3 <br />
-              (Max size: 30MB)
-            </p>
-          </>
-        )}
-      </div>
-      <div className="mt-4 w-full">
-        <h4 className="text-sm font-bold">File uploaded:</h4>
-        <ul className="list-decimal">{acceptedFilesList}</ul>
-      </div>
+      {isUploading ? (
+        <Spinner />
+      ) : (
+        <>
+          <div
+            {...getRootProps({
+              className:
+                "flex flex-col items-center justify-center cursor-pointer w-full gap-y-2",
+            })}
+          >
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p className="text-gray-500">Drop the files here...</p>
+            ) : (
+              <>
+                <p className="md:text-sm text-xs text-black font-bold">
+                  Drag your files here or click to upload
+                </p>
+                <em className="text-xs">(Up to 1 file allowed)</em>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="40px"
+                  viewBox="0 -960 960 960"
+                  width="40px"
+                  fill="#159E64"
+                >
+                  <path d="M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z" />
+                </svg>
+                <p className="text-black md:text-sm text-xs text-center">
+                  Supported formats: PDF, DOCX, JPG, MP4, MP3 <br />
+                </p>
+              </>
+            )}
+          </div>
+
+          <div className="mt-4 w-full">
+            <h4 className="text-sm font-bold">File uploaded:</h4>
+            <ul className="list-decimal">{acceptedFilesList}</ul>
+          </div>
+          {errorUpload && (
+            <div className="mt-4 w-full text-red-600">
+              <ul className="list-decimal">{errorUpload}</ul>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
 
-function DynamicFileUploadForm() {
-  const { control, register, handleSubmit, setValue } = useForm({
+MaterialsAddForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  studyScheduleId: PropTypes.number.isRequired,
+};
+
+function MaterialsAddForm({ onClose, refresh, studyScheduleId }) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      fields: [{ title: "", files: [] }],
+      materialLinks: [{ title: "", link: "" }],
     },
   });
+  const [isSubmit, setIsSubmit] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "fields",
+    name: "materialLinks",
   });
 
-  const handleFileChange = (index, files) => {
-    setValue(`fields.${index}.files`, files);
+  const handleFileChange = (index, filePath) => {
+    setValue(`materialLinks.${index}.link`, filePath);
   };
 
-  const onSubmit = (data) => {
-    console.log(data.fields);
+  const onSubmit = async (data) => {
+    const req = {
+      title: data.title,
+      description: data.description,
+      privacyStatus: "PUBLIC",
+      studentIds: [],
+      materialLinks: data.materialLinks,
+    };
+    setIsSubmit(true);
+    try {
+      await studyMaterialAPI.createStudyMaterial(
+        { scheduleId: studyScheduleId },
+        req
+      );
+      enqueueSnackbar("Thêm study material mới thành công!", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      reset();
+      refresh();
+      onClose();
+      setIsSubmit(false);
+    } catch (error) {
+      enqueueSnackbar("Thêm study material không thành công!", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      enqueueSnackbar("Vui lòng thử lại!", {
+        variant: "warning",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      setIsSubmit(false);
+      onClose();
+      reset();
+    }
   };
 
   return (
     <div className="w-full max-h-[500px] overflow-y-scroll no-scrollbar">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 mt-1"
+      >
+        <div>
+          <Input
+            label="Tiêu đề"
+            type="text"
+            size="lg"
+            {...register("title", {
+              required: "Vui lòng nhập tiêu đề cho link",
+            })}
+            error={!!errors.title}
+          />
+          {errors.title && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errors.title.message}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <Textarea
+            color="gray"
+            label="Mô tả"
+            {...register("description", {
+              required: "Vui lòng nhập mô tả cho link",
+            })}
+            error={!!errors.description}
+          />
+          {errors.description && (
+            <Typography color="red" className="text-xs mt-1 italic">
+              {errors.description.message}
+            </Typography>
+          )}
+        </div>
         <div className="flex flex-col gap-y-4">
           {fields.map((field, index) => (
             <div
               key={field.id}
               className="flex flex-col gap-y-2 p-4 border border-blue-gray-200 rounded-xl"
             >
-              <Input {...register(`fields.${index}.title`)} label="Add title" />
+              <Input
+                {...register(`materialLinks.${index}.title`)}
+                label="Add title"
+              />
               <Controller
                 control={control}
-                name={`fields.${index}.files`}
+                name={`materialLinks.${index}.link`}
                 render={() => (
                   <FileUpload
-                    onFilesChange={(files) => handleFileChange(index, files)}
+                    onFilesChange={(filePath) =>
+                      handleFileChange(index, filePath)
+                    }
                   />
                 )}
               />
-              <Button onClick={() => remove(index)} color="red">
+              <Button
+                onClick={() => {
+                  if (fields.length > 1) {
+                    remove(index);
+                  } else {
+                    return;
+                  }
+                }}
+                color="red"
+              >
                 Remove
               </Button>
             </div>
           ))}
         </div>
-
         <IconButton
           variant="text"
           className="w-5 h-5 hover:bg-transparent my-4"
-          onClick={() => append({ title: "", files: [] })}
+          onClick={() => append({ title: "", link: "" })}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -140,8 +296,9 @@ function DynamicFileUploadForm() {
         </IconButton>
         <div className="w-full flex justify-end items-center">
           <Button
-            className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white mb-4 me-2"
+            className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white"
             type="submit"
+            loading={isSubmit}
           >
             <span className="normal-case xl:text-lg sm:text-base text-sm">
               Save changes
@@ -153,4 +310,4 @@ function DynamicFileUploadForm() {
   );
 }
 
-export default DynamicFileUploadForm;
+export default MaterialsAddForm;

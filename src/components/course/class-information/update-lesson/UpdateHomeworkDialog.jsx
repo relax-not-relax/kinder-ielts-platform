@@ -113,27 +113,28 @@ function UpdateHomeworkDialog({ homework, isOpen, onClose, refresh }) {
       handler={onClose}
       dismiss={{ outsidePress: false }}
       size="xs"
-      className="p-4"
+      className="md:p-4 p-2"
     >
       <DialogHeader className="relative m-0 block">
-        <Typography variant="h5" color="blue-gray">
-          Cập nhật homework
-        </Typography>
-        <Typography className="font-normal text-gray-600">
+        <div className="flex justify-between items-center">
+          <h3 className="font-semibold sm:text-xl text-lg">
+            Cập nhật homework
+          </h3>
+          <IconButton
+            size="sm"
+            variant="text"
+            onClick={() => {
+              onClose();
+              reset();
+            }}
+            disabled={isSubmit}
+          >
+            <XMarkIcon className="h-4 w-4 stroke-2" />
+          </IconButton>
+        </div>
+        <p className="sm:text-base text-xs font-light">
           Đảm bảo các thông tin thật chính xác
-        </Typography>
-        <IconButton
-          size="sm"
-          variant="text"
-          className="!absolute right-3.5 top-3.5"
-          onClick={() => {
-            onClose();
-            reset();
-          }}
-          disabled={isSubmit}
-        >
-          <XMarkIcon className="h-4 w-4 stroke-2" />
-        </IconButton>
+        </p>
       </DialogHeader>
       <DialogBody>
         <div className="flex flex-col gap-y-6">
@@ -236,14 +237,15 @@ function UpdateHomeworkDialog({ homework, isOpen, onClose, refresh }) {
                   </Typography>
                 )}
               </div> */}
-              <div className="w-full flex justify-end">
+              <div className="w-full flex justify-end items-center">
                 <Button
+                  className="rounded-full bg-yellow py-1 hover:bg-custom-red text-black hover:text-white"
                   type="submit"
-                  color="green"
                   loading={isSubmit}
-                  className="w-fit"
                 >
-                  Cập nhật
+                  <span className="normal-case xl:text-lg sm:text-base text-sm">
+                    Save changes
+                  </span>
                 </Button>
               </div>
             </form>

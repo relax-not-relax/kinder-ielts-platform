@@ -2,16 +2,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-tailwind/react";
+import UpdateStudyMaterialDialog from "./update-lesson/UpdateStudyMaterialDialog";
 
 MaterialFiles.propTypes = {
   materials: PropTypes.array.isRequired,
+  refresh: PropTypes.func.isRequired,
 };
 
-function MaterialFiles({ materials }) {
+function MaterialFiles({ materials, refresh }) {
   const [disableSection, setDisableSection] = React.useState(false);
 
   const handleDisableSection = () => setDisableSection(true);
   const handleEnableSection = () => setDisableSection(false);
+
+  const [openUpdate, setOpenUpdate] = React.useState(false);
+  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleCloseUpdate = () => setOpenUpdate(false);
 
   return (
     <div className="flex md:flex-row flex-col justify-between md:items-center items-start pb-2">
@@ -55,8 +61,6 @@ function MaterialFiles({ materials }) {
               {materials.links.map((link, key) => {
                 return <p key={key}>{link.title}</p>;
               })}
-              <p>Material 01: Day 01 slide deck</p>
-              <p>Material 02: Sample for Persuasive Paragraph</p>
             </div>
           ) : (
             <div className="text-black md:text-base text-sm font-medium flex flex-col ">
@@ -77,7 +81,12 @@ function MaterialFiles({ materials }) {
         </div>
       </div>
       <div className="flex flex-row items-start">
-        <IconButton variant="text">
+        <IconButton
+          variant="text"
+          onClick={() => {
+            handleOpenUpdate();
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24px"
@@ -116,6 +125,13 @@ function MaterialFiles({ materials }) {
           </IconButton>
         )}
       </div>
+
+      <UpdateStudyMaterialDialog
+        isOpen={openUpdate}
+        onClose={handleCloseUpdate}
+        studyMaterials={materials}
+        refresh={refresh}
+      />
     </div>
   );
 }

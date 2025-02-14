@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import ClassroomAddForm from "./ClassroomAddForm";
 import WarmUpTestAddForm from "./WarmUpTestAddForm";
 import HomeworkAddForm from "./HomeworkAddForm";
-import DynamicFileUploadForm from "./MaterialsAddForm";
+import MaterialsAddForm from "./MaterialsAddForm";
 
 AddLessonDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
@@ -55,7 +55,13 @@ function AddLessonDialog({ isOpen, onClose, refresh, id }) {
         );
         break;
       case "Materials":
-        setAddForm(<DynamicFileUploadForm />);
+        setAddForm(
+          <MaterialsAddForm
+            onClose={onClose}
+            refresh={refresh}
+            studyScheduleId={id}
+          />
+        );
         break;
       default:
         setAddForm(null);
