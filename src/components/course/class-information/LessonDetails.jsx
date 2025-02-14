@@ -151,7 +151,10 @@ function LessonDetails({ schedule }) {
           {scheduleDetails.detailInfo.studyMaterials.map((studyMaterial) => {
             return (
               <div key={studyMaterial.id}>
-                <MaterialFiles materials={studyMaterial} />
+                <MaterialFiles
+                  materials={studyMaterial}
+                  refresh={refreshSchedule}
+                />
               </div>
             );
           })}
