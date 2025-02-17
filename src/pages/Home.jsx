@@ -51,12 +51,12 @@ function Home(props) {
       <GuestOption />
       {/* <StudentOption /> */}
 
-      <div className="w-full lg:h-fit md:h-[90vh] h-[100vh] relative">
-        <div className="relative z-[2] lg:h-full md:h-[90vh] h-[100vh]">
+      <div className="w-full lg:h-fit md:h-[90vh] h-screen relative">
+        <div className="relative z-[2] lg:h-full md:h-[90vh] h-screen">
           <img
             src={banner2}
             alt="Khoá học online"
-            className="w-full lg:h-full md:h-[90vh] h-[100vh] object-cover object-center"
+            className="w-full lg:h-full md:h-[90vh] h-screen object-cover object-center"
           />
         </div>
         <div className="w-full h-full absolute top-0 left-0 z-[3] flex flex-col justify-center items-center xl:gap-y-6 lg:gap-y-3 gap-y-4 md:px-0 px-4">

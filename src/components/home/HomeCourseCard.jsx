@@ -17,7 +17,7 @@ HomeCourseCard.propTypes = {
 function HomeCourseCard({ course }) {
   const [active, setActive] = React.useState(false);
   return (
-    <Card className="xl:w-[22rem] lg:w-[16rem] sm:w-[18rem] w-[12rem] overflow-hidden">
+    <Card className="xl:w-[22rem] lg:w-[16rem] sm:w-[17rem] w-[12rem] overflow-hidden">
       <CardHeader
         floated={false}
         shadow={false}

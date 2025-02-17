@@ -42,7 +42,7 @@ function CourseSlider(props) {
     const updateCourseList = () => {
       if (window.matchMedia("(min-width: 769px)").matches) {
         setCourseList(ONLINE_COURSES);
-      } else if (window.matchMedia("(min-width: 426px)").matches) {
+      } else if (window.matchMedia("(min-width: 768px)").matches) {
         setCourseList(ONLINE_COURSES.slice(0, 2));
       } else {
         setCourseList(ONLINE_COURSES.slice(0, 1));
@@ -56,11 +56,11 @@ function CourseSlider(props) {
   }, []);
 
   return (
-    <div className="flex flex-row md:gap-x-8 sm:gap-x-4 gap-x-3 xl:mt-8 lg:mt-4 sm:mt-8 items-center justify-center ">
+    <div className="flex flex-row md:gap-x-8 sm:gap-x-4 xl:mt-8 lg:mt-4 sm:mt-8 items-center sm:justify-center justify-between w-full">
       <IconButton className="rounded-xl" color="white" size="md">
         <ChevronLeftIcon className="h-5 w-5 stroke-[3]" />
       </IconButton>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-rows-1 gap-8">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 grid-rows-1 gap-8">
         {courseList.map((course, key) => {
           return <HomeCourseCard key={key} course={course} />;
         })}
