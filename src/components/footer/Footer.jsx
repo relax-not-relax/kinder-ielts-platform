@@ -11,10 +11,10 @@ function Footer(props) {
         <img
           src={decor}
           alt="ft-decor"
-          className="w-full xl:h-72 lg:h-64 md:h-56 object-cover object-center"
+          className="h-full xl:w-[650px] lg:w-[620px] md:w-[600px] object-cover object-center"
         />
       </div>
-      <div className="relative z-[3] w-full py-16 lg:px-16 md:px-8 px-4 flex md:flex-row flex-col justify-between items-start xl:gap-x-24 lg:gap-x-24 md:gap-x-16 gap-y-6">
+      <div className="relative z-[3] w-full py-12 lg:px-16 md:px-8 px-4 flex md:flex-row flex-col justify-between items-start xl:gap-x-24 lg:gap-x-24 md:gap-x-16 gap-y-6">
         <div className="flex-none">
           <img
             className="xl:w-96 sm:w-56 w-48 h-auto object-cover object-center"
