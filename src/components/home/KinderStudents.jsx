@@ -64,7 +64,7 @@ function KinderStudents(props) {
             {STUDENT_RESPONSES[active].rate}
           </p>
         </div>
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col items-center gap-y-4">
           <div className="flex items-center justify-center gap-x-2">
             {STUDENT_RESPONSES.map((_, index) => {
               return (
