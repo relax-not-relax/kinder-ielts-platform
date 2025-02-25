@@ -10,6 +10,9 @@ const classAPI = {
   updateStudyScheduleById: ({ studyScheduleId }, data) => {
     return axiosClient.put(`study-schedule/${studyScheduleId}`, data);
   },
+  updateStudyScheduleStatus: (id) => {
+    return axiosClient.patch(`study-schedule/${id}/view-status`);
+  },
 };
 
 export default classAPI;

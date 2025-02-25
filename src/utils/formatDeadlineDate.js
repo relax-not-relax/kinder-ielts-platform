@@ -1,7 +1,7 @@
 export default function formatDeadlineDate(isoString) {
   const date = new Date(isoString);
   return date
-    .toLocaleString("en-GB", {
+    .toLocaleString("en-US", {
       weekday: "long",
       day: "2-digit",
       month: "long",

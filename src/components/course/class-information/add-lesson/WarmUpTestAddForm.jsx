@@ -5,14 +5,17 @@ import { useForm } from "react-hook-form";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useSnackbar } from "notistack";
 import warmupTestAPI from "../../../../api/warmupTestApi";
+import { useAtom, useSetAtom } from "jotai";
+import {
+  readRefreshScheduleAtom,
+  scheduleSelectedAtom,
+} from "../../../../store/mocks/scheduleAtom";
 
 WarmUpTestAddForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
-  studyScheduleId: PropTypes.number.isRequired,
 };
 
-function WarmUpTestAddForm({ onClose, refresh, studyScheduleId }) {
+function WarmUpTestAddForm({ onClose }) {
   const {
     register,
     handleSubmit,
@@ -22,6 +25,8 @@ function WarmUpTestAddForm({ onClose, refresh, studyScheduleId }) {
   } = useForm();
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [studySchedule] = useAtom(scheduleSelectedAtom);
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -34,11 +39,10 @@ function WarmUpTestAddForm({ onClose, refresh, studyScheduleId }) {
 
     try {
       await warmupTestAPI.createWarmUpTestLink(
-        { scheduleId: studyScheduleId },
+        { scheduleId: studySchedule.id },
         req
       );
       onClose();
-      refresh();
       setIsSubmit(false);
       reset();
       enqueueSnackbar("Thêm warm up test link thành công!", {
@@ -46,6 +50,7 @@ function WarmUpTestAddForm({ onClose, refresh, studyScheduleId }) {
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
+      refresh();
     } catch (error) {
       enqueueSnackbar("LỖI! Không thêm được warm up test link", {
         variant: "error",

@@ -15,6 +15,11 @@ import axiosClient from "../../../../api/axiosClient";
 import { useSnackbar } from "notistack";
 import { useParams } from "react-router-dom";
 import studyMaterialAPI from "../../../../api/studyMaterialApi";
+import { useAtom, useSetAtom } from "jotai";
+import {
+  readRefreshScheduleAtom,
+  scheduleSelectedAtom,
+} from "../../../../store/mocks/scheduleAtom";
 
 FileUpload.propTypes = {
   onFilesChange: PropTypes.func.isRequired,
@@ -137,11 +142,9 @@ function FileUpload({ onFilesChange }) {
 
 MaterialsAddForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
-  studyScheduleId: PropTypes.number.isRequired,
 };
 
-function MaterialsAddForm({ onClose, refresh, studyScheduleId }) {
+function MaterialsAddForm({ onClose }) {
   const {
     register,
     handleSubmit,
@@ -156,6 +159,8 @@ function MaterialsAddForm({ onClose, refresh, studyScheduleId }) {
   });
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [studySchedule] = useAtom(scheduleSelectedAtom);
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -177,18 +182,18 @@ function MaterialsAddForm({ onClose, refresh, studyScheduleId }) {
     setIsSubmit(true);
     try {
       await studyMaterialAPI.createStudyMaterial(
-        { scheduleId: studyScheduleId },
+        { scheduleId: studySchedule.id },
         req
       );
+      reset();
+      onClose();
+      setIsSubmit(false);
+      refresh();
       enqueueSnackbar("Thêm study material mới thành công!", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
-      reset();
-      refresh();
-      onClose();
-      setIsSubmit(false);
     } catch (error) {
       enqueueSnackbar("Thêm study material không thành công!", {
         variant: "error",

@@ -11,14 +11,16 @@ import LessonDetails from "./LessonDetails";
 import { useDispatch } from "react-redux";
 import { setTakeAttendanceDialog } from "../../../store/slices/takeAttendanceDialogSlice";
 import TakeAttendanceDialog from "./take-attendance/TakeAttendanceDialog";
+import { useAtom } from "jotai";
+import { scheduleSelectedAtom } from "../../../store/mocks/scheduleAtom";
 
 ClassInformation.propTypes = {
   schedules: PropTypes.array.isRequired,
 };
 
 Icon.propTypes = {
-  id: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
+  open: PropTypes.number.isRequired,
 };
 
 function Icon({ id, open }) {
@@ -62,8 +64,12 @@ function Icon({ id, open }) {
 
 export function ClassInformation({ schedules }) {
   const [open, setOpen] = React.useState(0);
+  const [scheduleSelected, setScheduleSelected] = useAtom(scheduleSelectedAtom);
 
-  const handleOpen = (value) => setOpen(open === value ? 0 : value);
+  const handleOpen = (value, selected) => {
+    setOpen(open === value ? 0 : value);
+    setScheduleSelected(selected);
+  };
 
   return (
     <div className="mt-6 md:px-8 px-4">
@@ -90,15 +96,21 @@ export function ClassInformation({ schedules }) {
             key={index + 1}
           >
             <AccordionHeader
-              onClick={() => handleOpen(index + 1)}
+              onClick={() => handleOpen(index + 1, schedule)}
               className="p-4 w-full flex flex-row justify-between items-center bg-custom-green/15"
             >
               <h4 className="xl:text-lg lg:text-base md:text-lg sm:text-base text-sm font-semibold">
-                {schedule.title}
+                {scheduleSelected && scheduleSelected.id === schedule.id
+                  ? scheduleSelected.title
+                  : schedule.title}
               </h4>
             </AccordionHeader>
             <AccordionBody>
-              <LessonDetails schedule={schedule} />
+              {scheduleSelected && scheduleSelected.id === schedule.id ? (
+                <LessonDetails schedule={scheduleSelected} />
+              ) : (
+                <></>
+              )}
             </AccordionBody>
           </Accordion>
         );

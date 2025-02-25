@@ -17,15 +17,16 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import warmupTestAPI from "../../../../api/warmupTestApi";
+import { useSetAtom } from "jotai";
+import { readRefreshScheduleAtom } from "../../../../store/mocks/scheduleAtom";
 
 UpdateWarmUpTestDialog.propTypes = {
   warmupTest: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 
-function UpdateWarmUpTestDialog({ warmupTest, isOpen, onClose, refresh }) {
+function UpdateWarmUpTestDialog({ warmupTest, isOpen, onClose }) {
   const {
     register,
     handleSubmit,
@@ -35,6 +36,7 @@ function UpdateWarmUpTestDialog({ warmupTest, isOpen, onClose, refresh }) {
   } = useForm();
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   const onSubmit = async (data) => {
     const req = {
@@ -45,15 +47,17 @@ function UpdateWarmUpTestDialog({ warmupTest, isOpen, onClose, refresh }) {
     setIsSubmit(true);
     try {
       await warmupTestAPI.updateWarmUpTestLink({ id: warmupTest.id }, req);
+
+      reset();
+
+      onClose();
       enqueueSnackbar("Cập nhật warm-up test thành công!", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
-      reset();
-      refresh();
-      onClose();
       setIsSubmit(false);
+      refresh();
     } catch (error) {
       enqueueSnackbar("Cập nhật warm-up test không thành công!", {
         variant: "error",

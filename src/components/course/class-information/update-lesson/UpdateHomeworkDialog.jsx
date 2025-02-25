@@ -20,15 +20,16 @@ import Datepicker from "react-tailwindcss-datepicker";
 import formatEndDateTime from "../../../../utils/formatEndDateTime";
 import formatStartDateTime from "../../../../utils/formatStartDateTime";
 import homeworkAPI from "../../../../api/homeworkApi";
+import { useSetAtom } from "jotai";
+import { readRefreshScheduleAtom } from "../../../../store/mocks/scheduleAtom";
 
 UpdateHomeworkDialog.propTypes = {
   homework: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 
-function UpdateHomeworkDialog({ homework, isOpen, onClose, refresh }) {
+function UpdateHomeworkDialog({ homework, isOpen, onClose }) {
   const {
     register,
     handleSubmit,
@@ -42,6 +43,7 @@ function UpdateHomeworkDialog({ homework, isOpen, onClose, refresh }) {
     startDate: homework.startDate,
     endDate: homework.dueDate,
   });
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   React.useEffect(() => {
     setValue({
@@ -73,19 +75,21 @@ function UpdateHomeworkDialog({ homework, isOpen, onClose, refresh }) {
         { id: homework.id },
         req
       );
-      enqueueSnackbar("Cập nhật homework thành công!", {
-        variant: "success",
-        autoHideDuration: 3000,
-        anchorOrigin: { vertical: "top", horizontal: "right" },
-      });
+
       reset();
-      refresh();
+
       onClose();
       setValue({
         startDate: res.data.startDate,
         endDate: res.data.dueDate,
       });
       setIsSubmit(false);
+      enqueueSnackbar("Cập nhật homework thành công!", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      refresh();
     } catch (error) {
       enqueueSnackbar("Cập nhật homework không thành công!", {
         variant: "error",

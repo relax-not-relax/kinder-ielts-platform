@@ -2,6 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "@material-tailwind/react";
+import aboutVideo from "../../assets/Kinder-4x3-Introduction-website.mp4";
 
 AboutKinder.propTypes = {};
 
@@ -38,7 +39,18 @@ function AboutKinder(props) {
           {active ? "Giá trị cốt lõi" : "Tìm hiểu thêm"}
         </Button>
       </div>
-      <div className="grow"></div>
+      <div className="grow">
+        <video
+          src={aboutVideo}
+          autoPlay
+          muted
+          loop
+          controls
+          onContextMenu={(e) => e.preventDefault()}
+          controlsList="nodownload"
+          className="w-full h-full object-cover object-center lg:rounded-e-2xl lg:rounded-l-none rounded-b-2xl"
+        ></video>
+      </div>
     </Card>
   );
 }

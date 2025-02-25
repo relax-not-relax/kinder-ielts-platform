@@ -13,6 +13,9 @@ const studyMaterialAPI = {
   getStudyMaterials: (id) => {
     return axiosClient.get(`study-material/info/${id}`);
   },
+  updateStudyMaterialStatus: (id) => {
+    return axiosClient.patch(`/study-material/${id}/view-status`);
+  },
 };
 
 export default studyMaterialAPI;

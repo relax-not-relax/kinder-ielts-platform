@@ -7,6 +7,9 @@ const classroomLinkAPI = {
   updateClassroomLinkInfo: ({ id }, data) => {
     return axiosClient.put(`classroom-link/${id}`, data);
   },
+  updateClassroomLinkStatus: (id) => {
+    return axiosClient.patch(`classroom-link/${id}/status`);
+  },
 };
 
 export default classroomLinkAPI;

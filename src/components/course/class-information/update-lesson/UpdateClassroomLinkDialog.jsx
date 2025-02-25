@@ -17,20 +17,16 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import classroomLinkAPI from "../../../../api/classroomLinkApi";
+import { useSetAtom } from "jotai";
+import { readRefreshScheduleAtom } from "../../../../store/mocks/scheduleAtom";
 
 UpdateClassroomLinkDialog.propTypes = {
   classroomLink: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 
-function UpdateClassroomLinkDialog({
-  classroomLink,
-  isOpen,
-  onClose,
-  refresh,
-}) {
+function UpdateClassroomLinkDialog({ classroomLink, isOpen, onClose }) {
   const {
     register,
     handleSubmit,
@@ -40,6 +36,7 @@ function UpdateClassroomLinkDialog({
   } = useForm();
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   const onSubmit = async (data) => {
     const req = {
@@ -53,15 +50,15 @@ function UpdateClassroomLinkDialog({
         { id: classroomLink.id },
         req
       );
+      setIsSubmit(false);
+      reset();
+      onClose();
       enqueueSnackbar("Cập nhật classroom link thành công!", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
-      setIsSubmit(false);
-      reset();
       refresh();
-      onClose();
     } catch (error) {
       enqueueSnackbar("Cập nhật classroom link không thành công!", {
         variant: "error",

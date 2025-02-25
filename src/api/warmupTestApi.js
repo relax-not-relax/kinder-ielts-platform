@@ -7,6 +7,9 @@ const warmupTestAPI = {
   updateWarmUpTestLink: ({ id }, data) => {
     return axiosClient.put(`warmup-test/${id}`, data);
   },
+  updateWarmUpTestStatus: (id) => {
+    return axiosClient.patch(`warmup-test/${id}/view-status`);
+  },
 };
 
 export default warmupTestAPI;
