@@ -17,56 +17,30 @@ import MaterialsAddForm from "./MaterialsAddForm";
 AddLessonDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
 };
 
-function AddLessonDialog({ isOpen, onClose, refresh, id }) {
+function AddLessonDialog({ isOpen, onClose }) {
   const [value, setValue] = React.useState("Classroom link");
   const [addForm, setAddForm] = React.useState(null);
 
   React.useEffect(() => {
     switch (value) {
       case "Classroom link":
-        setAddForm(
-          <ClassroomAddForm
-            onClose={onClose}
-            refresh={refresh}
-            studyScheduleId={id}
-          />
-        );
+        setAddForm(<ClassroomAddForm onClose={onClose} />);
         break;
       case "Warm-up test":
-        setAddForm(
-          <WarmUpTestAddForm
-            onClose={onClose}
-            refresh={refresh}
-            studyScheduleId={id}
-          />
-        );
+        setAddForm(<WarmUpTestAddForm onClose={onClose} />);
         break;
       case "Homework":
-        setAddForm(
-          <HomeworkAddForm
-            onClose={onClose}
-            refresh={refresh}
-            studyScheduleId={id}
-          />
-        );
+        setAddForm(<HomeworkAddForm onClose={onClose} />);
         break;
       case "Materials":
-        setAddForm(
-          <MaterialsAddForm
-            onClose={onClose}
-            refresh={refresh}
-            studyScheduleId={id}
-          />
-        );
+        setAddForm(<MaterialsAddForm onClose={onClose} />);
         break;
       default:
         setAddForm(null);
     }
-  }, [onClose, refresh, value, id]);
+  }, [onClose, value]);
 
   return (
     <Dialog open={isOpen} size="xs" className="rounded-3xl md:p-6 p-4">

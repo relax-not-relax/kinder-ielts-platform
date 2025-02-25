@@ -5,16 +5,57 @@ import { Button, IconButton } from "@material-tailwind/react";
 import HomeworkDetailsDialog from "../course-student/HomeworkDetailsDialog";
 import formatDeadlineDate from "../../../utils/formatDeadlineDate";
 import UpdateHomeworkDialog from "./update-lesson/UpdateHomeworkDialog";
+import homeworkAPI from "../../../api/homeworkApi";
+import { enqueueSnackbar } from "notistack";
 
 HomeworkLink.propTypes = {
   homework: PropTypes.object.isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 
-function HomeworkLink({ homework, refresh }) {
-  const [disableSection, setDisableSection] = React.useState(false);
-  const handleDisableSection = () => setDisableSection(true);
-  const handleEnableSection = () => setDisableSection(false);
+function HomeworkLink({ homework }) {
+  const [disableSection, setDisableSection] = React.useState(
+    homework.viewStatus.name === "VIEW" ? false : true
+  );
+
+  const [isSet, setIsSet] = React.useState(false);
+
+  const updateStatus = async () => {
+    setIsSet(true);
+    try {
+      await homeworkAPI.updateHomeworkStatus(homework.id);
+      setIsSet(false);
+      return true;
+    } catch (error) {
+      setIsSet(false);
+      enqueueSnackbar("Cập nhật trạng thái không thành công!", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      enqueueSnackbar("Vui lòng thử lại!", {
+        variant: "warning",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      return false;
+    }
+  };
+
+  const handleDisableSection = async () => {
+    if (await updateStatus()) {
+      setDisableSection(true);
+    } else {
+      return;
+    }
+  };
+
+  const handleEnableSection = async () => {
+    if (await updateStatus()) {
+      setDisableSection(false);
+    } else {
+      return;
+    }
+  };
 
   /* Show this in student view */
   // const [openDetails, setOpenDetails] = React.useState(false);
@@ -71,11 +112,13 @@ function HomeworkLink({ homework, refresh }) {
             {disableSection ? (
               <div className="text-gray-300 md:text-base text-sm font-medium">
                 <p>{homework.description}</p>
+                <p>Start date: {formatDeadlineDate(homework.startDate)}</p>
                 <p>Due date: {formatDeadlineDate(homework.dueDate)}</p>
               </div>
             ) : (
               <div className="text-black md:text-base text-sm font-medium">
                 <p>{homework.description}</p>
+                <p>Start date: {formatDeadlineDate(homework.startDate)}</p>
                 <p>Due date: {formatDeadlineDate(homework.dueDate)}</p>
               </div>
             )}
@@ -96,6 +139,7 @@ function HomeworkLink({ homework, refresh }) {
             onClick={() => {
               handleOpenUpdate();
             }}
+            disabled={isSet}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +152,11 @@ function HomeworkLink({ homework, refresh }) {
             </svg>
           </IconButton>
           {disableSection ? (
-            <IconButton variant="text" onClick={handleEnableSection}>
+            <IconButton
+              variant="text"
+              onClick={handleEnableSection}
+              disabled={isSet}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -120,7 +168,11 @@ function HomeworkLink({ homework, refresh }) {
               </svg>
             </IconButton>
           ) : (
-            <IconButton variant="text" onClick={handleDisableSection}>
+            <IconButton
+              variant="text"
+              onClick={handleDisableSection}
+              disabled={isSet}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -144,7 +196,6 @@ function HomeworkLink({ homework, refresh }) {
       <UpdateHomeworkDialog
         isOpen={openUpdate}
         onClose={handleCloseUpdate}
-        refresh={refresh}
         homework={homework}
       />
     </div>

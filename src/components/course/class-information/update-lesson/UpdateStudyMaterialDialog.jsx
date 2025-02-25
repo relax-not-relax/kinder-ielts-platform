@@ -19,20 +19,16 @@ import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import UpdateMaterialLinkDialog from "./UpdateMaterialLinkDialog";
 import studyMaterialAPI from "../../../../api/studyMaterialApi";
+import { useSetAtom } from "jotai";
+import { readRefreshScheduleAtom } from "../../../../store/mocks/scheduleAtom";
 
 UpdateStudyMaterialDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   studyMaterials: PropTypes.object.isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 
-function UpdateStudyMaterialDialog({
-  isOpen,
-  onClose,
-  studyMaterials,
-  refresh,
-}) {
+function UpdateStudyMaterialDialog({ isOpen, onClose, studyMaterials }) {
   const {
     register,
     handleSubmit,
@@ -50,6 +46,7 @@ function UpdateStudyMaterialDialog({
     setOpenUpdate(true);
   };
   const handleCloseUpdate = () => setOpenUpdate(false);
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   React.useEffect(() => {
     setMaterialsList(studyMaterials.links);
@@ -66,15 +63,15 @@ function UpdateStudyMaterialDialog({
         { id: studyMaterials.id },
         req
       );
+      setIsSubmit(false);
+      reset();
+      onClose();
+      refresh();
       enqueueSnackbar("Cập nhật study materials thành công!", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
-      setIsSubmit(false);
-      reset();
-      refresh();
-      onClose();
     } catch (error) {
       enqueueSnackbar("Cập nhật study materials không thành công!", {
         variant: "error",

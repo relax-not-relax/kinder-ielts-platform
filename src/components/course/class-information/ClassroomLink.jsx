@@ -3,19 +3,56 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-tailwind/react";
 import UpdateClassroomLinkDialog from "./update-lesson/UpdateClassroomLinkDialog";
+import classroomLinkAPI from "../../../api/classroomLinkApi";
+import { enqueueSnackbar } from "notistack";
 
 ClassroomLink.propTypes = {
   classroomLink: PropTypes.object.isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 
-function ClassroomLink({ classroomLink, refresh }) {
+function ClassroomLink({ classroomLink }) {
   const [disableSection, setDisableSection] = React.useState(
     classroomLink.status.name === "VIEW" ? false : true
   );
+  const [isSet, setIsSet] = React.useState(false);
 
-  const handleDisableSection = () => setDisableSection(true);
-  const handleEnableSection = () => setDisableSection(false);
+  const updateStatus = async () => {
+    setIsSet(true);
+    try {
+      await classroomLinkAPI.updateClassroomLinkStatus(classroomLink.id);
+      setIsSet(false);
+      return true;
+    } catch (error) {
+      setIsSet(false);
+      enqueueSnackbar("Cập nhật trạng thái không thành công!", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      enqueueSnackbar("Vui lòng thử lại!", {
+        variant: "warning",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      return false;
+    }
+  };
+
+  const handleDisableSection = async () => {
+    if (await updateStatus()) {
+      setDisableSection(true);
+    } else {
+      return;
+    }
+  };
+
+  const handleEnableSection = async () => {
+    if (await updateStatus()) {
+      setDisableSection(false);
+    } else {
+      return;
+    }
+  };
 
   const [openUpdate, setOpenUpdate] = React.useState(false);
   const handleOpenUpdate = () => setOpenUpdate(true);
@@ -66,6 +103,7 @@ function ClassroomLink({ classroomLink, refresh }) {
           onClick={() => {
             handleOpenUpdate();
           }}
+          disabled={isSet}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +116,11 @@ function ClassroomLink({ classroomLink, refresh }) {
           </svg>
         </IconButton>
         {disableSection ? (
-          <IconButton variant="text" onClick={handleEnableSection}>
+          <IconButton
+            variant="text"
+            onClick={handleEnableSection}
+            disabled={isSet}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
@@ -90,7 +132,11 @@ function ClassroomLink({ classroomLink, refresh }) {
             </svg>
           </IconButton>
         ) : (
-          <IconButton variant="text" onClick={handleDisableSection}>
+          <IconButton
+            variant="text"
+            onClick={handleDisableSection}
+            disabled={isSet}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
@@ -107,7 +153,6 @@ function ClassroomLink({ classroomLink, refresh }) {
       <UpdateClassroomLinkDialog
         isOpen={openUpdate}
         onClose={handleCloseUpdate}
-        refresh={refresh}
         classroomLink={classroomLink}
       />
     </div>

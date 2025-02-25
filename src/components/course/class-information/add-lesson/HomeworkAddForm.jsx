@@ -8,14 +8,17 @@ import formatStartDateTime from "../../../../utils/formatStartDateTime";
 import formatEndDateTime from "../../../../utils/formatEndDateTime";
 import { useSnackbar } from "notistack";
 import homeworkAPI from "../../../../api/homeworkApi";
+import { useAtom, useSetAtom } from "jotai";
+import {
+  readRefreshScheduleAtom,
+  scheduleSelectedAtom,
+} from "../../../../store/mocks/scheduleAtom";
 
 HomeworkAddForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
-  studyScheduleId: PropTypes.number.isRequired,
 };
 
-function HomeworkAddForm({ onClose, refresh, studyScheduleId }) {
+function HomeworkAddForm({ onClose }) {
   const [value, setValue] = React.useState({
     startDate: null,
     endDate: null,
@@ -23,6 +26,8 @@ function HomeworkAddForm({ onClose, refresh, studyScheduleId }) {
   const [errorDeadline, setErrorDeadline] = React.useState(null);
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [studySchedule] = useAtom(scheduleSelectedAtom);
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   const {
     register,
@@ -42,29 +47,31 @@ function HomeworkAddForm({ onClose, refresh, studyScheduleId }) {
       description: data.description,
       link: data.link,
       studentIds: [],
-      status: "NOT_ASSIGNED",
+      status: "ASSIGNED",
+      privacyStatus: "PUBLIC",
+      viewStatus: "VIEW",
       dueDate: formatEndDateTime(value.endDate),
       startDate: formatStartDateTime(value.startDate),
     };
     setIsSubmit(true);
     try {
       await homeworkAPI.createHomeworkLink(
-        { scheduleId: studyScheduleId },
+        { scheduleId: studySchedule.id },
         req
       );
-      enqueueSnackbar("Thêm homework mới thành công!", {
-        variant: "success",
-        autoHideDuration: 3000,
-        anchorOrigin: { vertical: "top", horizontal: "right" },
-      });
       reset();
-      refresh();
       onClose();
       setValue({
         startDate: null,
         endDate: null,
       });
       setIsSubmit(false);
+      refresh();
+      enqueueSnackbar("Thêm homework mới thành công!", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
     } catch (error) {
       enqueueSnackbar("Thêm homework không thành công!", {
         variant: "error",

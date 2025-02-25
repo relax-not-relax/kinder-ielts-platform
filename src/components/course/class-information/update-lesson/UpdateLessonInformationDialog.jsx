@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -17,20 +17,18 @@ import { useForm } from "react-hook-form";
 import Datepicker from "react-tailwindcss-datepicker";
 import formatDateTimeSchedule from "../../../../utils/formatDateTimeSchedule";
 import classAPI from "../../../../api/classApi";
+import { useAtom, useSetAtom } from "jotai";
+import {
+  readRefreshScheduleAtom,
+  scheduleSelectedAtom,
+} from "../../../../store/mocks/scheduleAtom";
 
 UpdateLessonInformationDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
-  studySchedule: PropTypes.object.isRequired,
 };
 
-function UpdateLessonInformationDialog({
-  isOpen,
-  onClose,
-  refresh,
-  studySchedule,
-}) {
+function UpdateLessonInformationDialog({ isOpen, onClose }) {
   const {
     register,
     handleSubmit,
@@ -40,6 +38,8 @@ function UpdateLessonInformationDialog({
   } = useForm();
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [studySchedule] = useAtom(scheduleSelectedAtom);
+  const refresh = useSetAtom(readRefreshScheduleAtom);
   const [value, setValue] = React.useState({
     startDate: studySchedule.fromTime,
     endDate: studySchedule.toTime,
@@ -75,15 +75,15 @@ function UpdateLessonInformationDialog({
         { studyScheduleId: studySchedule.id },
         request
       );
+      reset();
+      setIsSubmit(false);
+      onClose();
+      refresh();
       enqueueSnackbar("Cập nhật buổi học thành công!", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
-      reset();
-      setIsSubmit(false);
-      refresh();
-      onClose();
     } catch (error) {
       enqueueSnackbar("Cập nhật buổi học không thành công!", {
         variant: "error",

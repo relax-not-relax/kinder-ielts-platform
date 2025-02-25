@@ -5,14 +5,17 @@ import { useForm } from "react-hook-form";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useSnackbar } from "notistack";
 import classroomLinkAPI from "../../../../api/classroomLinkApi";
+import { useAtom, useSetAtom } from "jotai";
+import {
+  readRefreshScheduleAtom,
+  scheduleSelectedAtom,
+} from "../../../../store/mocks/scheduleAtom";
 
 ClassroomAddForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
-  studyScheduleId: PropTypes.number.isRequired,
 };
 
-function ClassroomAddForm({ onClose, refresh, studyScheduleId }) {
+function ClassroomAddForm({ onClose }) {
   const {
     register,
     handleSubmit,
@@ -22,23 +25,24 @@ function ClassroomAddForm({ onClose, refresh, studyScheduleId }) {
   } = useForm();
   const [isSubmit, setIsSubmit] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [studySchedule] = useAtom(scheduleSelectedAtom);
+  const refresh = useSetAtom(readRefreshScheduleAtom);
 
   const onSubmit = async (data) => {
     console.log(data);
     setIsSubmit(true);
     const req = {
-      studyScheduleId: studyScheduleId,
+      studyScheduleId: studySchedule.id,
       title: data.title,
       description: data.title,
       link: data.link,
     };
     try {
       await classroomLinkAPI.createClassroomLink(
-        { scheduleId: studyScheduleId },
+        { scheduleId: studySchedule.id },
         req
       );
       onClose();
-      refresh();
       setIsSubmit(false);
       reset();
       enqueueSnackbar("Thêm classroom link thành công!", {
@@ -46,6 +50,7 @@ function ClassroomAddForm({ onClose, refresh, studyScheduleId }) {
         autoHideDuration: 3000,
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
+      refresh();
     } catch (error) {
       enqueueSnackbar("LỖI! Không thêm được classroom link", {
         variant: "error",

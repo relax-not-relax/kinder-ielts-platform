@@ -204,7 +204,7 @@ function LoginDialog({ isOpen, onClose }) {
             </div>
             <div className="flex items-center justify-between h-16">
               <Button
-                className={`rounded-full normal-case xl:text-lg sm:text-xs text-[10px] px-3 py-1 max-w-80 xl:w-80 md:w-48 sm:w-32 transition-all duration-300 ${
+                className={`rounded-full normal-case xl:text-lg sm:text-xs text-[10px] px-3 py-1 max-w-80 xl:w-64 lg:w-48 md:w-48 sm:w-32 transition-all duration-300 ${
                   active
                     ? "bg-transparent text-yellow border-2 border-yellow"
                     : "bg-yellow text-black"

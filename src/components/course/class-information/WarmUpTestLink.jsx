@@ -3,19 +3,57 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-tailwind/react";
 import UpdateWarmUpTestDialog from "./update-lesson/UpdateWarmUpTestDialog";
+import warmupTestAPI from "../../../api/warmupTestApi";
+import { enqueueSnackbar } from "notistack";
 
 WarmUpTestLink.propTypes = {
   warmUpTest: PropTypes.object.isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 
-function WarmUpTestLink({ warmUpTest, refresh }) {
+function WarmUpTestLink({ warmUpTest }) {
   const [disableSection, setDisableSection] = React.useState(
     warmUpTest.status.name === "VIEW" ? false : true
   );
 
-  const handleDisableSection = () => setDisableSection(true);
-  const handleEnableSection = () => setDisableSection(false);
+  const [isSet, setIsSet] = React.useState(false);
+
+  const updateStatus = async () => {
+    setIsSet(true);
+    try {
+      await warmupTestAPI.updateWarmUpTestStatus(warmUpTest.id);
+      setIsSet(false);
+      return true;
+    } catch (error) {
+      setIsSet(false);
+      enqueueSnackbar("Cập nhật trạng thái không thành công!", {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      enqueueSnackbar("Vui lòng thử lại!", {
+        variant: "warning",
+        autoHideDuration: 3000,
+        anchorOrigin: { vertical: "top", horizontal: "right" },
+      });
+      return false;
+    }
+  };
+
+  const handleDisableSection = async () => {
+    if (await updateStatus()) {
+      setDisableSection(true);
+    } else {
+      return;
+    }
+  };
+
+  const handleEnableSection = async () => {
+    if (await updateStatus()) {
+      setDisableSection(false);
+    } else {
+      return;
+    }
+  };
 
   const [openUpdate, setOpenUpdate] = React.useState(false);
   const handleOpenUpdate = () => setOpenUpdate(true);
@@ -67,6 +105,7 @@ function WarmUpTestLink({ warmUpTest, refresh }) {
           onClick={() => {
             handleOpenUpdate();
           }}
+          disabled={isSet}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +118,11 @@ function WarmUpTestLink({ warmUpTest, refresh }) {
           </svg>
         </IconButton>
         {disableSection ? (
-          <IconButton variant="text" onClick={handleEnableSection}>
+          <IconButton
+            variant="text"
+            onClick={handleEnableSection}
+            disabled={isSet}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
@@ -91,7 +134,11 @@ function WarmUpTestLink({ warmUpTest, refresh }) {
             </svg>
           </IconButton>
         ) : (
-          <IconButton variant="text" onClick={handleDisableSection}>
+          <IconButton
+            variant="text"
+            onClick={handleDisableSection}
+            disabled={isSet}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
@@ -108,7 +155,6 @@ function WarmUpTestLink({ warmUpTest, refresh }) {
       <UpdateWarmUpTestDialog
         isOpen={openUpdate}
         onClose={handleCloseUpdate}
-        refresh={refresh}
         warmupTest={warmUpTest}
       />
     </div>
