@@ -19,6 +19,7 @@ import Cookies from "js-cookie";
 import LoginDialog from "./LoginDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginState } from "../../store/slices/loginStateSlice";
+import { coursesRoute, informationRoute } from "../../utils/routes";
 
 Header.propTypes = {
   onOpen: PropTypes.func.isRequired,
@@ -27,64 +28,61 @@ Header.propTypes = {
 function Header({ onOpen }) {
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-12">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold"
-      >
-        <NavLink href="#" className="flex items-center">
-          Giới thiệu
-        </NavLink>
-      </Typography>
       <Menu allowHover>
         <MenuHandler>
-          <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold cursor-pointer"
-          >
-            <NavLink href="#" className="flex items-center">
-              Sản phẩm
-            </NavLink>
-          </Typography>
+          <p className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold cursor-pointer">
+            Giới thiệu
+          </p>
         </MenuHandler>
         <MenuList className="p-0 bg-custom-green border-0 rounded-none">
-          {["khoá học", "khoá học video", "tài liệu"].map((val, index) => {
+          {informationRoute.map((val, index) => {
+            const className = `py-4 px-5 rounded-none text-white ${
+              index === 1 ? "" : "border-b border-white"
+            }`;
+            return (
+              <MenuItem key={index} className={className}>
+                <a
+                  className="xl:text-base lg:text-sm font-semibold"
+                  href={val.path}
+                >
+                  {val.name}
+                </a>
+              </MenuItem>
+            );
+          })}
+        </MenuList>
+      </Menu>
+      <Menu allowHover>
+        <MenuHandler>
+          <p className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold cursor-pointer">
+            Sản phẩm
+          </p>
+        </MenuHandler>
+        <MenuList className="p-0 bg-custom-green border-0 rounded-none">
+          {coursesRoute.map((val, index) => {
             const className = `py-4 px-5 rounded-none text-white ${
               index === 2 ? "" : "border-b border-white"
             }`;
             return (
               <MenuItem key={index} className={className}>
                 <Link className="capitalize xl:text-base lg:text-sm font-semibold">
-                  {val}
+                  {val.name}
                 </Link>
               </MenuItem>
             );
           })}
         </MenuList>
       </Menu>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold"
-      >
+      <p className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold">
         <NavLink href="#" className="flex items-center">
           Bài viết
         </NavLink>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold"
-      >
+      </p>
+      <p className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold">
         <NavLink href="#" className="flex items-center">
           Liên hệ
         </NavLink>
-      </Typography>
+      </p>
     </ul>
   );
 
