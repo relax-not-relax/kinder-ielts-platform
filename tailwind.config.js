@@ -22,6 +22,8 @@ export default withMT({
         //green: "#159E64",
         yellow: "#F6E721",
         "custom-green": "#159E64",
+        "custom-dark-green": "#125237",
+        "custom-yellow": "#EBA612",
         "custom-red": "#D92323",
         "custom-blur-green": "#D0ECE0",
         "custom-purple": "#6A1EB6",
