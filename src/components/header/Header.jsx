@@ -65,9 +65,12 @@ function Header({ onOpen }) {
             }`;
             return (
               <MenuItem key={index} className={className}>
-                <Link className="capitalize xl:text-base lg:text-sm font-semibold">
+                <a
+                  href={val.path}
+                  className="capitalize xl:text-base lg:text-sm font-semibold"
+                >
                   {val.name}
-                </Link>
+                </a>
               </MenuItem>
             );
           })}

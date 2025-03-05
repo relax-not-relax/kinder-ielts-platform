@@ -9,7 +9,7 @@ import {
   Card,
   Drawer,
   IconButton,
-  Typography,
+  p,
 } from "@material-tailwind/react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Footer from "../components/footer/Footer";
@@ -17,10 +17,12 @@ import logo from "../assets/logo_vang.png";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { setLoginState } from "../store/slices/loginStateSlice";
+import { coursesRoute, informationRoute } from "../utils/routes";
 
 function RootLayout(props) {
   const [openNav, setOpenNav] = React.useState(false);
   const [open, setOpen] = React.useState(1);
+  const [openInfo, setOpenInfo] = React.useState(1);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -28,6 +30,7 @@ function RootLayout(props) {
   }, [dispatch]);
 
   const handleOpenProduct = (value) => setOpen(open === value ? 0 : value);
+  const handleOpenInfo = (value) => setOpenInfo(openInfo === value ? 0 : value);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -51,13 +54,13 @@ function RootLayout(props) {
           className="p-4 bg-custom-green"
         >
           <div className="mb-6 flex items-center justify-between">
-            <Link>
+            <a href="/">
               <img
                 className="w-28 h-auto object-cover object-center"
                 src={logo}
                 alt="nature image"
               />
-            </Link>
+            </a>
             <IconButton variant="text" color="blue-gray" onClick={handleClose}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,65 +79,65 @@ function RootLayout(props) {
             </IconButton>
           </div>
           <div className="flex flex-col gap-y-2 mt-8">
-            <Typography
-              as="li"
-              variant="small"
-              color="blue-gray"
-              className="capitalize text-white text-base font-semibold"
-            >
-              <NavLink href="#" className="flex items-center">
-                Giới thiệu
-              </NavLink>
-            </Typography>
-            <Accordion open={open === 1}>
+            <Accordion open={openInfo === 0}>
+              <AccordionHeader
+                onClick={() => handleOpenInfo(1)}
+                className="py-0 text-base hover:text-white text-white border-none"
+              >
+                <p className="capitalize text-white text-base font-semibold">
+                  Giới thiệu
+                </p>
+              </AccordionHeader>
+              <AccordionBody>
+                <ul className="ps-4 list-none list-inside">
+                  {informationRoute.map((val, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="capitalize text-white text-base font-semibold underline"
+                      >
+                        <a href={val.path}>{val.name}</a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </AccordionBody>
+            </Accordion>
+            <Accordion open={open === 0}>
               <AccordionHeader
                 onClick={() => handleOpenProduct(1)}
                 className="py-0 text-base hover:text-white text-white border-none"
               >
-                Sản phẩm
+                <p className="capitalize text-white text-base font-semibold">
+                  Sản phẩm
+                </p>
               </AccordionHeader>
               <AccordionBody>
-                <ul className="ps-4 list-disc list-inside">
-                  {["khoá học", "khoá học video", "tài liệu"].map(
-                    (val, index) => {
-                      return (
-                        <Typography
-                          key={index}
-                          as="li"
-                          variant="small"
-                          color="blue-gray"
-                          className="capitalize text-white text-base font-semibold underline"
-                        >
-                          <NavLink href="#" className="flex items-center">
-                            {val}
-                          </NavLink>
-                        </Typography>
-                      );
-                    }
-                  )}
+                <ul className="ps-4 list-none list-inside">
+                  {coursesRoute.map((val, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="capitalize text-white text-base font-semibold underline"
+                      >
+                        <a href={val.path}>{val.name}</a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </AccordionBody>
             </Accordion>
-            <Typography
-              as="li"
-              variant="small"
-              color="blue-gray"
-              className="capitalize text-white text-base font-semibold"
-            >
+
+            <p className="capitalize text-white text-base font-semibold">
               <NavLink href="#" className="flex items-center">
                 Bài viết
               </NavLink>
-            </Typography>
-            <Typography
-              as="li"
-              variant="small"
-              color="blue-gray"
-              className="capitalize text-white text-base font-semibold"
-            >
+            </p>
+            <p className="capitalize text-white text-base font-semibold">
               <NavLink href="#" className="flex items-center">
                 Liên hệ
               </NavLink>
-            </Typography>
+            </p>
           </div>
         </Drawer>
       </React.Fragment>
