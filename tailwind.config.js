@@ -9,6 +9,18 @@ export default withMT({
     "path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
   ],
+  safelist: [
+    "text-custom-green",
+    "text-custom-yellow",
+    "text-custom-red",
+    "text-custom-purple",
+    "text-custom-dark-green",
+    "border-custom-green",
+    "border-custom-yellow",
+    "border-custom-red",
+    "border-custom-purple",
+    "border-custom-dark-green",
+  ],
   theme: {
     extend: {
       screens: {
