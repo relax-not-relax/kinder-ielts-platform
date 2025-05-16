@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
-import MyCourse from "./pages/course/MyCourse";
 import ElearningGrading from "./pages/course/ElearningGrading";
+import MyCourse from "./pages/course/MyCourse";
 import AboutKinderIelts from "./pages/information/AboutKinderIelts";
 
 function App() {
