@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import banner3 from "../../../assets/home-bnn-3.png";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Button, IconButton } from "@material-tailwind/react";
-import decor4 from "../../../assets/home-decor-4.png";
-import ClassScheduleSample from "../../../models/ClassScheduleSample";
+import PropTypes from "prop-types";
 import thumbnail1 from "../../../assets/class-thumbnail-1.png";
 import thumbnail2 from "../../../assets/class-thumbnail-2.png";
+import banner3 from "../../../assets/home-bnn-3.png";
+import decor4 from "../../../assets/home-decor-4.png";
+import ClassScheduleSample from "../../../models/ClassScheduleSample";
 import ClassScheduleEl from "../ClassScheduleEl";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import CourseCard from "../../course/course-management/CourseCard";
 import HomeMyCourseCard from "../HomeMyCourseCard";
 
 const CLASS_SCHEDULE = [
@@ -23,6 +22,7 @@ const CLASS_SCHEDULE = [
 ];
 
 function StudentOption(props) {
+  const { isEmpty } = props;
   return (
     <div>
       <div className="py-12 lg:px-16 md:px-8 px-4 flex flex-col md:gap-y-20 gap-y-12">
@@ -31,55 +31,59 @@ function StudentOption(props) {
         </h2>
 
         {/* Show when class list is existed */}
-        <div className="flex xl:flex-row flex-col gap-y-16 justify-between items-start">
-          <div className="flex flex-col gap-y-4">
-            <h4 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-semibold">
-              Lịch học
-            </h4>
-            {CLASS_SCHEDULE.map((c, key) => {
-              return <ClassScheduleEl key={key} el={c} />;
-            })}
-          </div>
-          <div className="flex flex-col gap-y-4">
-            <div className="flex flex-row gap-x-6 items-center">
+        {!isEmpty && (
+          <div className="flex xl:flex-row flex-col gap-y-16 justify-between items-start">
+            <div className="flex flex-col gap-y-4">
               <h4 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-semibold">
-                Khoá học của bạn
+                Lịch học
               </h4>
-              <div className="flex flex-row gap-x-2 items-center">
-                <IconButton size="sm" color="white">
-                  <ChevronLeftIcon className="h-4 w-4 stroke-[3]" />
-                </IconButton>
-                <IconButton size="sm" color="white">
-                  <ChevronRightIcon className="h-4 w-4 stroke-[3]" />
-                </IconButton>
+              {CLASS_SCHEDULE.map((c, key) => {
+                return <ClassScheduleEl key={key} el={c} />;
+              })}
+            </div>
+            <div className="flex flex-col gap-y-4">
+              <div className="flex flex-row gap-x-6 items-center">
+                <h4 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-semibold">
+                  Khoá học của bạn
+                </h4>
+                <div className="flex flex-row gap-x-2 items-center">
+                  <IconButton size="sm" color="white">
+                    <ChevronLeftIcon className="h-4 w-4 stroke-[3]" />
+                  </IconButton>
+                  <IconButton size="sm" color="white">
+                    <ChevronRightIcon className="h-4 w-4 stroke-[3]" />
+                  </IconButton>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 grid-cols-1 grid-rows-1 gap-6">
+                <HomeMyCourseCard />
+                <HomeMyCourseCard />
               </div>
             </div>
-            <div className="grid md:grid-cols-2 grid-cols-1 grid-rows-1 gap-6">
-              <HomeMyCourseCard />
-              <HomeMyCourseCard />
-            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Show when empty class list */}
-      {/* <div className="w-full lg:h-96 md:h-64 sm:h-56 h-48 md:mt-24 mt-0 relative md:px-0 px-4">
-        <div className="absolute bottom-0 z-[2] md:left-4 left-0">
-          <img
-            src={decor4}
-            alt="Tìm khoá học"
-            className="md:w-[95%] w-full object-cover object-center"
-          />
+      {isEmpty && (
+        <div className="w-full lg:h-96 md:h-64 sm:h-56 h-48 md:mt-24 mt-0 relative md:px-0 px-4">
+          <div className="absolute bottom-0 z-[2] md:left-4 left-0">
+            <img
+              src={decor4}
+              alt="Tìm khoá học"
+              className="md:w-[95%] w-full object-cover object-center"
+            />
+          </div>
+          <div className="relative w-full flex flex-col items-center md:gap-y-10 gap-y-6 z-[3]">
+            <h1 className="lg:text-6xl md:text-4xl sm:text-3xl text-2xl text-center font-medium">
+              Tìm ngay khóa học IELTS <br /> phù hợp với bạn
+            </h1>
+            <Button className="rounded-full normal-case xl:text-lg md:text-base sm:text-xs text-[10px] px-6 py-1 bg-custom-red text-white border-2 border-custom-red hover:bg-white hover:text-custom-red">
+              Tham khảo các khóa học
+            </Button>
+          </div>
         </div>
-        <div className="relative w-full flex flex-col items-center md:gap-y-10 gap-y-6 z-[3]">
-          <h1 className="lg:text-6xl md:text-4xl sm:text-3xl text-2xl text-center font-medium">
-            Tìm ngay khóa học IELTS <br /> phù hợp với bạn
-          </h1>
-          <Button className="rounded-full normal-case xl:text-lg md:text-base sm:text-xs text-[10px] px-6 py-1 bg-custom-red text-white border-2 border-custom-red hover:bg-white hover:text-custom-red">
-            Tham khảo các khóa học
-          </Button>
-        </div>
-      </div> */}
+      )}
 
       <div className="w-full md:h-fit sm:h-56 h-48 relative">
         <div className="relative z-[2]">
@@ -105,5 +109,13 @@ function StudentOption(props) {
     </div>
   );
 }
+
+//Validation StudentOption Props
+StudentOption.propTypes = {
+  isEmpty: PropTypes.bool,
+};
+StudentOption.defaultProps = {
+  isEmpty: false,
+};
 
 export default StudentOption;

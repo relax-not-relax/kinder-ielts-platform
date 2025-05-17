@@ -1,21 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import Header from "../components/header/Header";
 import {
   Accordion,
   AccordionBody,
   AccordionHeader,
-  Button,
-  Card,
   Drawer,
-  IconButton,
-  p,
+  IconButton
 } from "@material-tailwind/react";
-import { Link, NavLink, Outlet } from "react-router-dom";
-import Footer from "../components/footer/Footer";
-import logo from "../assets/logo_vang.png";
-import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { NavLink, Outlet } from "react-router-dom";
+import logo from "../assets/logo_vang.png";
+import Footer from "../components/footer/Footer";
+import Header from "../components/header/Header";
 import { setLoginState } from "../store/slices/loginStateSlice";
 import { coursesRoute, informationRoute } from "../utils/routes";
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { KEY } from "../constants";
 
 const axiosClient = axios.create({
   baseURL: "https://kinder-ielts.click/api/v1",
@@ -10,8 +11,8 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   (config) => {
-    const altToken = Cookies.get("refreshTokenKinderWeb");
-    const token = Cookies.get("accessTokenKinderWeb");
+    const altToken = Cookies.get(KEY.ACCESS_TOKEN);
+    const token = Cookies.get(KEY.REFRESH_TOKEN);
 
     if (config.useAltToken && altToken) {
       config.headers.Authorization = `Bearer ${altToken}`;
