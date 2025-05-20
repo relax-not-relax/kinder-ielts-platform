@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Button } from "@material-tailwind/react";
 import React from "react";
+import { useSelector } from "react-redux";
 import banner2 from "../assets/home-bnn-2.png";
 import banner from "../assets/home-bnn.png";
 import CourseSlider from "../components/home/CourseSlider";
@@ -11,8 +12,12 @@ Home.propTypes = {};
 
 function Home(props) {
   const [active, setActive] = React.useState(false);
-  const isLogin = false;
-  const hasCourse = true;
+  const loginStatus = useSelector((state) => state.loginState.value);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(null);
+
+  React.useEffect(() => {
+    setIsAuthenticated(loginStatus);
+  }, [loginStatus]);
 
   return (
     <div>
@@ -50,8 +55,8 @@ function Home(props) {
         </div>
       </div>
 
-      {isLogin && hasCourse && <StudentOption isEmpty={true} />}
-      {!isLogin && <GuestOption />}
+      {!!isAuthenticated && <StudentOption isEmpty={true} />}
+      {!isAuthenticated && <GuestOption />}
 
       <div className="w-full lg:h-fit md:h-[90vh] h-screen relative">
         <div className="relative z-[2] lg:h-full md:h-[90vh] h-screen">

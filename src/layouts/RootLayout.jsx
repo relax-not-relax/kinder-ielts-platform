@@ -4,7 +4,7 @@ import {
   AccordionBody,
   AccordionHeader,
   Drawer,
-  IconButton
+  IconButton,
 } from "@material-tailwind/react";
 import Cookies from "js-cookie";
 import React from "react";
@@ -13,6 +13,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import logo from "../assets/logo_vang.png";
 import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
+import { KEY } from "../constants";
 import { setLoginState } from "../store/slices/loginStateSlice";
 import { coursesRoute, informationRoute } from "../utils/routes";
 
@@ -23,7 +24,7 @@ function RootLayout(props) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(setLoginState(Boolean(Cookies.get("accessTokenKinderWeb"))));
+    dispatch(setLoginState(Boolean(Cookies.get(KEY.ACCESS_TOKEN))));
   }, [dispatch]);
 
   const handleOpenProduct = (value) => setOpen(open === value ? 0 : value);

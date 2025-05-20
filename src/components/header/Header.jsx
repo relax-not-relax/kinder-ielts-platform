@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import PropTypes from "prop-types";
 import {
   Avatar,
   Badge,
@@ -10,16 +8,18 @@ import {
   MenuHandler,
   MenuItem,
   MenuList,
-  Typography,
 } from "@material-tailwind/react";
-import logo from "../../assets/logo_vang.png";
-import ava from "../../assets/ava_place.png";
-import { Link, NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
-import LoginDialog from "./LoginDialog";
+import PropTypes from "prop-types";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import ava from "../../assets/ava_place.png";
+import logo from "../../assets/logo_vang.png";
+import { KEY, ROUTE_PAGE } from "../../constants";
 import { setLoginState } from "../../store/slices/loginStateSlice";
 import { coursesRoute, informationRoute } from "../../utils/routes";
+import LoginDialog from "./LoginDialog";
 
 Header.propTypes = {
   onOpen: PropTypes.func.isRequired,
@@ -77,7 +77,7 @@ function Header({ onOpen }) {
         </MenuList>
       </Menu>
       <p className="p-1 capitalize text-white xl:text-lg lg:text-base font-semibold">
-        <NavLink href="#" className="flex items-center">
+        <NavLink to={ROUTE_PAGE.ARTICLE_PAGE} className="flex items-center">
           Bài viết
         </NavLink>
       </p>
@@ -102,8 +102,8 @@ function Header({ onOpen }) {
   }, [loginStatus]);
 
   const logout = () => {
-    Cookies.remove("accessTokenKinderWeb");
-    Cookies.remove("refreshTokenKinderWeb");
+    Cookies.remove(KEY.ACCESS_TOKEN);
+    Cookies.remove(KEY.REFRESH_TOKEN);
     dispatch(setLoginState(false));
   };
 
