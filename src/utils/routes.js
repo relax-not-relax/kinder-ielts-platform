@@ -1,3 +1,5 @@
+import { ROUTE_PAGE } from "../constants";
+
 export const coursesRoute = [
   {
     name: "khoá học",
@@ -13,10 +15,17 @@ export const coursesRoute = [
   },
 ];
 
+export const articleRoute = [
+  {
+    name: "Bài viết",
+    path: "/article"
+  }
+]
+
 export const informationRoute = [
   {
     name: "Về Kinder IELTS",
-    path: "/about",
+    path: ROUTE_PAGE.ABOUT_PAGE,
   },
   {
     name: "Đội ngũ và học viên",

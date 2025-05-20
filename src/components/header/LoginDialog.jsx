@@ -1,28 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import PropTypes from "prop-types";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Button,
-  Chip,
   Dialog,
   DialogBody,
-  DialogFooter,
   DialogHeader,
   IconButton,
   Input,
-  Option,
-  Select,
-  Spinner,
-  Textarea,
   Typography,
 } from "@material-tailwind/react";
-import { PlusCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import Cookies from "js-cookie";
+import { useSnackbar } from "notistack";
+import PropTypes from "prop-types";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
 import authenticationAPI from "../../api/authenticationApi";
+import { KEY } from "../../constants";
 import { setLoginState } from "../../store/slices/loginStateSlice";
-import Cookies from "js-cookie";
 
 LoginDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
@@ -62,11 +57,11 @@ function LoginDialog({ isOpen, onClose }) {
       setIsSubmit(false);
       onClose();
       dispatch(setLoginState(true));
-      Cookies.set("accessTokenKinderWeb", res.data.accessToken, {
+      Cookies.set(KEY.ACCESS_TOKEN, res.data.accessToken, {
         secure: true,
         sameSite: "strict",
       });
-      Cookies.set("refreshTokenKinderWeb", res.data.refreshToken, {
+      Cookies.set(KEY.REFRESH_TOKEN, res.data.refreshToken, {
         secure: true,
         sameSite: "strict",
       });
