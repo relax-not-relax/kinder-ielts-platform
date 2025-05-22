@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { setProgressDialog } from "../../store/slices/progressDialogSlice";
-import ProgressionDialog from "../../components/course/progression/ProgressionDialog";
 import { Button } from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
+import ProgressionDialog from "../../components/course/progression/ProgressionDialog";
 import SubmissionTextView from "../../components/elearning-grading/SubmissionTextView";
 import TutorGradeView from "../../components/elearning-grading/TutorGradeView";
+import { setProgressDialog } from "../../store/slices/progressDialogSlice";
 
 ElearningGrading.propTypes = {};
 

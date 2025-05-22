@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import { IconButton } from "@material-tailwind/react";
+import { enqueueSnackbar } from "notistack";
 import PropTypes from "prop-types";
-import { Button, IconButton } from "@material-tailwind/react";
-import HomeworkDetailsDialog from "../course-student/HomeworkDetailsDialog";
+import React from "react";
+import homeworkAPI from "../../../api/homeworkApi";
 import formatDeadlineDate from "../../../utils/formatDeadlineDate";
 import UpdateHomeworkDialog from "./update-lesson/UpdateHomeworkDialog";
-import homeworkAPI from "../../../api/homeworkApi";
-import { enqueueSnackbar } from "notistack";
 
 HomeworkLink.propTypes = {
   homework: PropTypes.object.isRequired,
