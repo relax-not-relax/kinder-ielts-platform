@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { KEY } from "../constants";
 
-const isEmptyBaseURL = import.meta.env.VITE_BASE_URL.replaceAll("/", "")
+const isEmptyBaseURL = import.meta.env.VITE_BASE_URL?.replaceAll("/", "") ?? ""
 
 const axiosClient = axios.create({
   baseURL: isEmptyBaseURL ? import.meta.env.VITE_BASE_URL : "https://kinder-ielts.click/api/v1",
