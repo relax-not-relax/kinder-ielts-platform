@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import PropTypes from "prop-types";
-import tutorAPI from "../../api/tutorApi";
 import { Button, Card, Spinner } from "@material-tailwind/react";
+import React from "react";
+import tutorAPI from "../../api/tutorApi";
 
 KinderTutors.propTypes = {};
 
@@ -95,8 +94,8 @@ function KinderTutors() {
       </div>
       <div className="grow">
         <img
-          src={tutors[active].account.avatar}
-          alt={tutors[active].fullName}
+          src={tutors[active]?.account?.avatar}
+          alt={tutors[active]?.fullName}
           className="w-full h-full object-center object-cover lg:rounded-e-2xl lg:rounded-l-none rounded-b-2xl"
         />
       </div>

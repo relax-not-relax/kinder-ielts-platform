@@ -5,8 +5,10 @@ import { useSelector } from "react-redux";
 import banner2 from "../assets/home-bnn-2.png";
 import banner from "../assets/home-bnn.png";
 import CourseSlider from "../components/home/CourseSlider";
+import HomeCourseCard from "../components/home/HomeCourseCard";
 import GuestOption from "../components/home/actor-option/GuestOption";
 import StudentOption from "../components/home/actor-option/StudentOption";
+import { ONLINE_COURSES } from "../dummy/dmmy_data_course";
 
 Home.propTypes = {};
 
@@ -89,7 +91,12 @@ function Home(props) {
           >
             {active ? "Giá trị cốt lõi" : "Xem thêm"}
           </Button>
-          <CourseSlider />
+          <CourseSlider
+            data={ONLINE_COURSES}
+            renderItems={(item, index) => (
+              <HomeCourseCard key={index} course={item} />
+            )}
+          />
         </div>
       </div>
       <div className="py-24 w-full flex flex-col justify-center items-center xl:gap-y-6 lg:gap-y-3 gap-y-4 md:px-0 px-4">
@@ -115,7 +122,12 @@ function Home(props) {
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
-        <CourseSlider />
+        <CourseSlider
+          data={ONLINE_COURSES}
+          renderItems={(item, index) => (
+            <HomeCourseCard key={index} course={item} />
+          )}
+        />
       </div>
       <div className="pt-0 pb-24 w-full flex flex-col justify-center items-center xl:gap-y-6 lg:gap-y-3 gap-y-4 md:px-0 px-4">
         <h2 className="xl:text-6xl lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-custom-purple font-medium">
@@ -138,7 +150,12 @@ function Home(props) {
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
-        <CourseSlider />
+        <CourseSlider
+          data={ONLINE_COURSES}
+          renderItems={(item, index) => (
+            <HomeCourseCard key={index} course={item} />
+          )}
+        />
       </div>
     </div>
   );

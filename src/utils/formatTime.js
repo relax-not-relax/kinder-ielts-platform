@@ -1,4 +1,4 @@
 export default function formatTime(timeString) {
-  const formattedTime = timeString.split("+")[0];
+  const formattedTime = timeString ? timeString?.split("+")[0]: "00:00";
   return formattedTime;
 }
