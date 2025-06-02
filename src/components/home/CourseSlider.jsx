@@ -1,55 +1,36 @@
 /* eslint-disable no-unused-vars */
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { IconButton } from "@material-tailwind/react";
+import PropTypes from "prop-types";
 import React from "react";
-import CourseSample from "../../models/CourseSample";
-import thumbnail1 from "../../assets/course-thumbnail-1.png";
-import thumbnail2 from "../../assets/course-thumbnail-2.png";
-import thumbnail3 from "../../assets/course-thumbnail-3.png";
-import HomeCourseCard from "./HomeCourseCard";
-import { useMediaQuery } from "../../utils/useMediaQuery";
 
-const ONLINE_COURSES = [
-  new CourseSample(
-    thumbnail1,
-    "Hạt Giống",
-    "Beginner",
-    "Tín",
-    'Khóa học "Introduction to Speaking" là chương trình học trực tuyến được thiết kế để trang bị cho bạn các kỹ năng và chiến lược cần thiết để đạt kết quả cao trong bài thi Viết IELTS',
-    360000
-  ),
-  new CourseSample(
-    thumbnail2,
-    "Hạt Giống",
-    "Beginner",
-    "Tín",
-    'Khóa học "Introduction to Speaking" là chương trình học trực tuyến được thiết kế để trang bị cho bạn các kỹ năng và chiến lược cần thiết để đạt kết quả cao trong bài thi Viết IELTS',
-    360000
-  ),
-  new CourseSample(
-    thumbnail3,
-    "Hạt Giống",
-    "Beginner",
-    "Tín",
-    'Khóa học "Introduction to Speaking" là chương trình học trực tuyến được thiết kế để trang bị cho bạn các kỹ năng và chiến lược cần thiết để đạt kết quả cao trong bài thi Viết IELTS',
-    360000
-  ),
-];
+CourseSlider.propTypes = {
+  renderItems: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
+};
+
+CourseSlider.defaultProps = {
+  data: [],
+  renderItems: () => {},
+};
 
 function CourseSlider(props) {
-  const [courseList, setCourseList] = React.useState([]);
+  const { renderItems, data } = props;
+  const [lstItem, setLstItem] = React.useState([]);
   React.useLayoutEffect(() => {
     const updateCourseList = () => {
       if (window.matchMedia("(min-width: 769px)").matches) {
-        setCourseList(ONLINE_COURSES);
+        setLstItem(data);
       } else if (window.matchMedia("(min-width: 768px)").matches) {
-        setCourseList(ONLINE_COURSES.slice(0, 2));
+        setLstItem(data.slice(0, 2));
       } else {
-        setCourseList(ONLINE_COURSES.slice(0, 1));
+        setLstItem(data.slice(0, 1));
       }
     };
 
-    updateCourseList(); // Cập nhật ngay khi component mount
+    if (data.length > 0) {
+      updateCourseList(); // Cập nhật ngay khi component mount
+    } // Tránh lỗi khi data rỗng
 
     window.addEventListener("resize", updateCourseList); // Theo dõi sự thay đổi kích thước màn hình
     return () => window.removeEventListener("resize", updateCourseList); // Cleanup khi unmount
@@ -61,9 +42,15 @@ function CourseSlider(props) {
         <ChevronLeftIcon className="h-5 w-5 stroke-[3]" />
       </IconButton>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 grid-rows-1 gap-8">
-        {courseList.map((course, key) => {
-          return <HomeCourseCard key={key} course={course} />;
-        })}
+        {lstItem.length > 0 ? (
+          <React.Fragment>
+            {lstItem.map((item, index) => (
+              <React.Fragment key={index}>
+                {renderItems(item, index)}
+              </React.Fragment>
+            ))}
+          </React.Fragment>
+        ) : null}
       </div>
       <IconButton className="rounded-xl" color="white" size="md">
         <ChevronRightIcon className="h-5 w-5 stroke-[3]" />

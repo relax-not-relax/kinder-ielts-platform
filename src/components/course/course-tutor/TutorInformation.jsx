@@ -1,8 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
 import PropTypes from "prop-types";
-import tutorImg from "../../../assets/tutor_1.png";
-import tutorImg2 from "../../../assets/tutor_2.png";
 
 TutorInformation.propTypes = {
   tutorInfo: PropTypes.object.isRequired,
@@ -14,7 +11,7 @@ function TutorInformation({ tutorInfo }) {
       <div className="flex justify-center h-full">
         <img
           className="xl:h-36 xl:w-36 lg:h-32 lg:w-32 h-40 w-40 object-cover object-center rounded-xl"
-          src={tutorInfo.account.avatar}
+          src={tutorInfo?.account?.avatar}
           alt="tutor"
         />
       </div>
@@ -30,7 +27,7 @@ function TutorInformation({ tutorInfo }) {
                   Reading
                 </p>
                 <p className="text-yellow font-medium xl:text-base lg:text-sm sm:text-base text-xs">
-                  {tutorInfo.reading.toFixed(1)}
+                  {tutorInfo?.reading?.toFixed(1)}
                 </p>
               </div>
               <div className="px-3 py-2 flex flex-row items-center justify-between bg-custom-green xl:w-32 lg:w-28 sm:w-32 w-24 rounded-xl">
@@ -38,7 +35,7 @@ function TutorInformation({ tutorInfo }) {
                   Writing
                 </p>
                 <p className="text-yellow font-medium xl:text-base lg:text-sm sm:text-base text-xs">
-                  {tutorInfo.writing.toFixed(1)}
+                  {tutorInfo?.writing?.toFixed(1)}
                 </p>
               </div>
               <div className="px-3 py-2 flex flex-row items-center justify-between bg-custom-green xl:w-32 lg:w-28 sm:w-32 w-24 rounded-xl">
@@ -46,7 +43,7 @@ function TutorInformation({ tutorInfo }) {
                   Listening
                 </p>
                 <p className="text-yellow font-medium xl:text-base lg:text-sm sm:text-base text-xs">
-                  {tutorInfo.listening.toFixed(1)}
+                  {tutorInfo?.listening?.toFixed(1)}
                 </p>
               </div>
               <div className="px-3 py-2 flex flex-row items-center justify-between bg-custom-green xl:w-32 lg:w-28 sm:w-32 w-24 rounded-xl">
@@ -54,13 +51,13 @@ function TutorInformation({ tutorInfo }) {
                   Speaking
                 </p>
                 <p className="text-yellow font-medium xl:text-base lg:text-sm sm:text-base text-xs">
-                  {tutorInfo.speaking.toFixed(1)}
+                  {tutorInfo?.speaking?.toFixed(1)}
                 </p>
               </div>
             </div>
             <div className="xl:px-10 flex items-center justify-center grow bg-yellow rounded-xl">
               <p className="xl:text-5xl text-3xl text-custom-green font-bold">
-                {tutorInfo.overall.toFixed(1)}
+                {tutorInfo?.overall?.toFixed(1)}
               </p>
             </div>
           </div>
@@ -70,7 +67,7 @@ function TutorInformation({ tutorInfo }) {
             Bằng cấp và Giải thưởng:
           </h5>
           <ul className="list-disc ps-4 mt-2 md:w-[400px] w-full">
-            {tutorInfo.certificates.map((val) => {
+            {tutorInfo?.certificates?.map((val) => {
               return (
                 <li key={val.id} className="xl:text-base sm:text-sm text-xs">
                   {val.detail}

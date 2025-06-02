@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
 import { useDropzone } from "react-dropzone";
 
 function FileUpload(props) {
@@ -26,7 +25,7 @@ function FileUpload(props) {
     },
   });
 
-  const acceptedFilesList = acceptedFiles.map((file) => (
+  const acceptedFilesList = acceptedFiles?.map((file) => (
     <li key={file.path}>
       {file.path} - {(file.size / 1024 / 1024).toFixed(2)} MB
     </li>

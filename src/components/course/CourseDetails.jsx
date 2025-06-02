@@ -53,7 +53,9 @@ function CourseDetails() {
           Progression
         </Button>
       </div>
-      <ClassInformation schedules={courseInfo.detailInfo.studySchedules} />
+      <ClassInformation
+        schedules={courseInfo?.detailInfo?.studySchedules ?? []}
+      />
       <AllMyCourse />
       <AcademicArticle />
 

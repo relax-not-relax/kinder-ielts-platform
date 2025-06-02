@@ -1,17 +1,9 @@
 /* eslint-disable no-unused-vars */
-import {
-  Breadcrumbs,
-  IconButton,
-  Spinner,
-  Typography,
-} from "@material-tailwind/react";
+import { Breadcrumbs, IconButton, Typography } from "@material-tailwind/react";
 import React from "react";
-import TutorInformation from "./TutorInformation";
-import classAPI from "../../../api/classApi";
-import { useParams } from "react-router-dom";
-import formatTime from "../../../utils/formatTime";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import formatTime from "../../../utils/formatTime";
+import TutorInformation from "./TutorInformation";
 
 CourseTutorCard.propTypes = {};
 
@@ -19,21 +11,21 @@ function CourseTutorCard() {
   const [active, setActive] = React.useState(0);
   const courseInfo = useSelector((state) => state.classInformation.information);
   const [tutorInfo, setTutorInfo] = React.useState(
-    courseInfo.tutorResponses[0]
+    courseInfo?.tutorResponses[0] ?? []
   );
 
   const next = () => {
     if (active === 1) return;
 
     setActive(active + 1);
-    setTutorInfo(courseInfo.tutorResponses[active + 1]);
+    setTutorInfo(courseInfo?.tutorResponses[active + 1]);
   };
 
   const prev = () => {
     if (active === 0) return;
 
     setActive(active - 1);
-    setTutorInfo(courseInfo.tutorResponses[active - 1]);
+    setTutorInfo(courseInfo?.tutorResponses[active - 1]);
   };
 
   return (
@@ -46,26 +38,26 @@ function CourseTutorCard() {
           Khoá học của tôi
         </a>
         <a href="#" className="font-semibold sm:text-xs text-[10px] capitalize">
-          {courseInfo.belongToCourse.level.name}-{courseInfo.code}
+          {courseInfo?.belongToCourse.level.name}-{courseInfo?.code}
         </a>
       </Breadcrumbs>
       <h3 className="xl:mt-12 lg:mt-8 mt-3 xl:text-xl lg:text-lg text-xl font-semibold mb-3">
         Course level
       </h3>
       <h2 className="font-bold xl:text-5xl lg:text-4xl text-3xl uppercase">
-        {courseInfo.belongToCourse.level.name}
+        {courseInfo?.belongToCourse.level.name}
       </h2>
       <div className="mt-4 text-black xl:text-lg lg:text-base sm:text-sm text-xs font-medium">
         <h4>
-          Mã lớp ({courseInfo.code}) | {formatTime(courseInfo.fromTime)} -{" "}
-          {formatTime(courseInfo.toTime)}
+          Mã lớp ({courseInfo?.code}) | {formatTime(courseInfo?.fromTime)} -{" "}
+          {formatTime(courseInfo?.toTime)}
         </h4>
         <div className="flex flex-row gap-x-1">
           <h4>Gia sư</h4>
-          {courseInfo.tutorResponses.map((tutor, key) => {
+          {courseInfo?.tutorResponses?.map((tutor, key) => {
             const divide = (
               <span>
-                {key === courseInfo.tutorResponses.length - 1 ? "" : "&"}
+                {key === courseInfo?.tutorResponses?.length - 1 ? "" : "&"}
               </span>
             );
             return (
@@ -77,7 +69,7 @@ function CourseTutorCard() {
           })}
         </div>
       </div>
-      {courseInfo.tutorResponses.length > 1 ? (
+      {courseInfo?.tutorResponses?.length > 1 ? (
         <div className="w-full flex items-center justify-between my-4">
           <IconButton
             size="sm"

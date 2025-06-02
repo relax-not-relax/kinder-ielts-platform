@@ -1,8 +1,14 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
 import banner from "../../assets/home-bnn.png";
+import ArticleCard from "../../components/article/ArticleCard";
 import SearchBar from "../../components/article/SearchBar";
 import CourseSlider from "../../components/home/CourseSlider";
+import {
+  LIST_BLOG,
+  LIST_INSIGHTS,
+  LIST_SELF_STUDY_MATERIAL,
+} from "../../dummy/dummy_data_article";
 
 function ArticlePage() {
   const [active, setActive] = React.useState(false);
@@ -14,6 +20,7 @@ function ArticlePage() {
     { href: "#", label: "Bài mẫu Speaking" },
     { href: "#", label: "Thông tin khoá học" },
   ];
+
   return (
     <div>
       <div className="w-full relative">
@@ -118,7 +125,12 @@ function ArticlePage() {
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
-        <CourseSlider />
+        <CourseSlider
+          data={LIST_INSIGHTS}
+          renderItems={(item, index) => (
+            <ArticleCard key={index} article={item} />
+          )}
+        />
       </div>
       <div className="py-24 w-full flex flex-col justify-center items-center xl:gap-y-6 lg:gap-y-3 gap-y-4 md:px-0 px-4">
         <h2 className="xl:text-6xl lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-custom-purple font-medium">
@@ -145,7 +157,12 @@ function ArticlePage() {
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
-        <CourseSlider />
+        <CourseSlider
+          data={LIST_BLOG}
+          renderItems={(item, index) => (
+            <ArticleCard key={index} article={item} />
+          )}
+        />
       </div>
       <div className="py-24 w-full flex flex-col justify-center items-center xl:gap-y-6 lg:gap-y-3 gap-y-4 md:px-0 px-4">
         <h2 className="xl:text-6xl lg:text-5xl md:text-4xl sm:text-3xl text-2xl text-custom-purple font-medium">
@@ -170,7 +187,12 @@ function ArticlePage() {
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
-        <CourseSlider />
+        <CourseSlider
+          data={LIST_SELF_STUDY_MATERIAL}
+          renderItems={(item, index) => (
+            <ArticleCard key={index} article={item} />
+          )}
+        />
       </div>
     </div>
   );
