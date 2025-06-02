@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import PropTypes from "prop-types";
 import { Button } from "@material-tailwind/react";
-import { ClassInformation } from "./class-information/ClassInformation";
-import AllMyCourse from "./course-management/AllMyCourse";
-import AcademicArticle from "./article/AcademicArticle";
-import MangeClassDialog from "./class/MangeClassDialog";
-import AttendanceDialog from "./attendance/AttendanceDialog";
-import ProgressionDialog from "./progression/ProgressionDialog";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProgressDialog } from "../../store/slices/progressDialogSlice";
+import AcademicArticle from "./article/AcademicArticle";
+import AttendanceDialog from "./attendance/AttendanceDialog";
+import { ClassInformation } from "./class-information/ClassInformation";
+import MangeClassDialog from "./class/MangeClassDialog";
+import AllMyCourse from "./course-management/AllMyCourse";
+import ProgressionDialog from "./progression/ProgressionDialog";
 
 CourseDetails.propTypes = {};
 
