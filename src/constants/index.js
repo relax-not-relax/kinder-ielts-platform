@@ -1,9 +1,19 @@
 export const KEY = {
-ACCESS_TOKEN: "accessTokenKinderWeb",
-REFRESH_TOKEN: "refreshTokenKinderWeb"
-}
+  ACCESS_TOKEN: "accessTokenKinderWeb",
+  REFRESH_TOKEN: "refreshTokenKinderWeb",
+};
 
 export const ROUTE_PAGE = {
-    ABOUT_PAGE: "about",
-    ARTICLE_PAGE: "article"
-}
+  ABOUT_PAGE: "about",
+  TEAM_STUDENTS_PAGE: "teams&students",
+
+  ARTICLE_PAGE: "article",
+
+  COURSES_PAGE: "courses",
+  COURSES_VIDEO_PAGE: "courses/videos",
+  COURSES_DOCUMENT_PAGE: "courses/documents",
+
+  MY_CLASS_PAGE: "my-class/:id",
+
+  HOMEWORK_PAGE: "homework/:id",
+};

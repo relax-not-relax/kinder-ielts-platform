@@ -17,8 +17,8 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
-        <Route path="my-class/:id" element={<MyCourse />} />
-        <Route path="homework/:id" element={<ElearningGrading />} />
+        <Route path={ROUTE_PAGE.MY_CLASS_PAGE} element={<MyCourse />} />
+        <Route path={ROUTE_PAGE.HOMEWORK_PAGE} element={<ElearningGrading />} />
         <Route path={ROUTE_PAGE.ABOUT_PAGE} element={<AboutKinderIelts />} />
         <Route path={ROUTE_PAGE.ARTICLE_PAGE} element={<ArticlePage />} />
       </Route>

@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
+import { Button, Card } from "@material-tailwind/react";
 import React from "react";
+import banner1 from "../../../assets/home-bnn-1.png";
 import decor1 from "../../../assets/home-decor-1.png";
 import decor2 from "../../../assets/home-decor-2.png";
 import decor3 from "../../../assets/home-decor-3.png";
 import decor4 from "../../../assets/home-decor-4.png";
-import banner1 from "../../../assets/home-bnn-1.png";
 import AboutKinder from "../AboutKinder";
-import KinderTutors from "../KinderTutors";
 import KinderStudents from "../KinderStudents";
-import { Button, Card } from "@material-tailwind/react";
+import KinderTutors from "../KinderTutors";
 
 const ATTRACTIVE_LIST = [
   {

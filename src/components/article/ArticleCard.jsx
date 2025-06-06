@@ -16,11 +16,18 @@ function ArticleCard({ article }) {
         color="transparent"
         className="m-0 rounded-none"
       >
-        <img
-          src={article.imgUrl}
-          alt="article thumbnail"
-          className="object-cover object-center"
-        />
+        <div className="w-full h-48 relative">
+          <img
+            src={article.imgUrl}
+            alt="article thumbnail"
+            className="w-full h-full object-cover object-center"
+          />
+          {!!article.type && (
+            <div className="bg-yellow text-black font-normal rounded-lg px-4 absolute top-2 left-2 flex items-center justify-center">
+              <p>{article.type}</p>
+            </div>
+          )}
+        </div>
       </CardHeader>
       <CardBody className="px-4 pt-3 pb-0">
         <article>

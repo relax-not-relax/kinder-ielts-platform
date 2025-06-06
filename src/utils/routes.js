@@ -3,24 +3,24 @@ import { ROUTE_PAGE } from "../constants";
 export const coursesRoute = [
   {
     name: "khoá học",
-    path: "/courses",
+    path: ROUTE_PAGE.ARTICLE_PAGE,
   },
   {
     name: "khoá học video",
-    path: "/courses/videos",
+    path: ROUTE_PAGE.COURSES_VIDEO_PAGE,
   },
   {
     name: "tài liệu",
-    path: "/courses/documents",
+    path: ROUTE_PAGE.COURSES_DOCUMENT_PAGE,
   },
 ];
 
 export const articleRoute = [
   {
     name: "Bài viết",
-    path: "/article"
-  }
-]
+    path: ROUTE_PAGE.ARTICLE_PAGE,
+  },
+];
 
 export const informationRoute = [
   {
@@ -29,6 +29,6 @@ export const informationRoute = [
   },
   {
     name: "Đội ngũ và học viên",
-    path: "/teams&students",
+    path: ROUTE_PAGE.TEAM_STUDENTS,
   },
 ];
