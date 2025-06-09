@@ -1,5 +1,6 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
+import { ARTICLE_IMAGE } from "../../assets/article_image";
 import banner from "../../assets/home-bnn.png";
 import ArticleCard from "../../components/article/ArticleCard";
 import SearchBar from "../../components/article/SearchBar";
@@ -29,6 +30,7 @@ function ArticlePage() {
           alt="kinder-banner"
           className="relative w-full h-full object-cover object-center z-[2]"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-custom-green via-transparent via-20% to-transparent to-80% z-[2]" />
         <div className="absolute z-[3] w-full max-w-3xl mx-auto xl:bottom-24 lg:bottom-16 md:bottom-10 sm:bottom-8 bottom-2 left-0 lg:px-16 md:px-8 px-4">
           <div className="flex flex-col md:gap-y-4 gap-y-1 xl:text-8xl lg:text-7xl md:text-5xl sm:text-3xl text-xl text-yellow font-bold">
             <h3>BÀI VIẾT</h3>
@@ -75,7 +77,7 @@ function ArticlePage() {
 
         <div className="bg-white shadow-2xl rounded-lg w-full flex flex-row gap-3 md:flex-row max-w-5xl h-96 overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d"
+            src={ARTICLE_IMAGE.article_card_thumbnail}
             alt="books"
             className="w-2/3 h-full rounded-l-lg object-cover"
           />
