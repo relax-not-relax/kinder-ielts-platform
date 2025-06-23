@@ -3,7 +3,7 @@ import { ROUTE_PAGE } from "../constants";
 export const coursesRoute = [
   {
     name: "khoá học",
-    path: ROUTE_PAGE.ARTICLE_PAGE,
+    path: ROUTE_PAGE.COURSES_PAGE,
   },
   {
     name: "khoá học video",

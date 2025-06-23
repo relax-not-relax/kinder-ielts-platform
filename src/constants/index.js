@@ -8,6 +8,9 @@ export const ROUTE_PAGE = {
   TEAM_STUDENTS_PAGE: "teams&students",
 
   ARTICLE_PAGE: "article",
+  ARTICLE_INSIGHTS_PAGE: "article/insights",
+  ARTICLE_BLOG_PAGE: "article/blog",
+  ARTICLE_SELF_STUDY_MATERIAL_PAGE: "article/materials",
 
   COURSES_PAGE: "courses",
   COURSES_VIDEO_PAGE: "courses/videos",
