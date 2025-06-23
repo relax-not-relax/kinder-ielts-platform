@@ -7,6 +7,9 @@ import {
 import { ROUTE_PAGE } from "./constants";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
+import ArticleBlogPage from "./pages/article/ArticleBlogPage";
+import ArticleInsightsPage from "./pages/article/ArticleInsightsPage";
+import ArticleMaterialPage from "./pages/article/ArticleMaterialPage";
 import ArticlePage from "./pages/article/ArticlePage";
 import ElearningGrading from "./pages/course/ElearningGrading";
 import MyCourse from "./pages/course/MyCourse";
@@ -21,6 +24,18 @@ function App() {
         <Route path={ROUTE_PAGE.HOMEWORK_PAGE} element={<ElearningGrading />} />
         <Route path={ROUTE_PAGE.ABOUT_PAGE} element={<AboutKinderIelts />} />
         <Route path={ROUTE_PAGE.ARTICLE_PAGE} element={<ArticlePage />} />
+        <Route
+          path={ROUTE_PAGE.ARTICLE_BLOG_PAGE}
+          element={<ArticleBlogPage />}
+        />
+        <Route
+          path={ROUTE_PAGE.ARTICLE_INSIGHTS_PAGE}
+          element={<ArticleInsightsPage />}
+        />
+        <Route
+          path={ROUTE_PAGE.ARTICLE_SELF_STUDY_MATERIAL_PAGE}
+          element={<ArticleMaterialPage />}
+        />
       </Route>
     )
   );

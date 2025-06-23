@@ -5,13 +5,17 @@ import banner from "../../assets/home-bnn.png";
 import ArticleCard from "../../components/article/ArticleCard";
 import SearchBar from "../../components/article/SearchBar";
 import CourseSlider from "../../components/home/CourseSlider";
+import { ROUTE_PAGE } from "../../constants";
 import {
   LIST_BLOG,
   LIST_INSIGHTS,
   LIST_SELF_STUDY_MATERIAL,
 } from "../../dummy/dummy_data_article";
+import useNavigatePage from "../../hook/useNavigatePage";
 
 function ArticlePage() {
+  const { goToPage } = useNavigatePage();
+
   const [active, setActive] = React.useState(false);
   const links = [
     { href: "#", label: "Luyện đề cơ bản" },
@@ -124,6 +128,7 @@ function ArticlePage() {
           onMouseDown={() => setActive(true)}
           onMouseUp={() => setActive(false)}
           onBlur={() => setActive(false)}
+          onClick={() => goToPage(ROUTE_PAGE.ARTICLE_INSIGHTS_PAGE)}
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
