@@ -161,6 +161,7 @@ function ArticlePage() {
           onMouseDown={() => setActive(true)}
           onMouseUp={() => setActive(false)}
           onBlur={() => setActive(false)}
+          onClick={() => goToPage(ROUTE_PAGE.ARTICLE_BLOG_PAGE)}
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
@@ -191,6 +192,7 @@ function ArticlePage() {
           onMouseDown={() => setActive(true)}
           onMouseUp={() => setActive(false)}
           onBlur={() => setActive(false)}
+          onClick={() => goToPage(ROUTE_PAGE.ARTICLE_SELF_STUDY_MATERIAL_PAGE)}
         >
           {active ? "Giá trị cốt lõi" : "Xem thêm"}
         </Button>
