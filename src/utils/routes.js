@@ -20,6 +20,22 @@ export const articleRoute = [
     name: "Bài viết",
     path: ROUTE_PAGE.ARTICLE_PAGE,
   },
+  {
+    name: "Bài viết INSIGHTS",
+    path: `${ROUTE_PAGE.ARTICLE_PAGE}/${ROUTE_PAGE.ARTICLE_INSIGHTS_PAGE}`,
+  },
+  {
+    name: "Bài viết BLOG",
+    path: `${ROUTE_PAGE.ARTICLE_PAGE}/${ROUTE_PAGE.ARTICLE_BLOG_PAGE}`,
+  },
+  {
+    name: "Bài viết tài liệu tự học",
+    path: `${ROUTE_PAGE.ARTICLE_PAGE}/${ROUTE_PAGE.ARTICLE_SELF_STUDY_MATERIAL_PAGE}`,
+  },
+  {
+    name: "Chi tiết bài viết",
+    path: `${ROUTE_PAGE.ARTICLE_PAGE}/${ROUTE_PAGE.ARTICLE_DETAIL}`,
+  },
 ];
 
 export const informationRoute = [
