@@ -8,6 +8,7 @@ import { ROUTE_PAGE } from "./constants";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import ArticleBlogPage from "./pages/article/ArticleBlogPage";
+import ArticleDetail from "./pages/article/ArticleDetail";
 import ArticleInsightsPage from "./pages/article/ArticleInsightsPage";
 import ArticleMaterialPage from "./pages/article/ArticleMaterialPage";
 import ArticlePage from "./pages/article/ArticlePage";
@@ -16,6 +17,24 @@ import MyCourse from "./pages/course/MyCourse";
 import AboutKinderIelts from "./pages/information/AboutKinderIelts";
 
 function App() {
+  const articleRoute = (
+    <Route path={ROUTE_PAGE.ARTICLE_PAGE}>
+      <Route index element={<ArticlePage />} />
+      <Route
+        path={ROUTE_PAGE.ARTICLE_BLOG_PAGE}
+        element={<ArticleBlogPage />}
+      />
+      <Route
+        path={ROUTE_PAGE.ARTICLE_INSIGHTS_PAGE}
+        element={<ArticleInsightsPage />}
+      />
+      <Route
+        path={ROUTE_PAGE.ARTICLE_SELF_STUDY_MATERIAL_PAGE}
+        element={<ArticleMaterialPage />}
+      />
+      <Route path={ROUTE_PAGE.ARTICLE_DETAIL} element={<ArticleDetail />} />
+    </Route>
+  );
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
@@ -23,19 +42,8 @@ function App() {
         <Route path={ROUTE_PAGE.MY_CLASS_PAGE} element={<MyCourse />} />
         <Route path={ROUTE_PAGE.HOMEWORK_PAGE} element={<ElearningGrading />} />
         <Route path={ROUTE_PAGE.ABOUT_PAGE} element={<AboutKinderIelts />} />
-        <Route path={ROUTE_PAGE.ARTICLE_PAGE} element={<ArticlePage />} />
-        <Route
-          path={ROUTE_PAGE.ARTICLE_BLOG_PAGE}
-          element={<ArticleBlogPage />}
-        />
-        <Route
-          path={ROUTE_PAGE.ARTICLE_INSIGHTS_PAGE}
-          element={<ArticleInsightsPage />}
-        />
-        <Route
-          path={ROUTE_PAGE.ARTICLE_SELF_STUDY_MATERIAL_PAGE}
-          element={<ArticleMaterialPage />}
-        />
+
+        {articleRoute}
       </Route>
     )
   );

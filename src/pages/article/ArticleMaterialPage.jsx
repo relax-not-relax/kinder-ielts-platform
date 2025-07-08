@@ -6,7 +6,6 @@ import { LIST_SELF_STUDY_MATERIAL } from "../../dummy/dummy_data_article";
 function ArticleMaterialPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Responsive */}
       <div className="w-full h-96 relative">
         <img
           src={ARTICLE_IMAGE.materials_banner}
@@ -27,7 +26,6 @@ function ArticleMaterialPage() {
         </div>
       </div>
 
-      {/* Navigation - Mobile Optimized */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <div className="flex items-center text-xs sm:text-sm mb-4 sm:mb-6">
           <span>Trang Chủ</span>
@@ -38,7 +36,6 @@ function ArticleMaterialPage() {
         </div>
       </div>
 
-      {/* Articles Grid - Fully Responsive */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {LIST_SELF_STUDY_MATERIAL.map((item, index) => (

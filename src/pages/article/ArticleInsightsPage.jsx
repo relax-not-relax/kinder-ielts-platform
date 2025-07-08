@@ -6,7 +6,7 @@ import { LIST_INSIGHTS } from "../../dummy/dummy_data_article";
 function ArticleInsightsPage() {
   const categories = [
     "Luyện đề cơ bản",
-    "Luyện đề năng cao",
+    "Luyện đề nâng cao",
     "Bộ trợ kỹ nâng",
     "Bài mẫu Writing",
     "Bài mẫu Speaking",
