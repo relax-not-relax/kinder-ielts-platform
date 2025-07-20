@@ -45,6 +45,6 @@ export const informationRoute = [
   },
   {
     name: "Đội ngũ và học viên",
-    path: ROUTE_PAGE.TEAM_STUDENTS,
+    path: ROUTE_PAGE.TEAM_STUDENTS_PAGE,
   },
 ];
