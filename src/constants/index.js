@@ -5,7 +5,7 @@ export const KEY = {
 
 export const ROUTE_PAGE = {
   ABOUT_PAGE: "about",
-  TEAM_STUDENTS_PAGE: "teams&students",
+  TEAM_STUDENTS_PAGE: "teams-students",
 
   ARTICLE_PAGE: "article",
   ARTICLE_INSIGHTS_PAGE: "insights",

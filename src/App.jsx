@@ -15,6 +15,7 @@ import ArticlePage from "./pages/article/ArticlePage";
 import ElearningGrading from "./pages/course/ElearningGrading";
 import MyCourse from "./pages/course/MyCourse";
 import AboutKinderIelts from "./pages/information/AboutKinderIelts";
+import TeamStudentsPage from "./pages/information/TeamStudentsPage";
 
 function App() {
   const articleRoute = (
@@ -42,6 +43,7 @@ function App() {
         <Route path={ROUTE_PAGE.MY_CLASS_PAGE} element={<MyCourse />} />
         <Route path={ROUTE_PAGE.HOMEWORK_PAGE} element={<ElearningGrading />} />
         <Route path={ROUTE_PAGE.ABOUT_PAGE} element={<AboutKinderIelts />} />
+        <Route path={ROUTE_PAGE.TEAM_STUDENTS_PAGE} element={<TeamStudentsPage />} />
 
         {articleRoute}
       </Route>
