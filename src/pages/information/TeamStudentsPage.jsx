@@ -132,7 +132,6 @@ function TeamStudentsPage() {
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-custom-green mb-8 text-center">
           Đội ngũ nhân viên Kinder IELTS
         </h2>
-
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-12">
           <div className="flex flex-col lg:flex-row">
             {/* Tutor Image */}
@@ -143,7 +142,6 @@ function TeamStudentsPage() {
                 className="w-full h-64 lg:h-full object-cover object-center"
               />
             </div>
-
             {/* Tutor Info */}
             <div className="lg:w-2/3 w-full p-6 lg:p-8">
               <div className="flex items-center mb-6">
@@ -154,7 +152,6 @@ function TeamStudentsPage() {
                   {TUTOR_INFO.name}
                 </h3>
               </div>
-
               <div className="mb-6">
                 <h4 className="text-lg font-semibold text-gray-800 mb-3">
                   Bằng cấp và chứng chỉ:
@@ -170,7 +167,6 @@ function TeamStudentsPage() {
                   ))}
                 </ul>
               </div>
-
               <div>
                 <h4 className="text-lg font-semibold text-gray-800 mb-3">
                   Kinh nghiệm giảng dạy:
@@ -211,7 +207,6 @@ function TeamStudentsPage() {
                     alt={student.name}
                     className="w-full h-full object-cover object-center"
                   />
-
                   {/* Score Overlay */}
                   <div className="absolute top-4 left-4 right-4">
                     <div className="grid grid-cols-2 gap-1 mb-2">
@@ -250,7 +245,6 @@ function TeamStudentsPage() {
               </div>
             ))}
           </div>
-
           <div className="text-center">
             <Button
               className={`rounded-full normal-case xl:text-lg md:text-base sm:text-xs text-[10px] px-6 py-2 transition-all duration-300 ${
