@@ -31,51 +31,51 @@ const TUTOR_INFO = {
 const STUDENTS_DATA = [
   {
     id: 1,
-    name: "Học viên Quang Đức",
-    class: "HG12",
+    name: "Quang Đức",
+    class: "HC71",
     score: 7.0,
     avatar: student1,
-    scores: { listening: 7.0, reading: 7.0, writing: 7.0, speaking: 6.5 }
+    scores: { listening: 7.0, reading: 7.0, writing: 7.5, speaking: 6.5 }
   },
   {
     id: 2,
-    name: "Học viên Khánh Trang",
-    class: "HG15",
+    name: "Quỳnh Trang",
+    class: "LA03",
     score: 7.5,
     avatar: student2,
-    scores: { listening: 8.0, reading: 7.5, writing: 7.0, speaking: 7.5 }
+    scores: { listening: 8.5, reading: 8.5, writing: 6.5, speaking: 7.0 }
   },
   {
     id: 3,
-    name: "Học viên Minh Quân",
-    class: "HG18",
-    score: 8.0,
-    avatar: student1,
-    scores: { listening: 8.5, reading: 8.0, writing: 7.5, speaking: 8.0 }
+    name: "Nhã Quỳnh",
+    class: "LA11",
+    score: 7.5,
+    avatar: student2,
+    scores: { listening: 8.0, reading: 8.5, writing: 6.5, speaking: 6.5 }
   },
   {
     id: 4,
-    name: "Học viên Quang Đức",
-    class: "HG12",
+    name: "Quang Đức",
+    class: "HC71",
     score: 7.0,
     avatar: student1,
-    scores: { listening: 7.0, reading: 7.0, writing: 7.0, speaking: 6.5 }
+    scores: { listening: 7.0, reading: 7.0, writing: 7.5, speaking: 6.5 }
   },
   {
     id: 5,
-    name: "Học viên Khánh Trang",
-    class: "HG15",
+    name: "Quỳnh Trang",
+    class: "LA03",
     score: 7.5,
     avatar: student2,
-    scores: { listening: 8.0, reading: 7.5, writing: 7.0, speaking: 7.5 }
+    scores: { listening: 8.5, reading: 8.5, writing: 6.5, speaking: 7.0 }
   },
   {
     id: 6,
-    name: "Học viên Minh Quân",
-    class: "HG18",
-    score: 8.0,
-    avatar: student1,
-    scores: { listening: 8.5, reading: 8.0, writing: 7.5, speaking: 8.0 }
+    name: "Nhã Quỳnh",
+    class: "LA11",
+    score: 7.5,
+    avatar: student2,
+    scores: { listening: 8.0, reading: 8.5, writing: 6.5, speaking: 6.5 }
   }
 ];
 
@@ -189,54 +189,58 @@ function TeamStudentsPage() {
       </div>
 
       {/* Students Section */}
-      <div className="bg-gray-50 py-12">
+      <div className="bg-white py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-custom-green mb-8 text-center">
             Các Học Viên Nổi Bật<br />
             Tại Kinder IELTS
           </h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
             {STUDENTS_DATA.map((student) => (
-              <Card key={student.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardHeader className="relative h-48 m-0">
+              <div key={student.id} className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                {/* Student Image */}
+                <div className="relative h-80">
                   <img
                     src={student.avatar}
                     alt={student.name}
                     className="w-full h-full object-cover object-center"
                   />
-                  <div className="absolute top-4 left-4 bg-custom-green text-white px-3 py-1 rounded-full">
-                    <span className="font-bold text-lg">{student.score}</span>
-                  </div>
-                </CardHeader>
-                <CardBody className="p-4">
-                  <h3 className="text-lg font-bold text-gray-800 mb-1">
-                    {student.name}
-                  </h3>
-                  <p className="text-custom-green font-medium mb-3">
-                    Lớp {student.class}
-                  </p>
                   
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>Listening:</span>
-                      <span className="font-semibold">{student.scores.listening}</span>
+                  {/* Score Overlay */}
+                  <div className="absolute top-4 left-4 right-4">
+                    <div className="grid grid-cols-2 gap-1 mb-2">
+                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                        Reading: {student.scores.reading}
+                      </div>
+                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                        Writing: {student.scores.writing}
+                      </div>
+                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                        Listening: {student.scores.listening}
+                      </div>
+                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                        Speaking: {student.scores.speaking}
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Reading:</span>
-                      <span className="font-semibold">{student.scores.reading}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Writing:</span>
-                      <span className="font-semibold">{student.scores.writing}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Speaking:</span>
-                      <span className="font-semibold">{student.scores.speaking}</span>
+                    
+                    {/* Overall Score */}
+                    <div className="bg-yellow text-black px-4 py-2 rounded-lg text-right">
+                      <span className="text-2xl font-bold">{student.score}</span>
                     </div>
                   </div>
-                </CardBody>
-              </Card>
+                </div>
+                
+                {/* Student Info */}
+                <div className="p-4 bg-white">
+                  <h3 className="text-lg font-bold text-gray-800 mb-1">
+                    Học viên {student.name}
+                  </h3>
+                  <p className="text-gray-600 font-medium">
+                    Khóa {student.class}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
           
