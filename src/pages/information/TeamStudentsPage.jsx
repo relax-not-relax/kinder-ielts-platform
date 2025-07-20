@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
+import { Button } from "@material-tailwind/react";
 import React from "react";
-import { Button, Card, CardBody, CardHeader } from "@material-tailwind/react";
-import banner from "../../assets/home-bnn.png";
-import tutorBanner from "../../assets/tutor_1.png";
 import student1 from "../../assets/student_1.png";
 import student2 from "../../assets/student_2.png";
+import banner from "../../assets/team-student-banner.png";
+import tutorBanner from "../../assets/tutor_1.png";
 import BannerSection from "../../components/BannerSection";
 
 // Mock data for tutors
@@ -17,14 +16,14 @@ const TUTOR_INFO = {
     "Chứng chỉ TESOL 120h - TEFL Professional Development Institute",
     "Chứng chỉ Teaching Assistant - TEFL/TESOL VIETNAM (2021 - 2023)",
     "Kinh nghiệm giảng dạy IELTS tại các trung tâm uy tín: ILA, YOLA, Wall Street English",
-    "Hơn 3 năm kinh nghiệm giảng dạy IELTS cho học viên từ mọi trình độ"
+    "Hơn 3 năm kinh nghiệm giảng dạy IELTS cho học viên từ mọi trình độ",
   ],
   experience: [
     "Đã hỗ trợ hơn 500 học viên đạt mục tiêu IELTS từ 5.5 - 8.0 trong 3 năm qua",
     "Chuyên môn: Writing và Speaking - 2 kỹ năng khó nhất của IELTS",
     "Phương pháp giảng dạy: Tập trung vào thực hành và phản hồi chi tiết",
-    "Thành tích nổi bật: 95% học viên đạt mục tiêu sau 3-6 tháng học"
-  ]
+    "Thành tích nổi bật: 95% học viên đạt mục tiêu sau 3-6 tháng học",
+  ],
 };
 
 // Mock data for students
@@ -35,7 +34,7 @@ const STUDENTS_DATA = [
     class: "HC71",
     score: 7.0,
     avatar: student1,
-    scores: { listening: 7.0, reading: 7.0, writing: 7.5, speaking: 6.5 }
+    scores: { listening: 7.0, reading: 7.0, writing: 7.5, speaking: 6.5 },
   },
   {
     id: 2,
@@ -43,7 +42,7 @@ const STUDENTS_DATA = [
     class: "LA03",
     score: 7.5,
     avatar: student2,
-    scores: { listening: 8.5, reading: 8.5, writing: 6.5, speaking: 7.0 }
+    scores: { listening: 8.5, reading: 8.5, writing: 6.5, speaking: 7.0 },
   },
   {
     id: 3,
@@ -51,7 +50,7 @@ const STUDENTS_DATA = [
     class: "LA11",
     score: 7.5,
     avatar: student2,
-    scores: { listening: 8.0, reading: 8.5, writing: 6.5, speaking: 6.5 }
+    scores: { listening: 8.0, reading: 8.5, writing: 6.5, speaking: 6.5 },
   },
   {
     id: 4,
@@ -59,7 +58,7 @@ const STUDENTS_DATA = [
     class: "HC71",
     score: 7.0,
     avatar: student1,
-    scores: { listening: 7.0, reading: 7.0, writing: 7.5, speaking: 6.5 }
+    scores: { listening: 7.0, reading: 7.0, writing: 7.5, speaking: 6.5 },
   },
   {
     id: 5,
@@ -67,7 +66,7 @@ const STUDENTS_DATA = [
     class: "LA03",
     score: 7.5,
     avatar: student2,
-    scores: { listening: 8.5, reading: 8.5, writing: 6.5, speaking: 7.0 }
+    scores: { listening: 8.5, reading: 8.5, writing: 6.5, speaking: 7.0 },
   },
   {
     id: 6,
@@ -75,8 +74,8 @@ const STUDENTS_DATA = [
     class: "LA11",
     score: 7.5,
     avatar: student2,
-    scores: { listening: 8.0, reading: 8.5, writing: 6.5, speaking: 6.5 }
-  }
+    scores: { listening: 8.0, reading: 8.5, writing: 6.5, speaking: 6.5 },
+  },
 ];
 
 function TeamStudentsPage() {
@@ -85,7 +84,7 @@ function TeamStudentsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="w-full h-96 relative">
+      <div className="w-full relative">
         <img
           src={banner}
           alt="kinder-banner"
@@ -133,7 +132,6 @@ function TeamStudentsPage() {
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-custom-green mb-8 text-center">
           Đội ngũ nhân viên Kinder IELTS
         </h2>
-        
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-12">
           <div className="flex flex-col lg:flex-row">
             {/* Tutor Image */}
@@ -144,7 +142,6 @@ function TeamStudentsPage() {
                 className="w-full h-64 lg:h-full object-cover object-center"
               />
             </div>
-            
             {/* Tutor Info */}
             <div className="lg:w-2/3 w-full p-6 lg:p-8">
               <div className="flex items-center mb-6">
@@ -155,7 +152,6 @@ function TeamStudentsPage() {
                   {TUTOR_INFO.name}
                 </h3>
               </div>
-              
               <div className="mb-6">
                 <h4 className="text-lg font-semibold text-gray-800 mb-3">
                   Bằng cấp và chứng chỉ:
@@ -164,12 +160,13 @@ function TeamStudentsPage() {
                   {TUTOR_INFO.achievements.map((achievement, index) => (
                     <li key={index} className="flex items-start">
                       <span className="text-custom-green mr-2">•</span>
-                      <span className="text-gray-700 text-sm">{achievement}</span>
+                      <span className="text-gray-700 text-sm">
+                        {achievement}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
-              
               <div>
                 <h4 className="text-lg font-semibold text-gray-800 mb-3">
                   Kinh nghiệm giảng dạy:
@@ -192,13 +189,17 @@ function TeamStudentsPage() {
       <div className="bg-white py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-custom-green mb-8 text-center">
-            Các Học Viên Nổi Bật<br />
+            Các Học Viên Nổi Bật
+            <br />
             Tại Kinder IELTS
           </h2>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
             {STUDENTS_DATA.map((student) => (
-              <div key={student.id} className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div
+                key={student.id}
+                className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
                 {/* Student Image */}
                 <div className="relative h-80">
                   <img
@@ -206,7 +207,6 @@ function TeamStudentsPage() {
                     alt={student.name}
                     className="w-full h-full object-cover object-center"
                   />
-                  
                   {/* Score Overlay */}
                   <div className="absolute top-4 left-4 right-4">
                     <div className="grid grid-cols-2 gap-1 mb-2">
@@ -223,14 +223,16 @@ function TeamStudentsPage() {
                         Speaking: {student.scores.speaking}
                       </div>
                     </div>
-                    
+
                     {/* Overall Score */}
                     <div className="bg-yellow text-black px-4 py-2 rounded-lg text-right">
-                      <span className="text-2xl font-bold">{student.score}</span>
+                      <span className="text-2xl font-bold">
+                        {student.score}
+                      </span>
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Student Info */}
                 <div className="p-4 bg-white">
                   <h3 className="text-lg font-bold text-gray-800 mb-1">
@@ -243,7 +245,6 @@ function TeamStudentsPage() {
               </div>
             ))}
           </div>
-          
           <div className="text-center">
             <Button
               className={`rounded-full normal-case xl:text-lg md:text-base sm:text-xs text-[10px] px-6 py-2 transition-all duration-300 ${
