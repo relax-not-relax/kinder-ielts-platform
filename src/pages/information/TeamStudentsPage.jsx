@@ -129,9 +129,12 @@ function TeamStudentsPage() {
 
       {/* Tutor Section */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-custom-green mb-8 text-center">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-custom-purple mb-4 text-left">
           Đội ngũ nhân viên Kinder IELTS
         </h2>
+        <p className="text-lg text-gray-700 mb-8 text-left">
+          Gia sư Kinder IELTS được đào tạo sư phạm mỗi quý, cập nhật xu hướng thi và là đối tác của IDP IELTS Việt Nam. Chúng tôi cam kết chất lượng giảng dạy với các buổi huấn luyện chuyên sâu từ chuyên gia.
+        </p>
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-12">
           <div className="flex flex-col lg:flex-row">
             {/* Tutor Image */}
