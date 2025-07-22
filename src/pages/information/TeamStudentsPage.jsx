@@ -125,14 +125,23 @@ const STUDENTS_DATA = [
 function TeamStudentsPage() {
   const [active, setActive] = React.useState(false);
   const [currentTutorIndex, setCurrentTutorIndex] = React.useState(0);
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
   const currentTutor = TUTORS_DATA[currentTutorIndex];
 
   const nextTutor = () => {
-    setCurrentTutorIndex((prev) => (prev + 1) % TUTORS_DATA.length);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentTutorIndex((prev) => (prev + 1) % TUTORS_DATA.length);
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 150);
   };
 
   const prevTutor = () => {
-    setCurrentTutorIndex((prev) => (prev - 1 + TUTORS_DATA.length) % TUTORS_DATA.length);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentTutorIndex((prev) => (prev - 1 + TUTORS_DATA.length) % TUTORS_DATA.length);
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 150);
   };
 
   return (
@@ -192,7 +201,9 @@ function TeamStudentsPage() {
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-12">
           <div className="flex flex-col lg:flex-row">
             {/* Tutor Image */}
-            <div className="lg:w-1/3 w-full relative">
+            <div className={`lg:w-1/3 w-full relative transition-opacity duration-300 ${
+              isTransitioning ? 'opacity-0' : 'opacity-100'
+            }`}>
               <img
                 src={currentTutor.avatar}
                 alt={currentTutor.name}
@@ -202,6 +213,7 @@ function TeamStudentsPage() {
               <div className="absolute top-4 right-4 flex gap-2">
                 <button
                   onClick={prevTutor}
+                  disabled={isTransitioning}
                   className="bg-white/80 hover:bg-white text-custom-green p-2 rounded-full shadow-md transition-all duration-200 hover:shadow-lg"
                 >
                   <svg
@@ -221,6 +233,7 @@ function TeamStudentsPage() {
                 </button>
                 <button
                   onClick={nextTutor}
+                  disabled={isTransitioning}
                   className="bg-white/80 hover:bg-white text-custom-green p-2 rounded-full shadow-md transition-all duration-200 hover:shadow-lg"
                 >
                   <svg
@@ -241,7 +254,9 @@ function TeamStudentsPage() {
               </div>
             </div>
             {/* Tutor Info */}
-            <div className="lg:w-2/3 w-full p-6 lg:p-8">
+            <div className={`lg:w-2/3 w-full p-6 lg:p-8 transition-opacity duration-300 ${
+              isTransitioning ? 'opacity-0' : 'opacity-100'
+            }`}>
               <div className="flex items-center mb-6">
                 <div className="bg-custom-green text-white px-4 py-2 rounded-full mr-4">
                   <span className="font-bold text-lg">{currentTutor.score}</span>
