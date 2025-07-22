@@ -26,6 +26,50 @@ const TUTOR_INFO = {
   ],
 };
 
+// Mock data for multiple tutors
+const TUTORS_DATA = [
+  {
+    id: 1,
+    name: "Tutor Minh Khuê",
+    score: "8.0",
+    avatar: tutorBanner,
+    achievements: [
+      "Tốt nghiệp Đại học Ngoại ngữ Đà Nẵng - FTU Danang với GPA 3.6/4.0",
+      "Chứng chỉ IELTS 8.0 (L: 8.5, R: 8.5, W: 7.5, S: 7.0) - IDP IELTS",
+      "Chứng chỉ TESOL 120h - TEFL Professional Development Institute",
+      "Chứng chỉ Teaching Assistant - TEFL/TESOL VIETNAM (2021 - 2023)",
+      "Kinh nghiệm giảng dạy IELTS tại các trung tâm uy tín: ILA, YOLA, Wall Street English",
+      "Hơn 3 năm kinh nghiệm giảng dạy IELTS cho học viên từ mọi trình độ",
+    ],
+    experience: [
+      "Đã hỗ trợ hơn 500 học viên đạt mục tiêu IELTS từ 5.5 - 8.0 trong 3 năm qua",
+      "Chuyên môn: Writing và Speaking - 2 kỹ năng khó nhất của IELTS",
+      "Phương pháp giảng dạy: Tập trung vào thực hành và phản hồi chi tiết",
+      "Thành tích nổi bật: 95% học viên đạt mục tiêu sau 3-6 tháng học",
+    ],
+  },
+  {
+    id: 2,
+    name: "Tutor Quốc Dũng",
+    score: "7.5",
+    avatar: tutorBanner,
+    achievements: [
+      "Tốt nghiệp Đại học Sư phạm Hà Nội - chuyên ngành Tiếng Anh",
+      "Chứng chỉ IELTS 7.5 (L: 8.0, R: 8.0, W: 7.0, S: 7.0) - British Council",
+      "Chứng chỉ CELTA - Cambridge Assessment English",
+      "Chứng chỉ TKT (Teaching Knowledge Test) - Cambridge",
+      "Kinh nghiệm giảng dạy tại Apollo English, ACET",
+      "4 năm kinh nghiệm giảng dạy IELTS và tiếng Anh giao tiếp",
+    ],
+    experience: [
+      "Đã giúp hơn 300 học viên cải thiện kỹ năng Reading và Listening",
+      "Chuyên môn: Reading và Listening - phương pháp làm bài hiệu quả",
+      "Phương pháp giảng dạy: Kết hợp lý thuyết và thực hành intensive",
+      "Thành tích nổi bật: 90% học viên tăng ít nhất 1.0 band sau 2 tháng",
+    ],
+  },
+];
+
 // Mock data for students
 const STUDENTS_DATA = [
   {
@@ -80,6 +124,16 @@ const STUDENTS_DATA = [
 
 function TeamStudentsPage() {
   const [active, setActive] = React.useState(false);
+  const [currentTutorIndex, setCurrentTutorIndex] = React.useState(0);
+  const currentTutor = TUTORS_DATA[currentTutorIndex];
+
+  const nextTutor = () => {
+    setCurrentTutorIndex((prev) => (prev + 1) % TUTORS_DATA.length);
+  };
+
+  const prevTutor = () => {
+    setCurrentTutorIndex((prev) => (prev - 1 + TUTORS_DATA.length) % TUTORS_DATA.length);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -138,21 +192,62 @@ function TeamStudentsPage() {
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-12">
           <div className="flex flex-col lg:flex-row">
             {/* Tutor Image */}
-            <div className="lg:w-1/3 w-full">
+            <div className="lg:w-1/3 w-full relative">
               <img
-                src={TUTOR_INFO.avatar}
-                alt={TUTOR_INFO.name}
+                src={currentTutor.avatar}
+                alt={currentTutor.name}
                 className="w-full h-64 lg:h-full object-cover object-center"
               />
+              {/* Navigation Buttons */}
+              <div className="absolute top-4 right-4 flex gap-2">
+                <button
+                  onClick={prevTutor}
+                  className="bg-white/80 hover:bg-white text-custom-green p-2 rounded-full shadow-md transition-all duration-200 hover:shadow-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 19.5L8.25 12l7.5-7.5"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={nextTutor}
+                  className="bg-white/80 hover:bg-white text-custom-green p-2 rounded-full shadow-md transition-all duration-200 hover:shadow-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             {/* Tutor Info */}
             <div className="lg:w-2/3 w-full p-6 lg:p-8">
               <div className="flex items-center mb-6">
                 <div className="bg-custom-green text-white px-4 py-2 rounded-full mr-4">
-                  <span className="font-bold text-lg">8.0</span>
+                  <span className="font-bold text-lg">{currentTutor.score}</span>
                 </div>
                 <h3 className="text-2xl font-bold text-custom-green">
-                  {TUTOR_INFO.name}
+                  {currentTutor.name}
                 </h3>
               </div>
               <div className="mb-6">
@@ -160,7 +255,7 @@ function TeamStudentsPage() {
                   Bằng cấp và chứng chỉ:
                 </h4>
                 <ul className="space-y-2">
-                  {TUTOR_INFO.achievements.map((achievement, index) => (
+                  {currentTutor.achievements.map((achievement, index) => (
                     <li key={index} className="flex items-start">
                       <span className="text-custom-green mr-2">•</span>
                       <span className="text-gray-700 text-sm">
@@ -175,7 +270,7 @@ function TeamStudentsPage() {
                   Kinh nghiệm giảng dạy:
                 </h4>
                 <ul className="space-y-2">
-                  {TUTOR_INFO.experience.map((exp, index) => (
+                  {currentTutor.experience.map((exp, index) => (
                     <li key={index} className="flex items-start">
                       <span className="text-custom-green mr-2">•</span>
                       <span className="text-gray-700 text-sm">{exp}</span>
