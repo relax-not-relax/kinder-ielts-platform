@@ -321,27 +321,32 @@ function TeamStudentsPage() {
                     className="w-full h-full object-cover object-center"
                   />
                   {/* Score Overlay */}
-                  <div className="absolute top-4 left-4 right-4">
-                    <div className="grid grid-cols-2 gap-1 mb-2">
-                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
-                        Reading: {student.scores.reading}
-                      </div>
-                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
-                        Writing: {student.scores.writing}
-                      </div>
-                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
-                        Listening: {student.scores.listening}
-                      </div>
-                      <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
-                        Speaking: {student.scores.speaking}
+                  <div className="absolute top-4 left-4 right-4 flex gap-2">
+                    {/* Score Overlay - 80% width */}
+                    <div className="w-4/5">
+                      <div className="grid grid-cols-2 gap-1">
+                        <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                          Reading: {student.scores.reading}
+                        </div>
+                        <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                          Writing: {student.scores.writing}
+                        </div>
+                        <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                          Listening: {student.scores.listening}
+                        </div>
+                        <div className="bg-custom-green text-white px-2 py-1 rounded text-xs font-medium">
+                          Speaking: {student.scores.speaking}
+                        </div>
                       </div>
                     </div>
 
-                    {/* Overall Score */}
-                    <div className="bg-yellow text-black px-4 py-2 rounded-lg text-right">
-                      <span className="text-2xl font-bold">
-                        {student.score}
-                      </span>
+                    {/* Overall Score - 20% width */}
+                    <div className="w-1/5 flex items-center">
+                      <div className="bg-yellow text-black px-2 py-2 rounded-lg text-center w-full">
+                        <span className="text-xl font-bold">
+                          {student.score}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
